@@ -1001,6 +1001,13 @@ function About() {
 function Contact() {
   const links = [
     {
+      label: "Email",
+      url: "mailto:francois@frostaing.com",
+      display: "francois@frostaing.com",
+      external: false,
+      mono: true,
+    },
+    {
       label: "GitHub",
       url: "https://github.com/FrancoisRost1",
       display: "github.com/FrancoisRost1",
@@ -1063,74 +1070,18 @@ function Contact() {
           </div>
 
           <div>
-            {/* Featured email block */}
-            <div
-              style={{
-                paddingBottom: "1.75rem",
-                borderBottom: `1px solid ${T.border}`,
-                marginBottom: "0.5rem",
-              }}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.7rem",
-                  marginBottom: "0.85rem",
-                }}
-              >
-                <span
-                  aria-hidden
-                  style={{
-                    width: 6,
-                    height: 6,
-                    background: T.accent,
-                    display: "inline-block",
-                  }}
-                />
-                <span
-                  style={{
-                    fontFamily: T.fMono,
-                    fontSize: "0.62rem",
-                    color: T.accent,
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    fontWeight: 600,
-                  }}
-                >
-                  Direct
-                </span>
-              </div>
-              <a
-                href="mailto:francois@frostaing.com"
-                className="contact-email"
-                style={{
-                  display: "inline-block",
-                  fontFamily: T.fMono,
-                  fontSize: "clamp(1.2rem, 2vw, 1.55rem)",
-                  color: T.text,
-                  fontWeight: 500,
-                  letterSpacing: "-0.005em",
-                  borderBottom: `1px solid ${T.border}`,
-                  paddingBottom: "0.3rem",
-                }}
-              >
-                francois@frostaing.com
-              </a>
-            </div>
-
-            {/* Profile rows */}
-            {links.map((link, i, arr) => (
+            {links.map((link, i) => (
               <a
                 key={link.label}
                 href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
                 className="contact-row"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "120px 1fr auto",
                   padding: "1.4rem 0",
+                  borderTop: i === 0 ? `1px solid ${T.border}` : "none",
                   borderBottom: `1px solid ${T.border}`,
                   alignItems: "center",
                   gap: "1.25rem",
@@ -1153,7 +1104,7 @@ function Contact() {
                 <span
                   className="contact-value"
                   style={{
-                    fontFamily: T.fSans,
+                    fontFamily: link.mono ? T.fMono : T.fSans,
                     fontSize: "1rem",
                     color: T.text,
                     fontWeight: 500,
@@ -1233,9 +1184,6 @@ export default function Page() {
         .contact-row:hover .contact-arrow,
         .contact-row:hover .contact-value { color: ${T.accent}; }
         .contact-row:hover .contact-label { color: ${T.text2}; }
-
-        .contact-email { transition: color 0.12s linear, border-bottom-color 0.12s linear; }
-        .contact-email:hover { color: ${T.accent}; border-bottom-color: ${T.accent}; }
 
         .case-link { transition: opacity 0.12s linear; }
         .case-link:hover { opacity: 0.78; }
