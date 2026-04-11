@@ -46,17 +46,19 @@ const CASE_STUDIES = [
   {
     num: "01",
     name: "Unified Research Terminal",
-    status: "planned",
+    status: "live",
     tier: "Capstone",
     takeaway: "Ten systems collapse into one research desk.",
     detail:
-      "Live market data, financials, macro, and every engine in the lab. The AI Research Agent runs as the analytical backend.",
+      "Unified Bloomberg-style research terminal integrating all 10 prior engines into 6 institutional workspaces (Market, Research, Options, LBO, Comps, Portfolio). 137 tests passing.",
     facts: [
-      ["Status", "Planned"],
+      ["Tests", "137"],
       ["Integrates", "10 prior systems"],
+      ["Workspaces", "6"],
       ["Stack", "Next.js, Python, Plotly"],
     ],
     repo: "https://github.com/FrancoisRost1/mini-bloomberg-terminal",
+    liveUrl: "https://mini-bloomberg.com",
   },
   {
     num: "02",
@@ -73,6 +75,7 @@ const CASE_STUDIES = [
       ["Stack", "Python, Claude API"],
     ],
     repo: "https://github.com/FrancoisRost1/ai-research-agent",
+    liveUrl: "https://ai-research-agent1.streamlit.app",
   },
   {
     num: "03",
@@ -89,21 +92,22 @@ const CASE_STUDIES = [
       ["Window", "10 year rolling"],
     ],
     repo: "https://github.com/FrancoisRost1/portfolio-optimization-engine",
+    liveUrl: "https://portfolio-optimization-engine1.streamlit.app",
   },
 ];
 
 const ALL_PROJECTS = [
-  { num: "01", name: "LBO Engine",                    tier: "Foundation", tests: "-",   metric: "Monte Carlo, 500 sims",     status: "live",    repo: "lbo-engine-version1" },
-  { num: "02", name: "PE Target Screener",            tier: "Foundation", tests: "14",  metric: "90 companies scored",       status: "live",    repo: "pe-target-screener" },
-  { num: "03", name: "Factor Backtest Engine",        tier: "Quant Core", tests: "166", metric: "Sharpe 1.55, 503 tickers",  status: "live",    repo: "factor-backtest-engine" },
-  { num: "04", name: "M&A Database",                  tier: "Quant Core", tests: "124", metric: "390 deals, 11 sectors",     status: "live",    repo: "ma-database" },
-  { num: "05", name: "Volatility Regime Engine",      tier: "Systematic", tests: "109", metric: "CAGR 10.9, Sharpe 1.03",    status: "live",    repo: "volatility-regime-engine" },
-  { num: "06", name: "TSMOM Engine",                  tier: "Systematic", tests: "103", metric: "13 ETFs, cross asset",      status: "live",    repo: "tsmom-engine" },
-  { num: "07", name: "Strategy Robustness Lab",       tier: "Advanced",   tests: "136", metric: "PBO via CSCV",              status: "live",    repo: "strategy-robustness-lab" },
-  { num: "08", name: "Portfolio Optimization Engine", tier: "Advanced",   tests: "166", metric: "HRP Sharpe 0.62",           status: "live",    repo: "portfolio-optimization-engine" },
-  { num: "09", name: "Options Pricing Engine",        tier: "Elite",      tests: "230", metric: "3 models, 8 Greeks",        status: "live",    repo: "options-pricing-engine" },
-  { num: "10", name: "AI Research Agent",             tier: "Elite",      tests: "203", metric: "6 engine pipeline",         status: "live",    repo: "ai-research-agent" },
-  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "-",   metric: "Full integration",          status: "planned", repo: "mini-bloomberg-terminal" },
+  { num: "01", name: "LBO Engine",                    tier: "Foundation", tests: "-",   metric: "Monte Carlo, 500 sims",     status: "live", repo: "lbo-engine-version1",          liveUrl: "https://lbo-engine-version1.streamlit.app" },
+  { num: "02", name: "PE Target Screener",            tier: "Foundation", tests: "14",  metric: "90 companies scored",       status: "live", repo: "pe-target-screener",           liveUrl: "https://pe-target-screener.streamlit.app" },
+  { num: "03", name: "Factor Backtest Engine",        tier: "Quant Core", tests: "166", metric: "Sharpe 1.55, 503 tickers",  status: "live", repo: "factor-backtest-engine",       liveUrl: "https://factor-backtest-engine.streamlit.app" },
+  { num: "04", name: "M&A Database",                  tier: "Quant Core", tests: "124", metric: "390 deals, 11 sectors",     status: "live", repo: "ma-database",                  liveUrl: "https://ma-database1.streamlit.app" },
+  { num: "05", name: "Volatility Regime Engine",      tier: "Systematic", tests: "109", metric: "CAGR 10.9, Sharpe 1.03",    status: "live", repo: "volatility-regime-engine",     liveUrl: "https://volatility-regime-engine.streamlit.app" },
+  { num: "06", name: "TSMOM Engine",                  tier: "Systematic", tests: "103", metric: "13 ETFs, cross asset",      status: "live", repo: "tsmom-engine",                 liveUrl: "https://tsmom-engine-3kndf2dmvuhcvu2hmrjniz.streamlit.app" },
+  { num: "07", name: "Strategy Robustness Lab",       tier: "Advanced",   tests: "136", metric: "PBO via CSCV",              status: "live", repo: "strategy-robustness-lab",      liveUrl: "https://strategy-robustness-lab.streamlit.app" },
+  { num: "08", name: "Portfolio Optimization Engine", tier: "Advanced",   tests: "166", metric: "HRP Sharpe 0.62",           status: "live", repo: "portfolio-optimization-engine", liveUrl: "https://portfolio-optimization-engine1.streamlit.app" },
+  { num: "09", name: "Options Pricing Engine",        tier: "Elite",      tests: "230", metric: "3 models, 8 Greeks",        status: "live", repo: "options-pricing-engine",       liveUrl: "https://options-pricing-engine1.streamlit.app" },
+  { num: "10", name: "AI Research Agent",             tier: "Elite",      tests: "203", metric: "6 engine pipeline",         status: "live", repo: "ai-research-agent",            liveUrl: "https://ai-research-agent1.streamlit.app" },
+  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "137", metric: "6 Workspaces",              status: "live", repo: "mini-bloomberg-terminal",      liveUrl: "https://mini-bloomberg.com" },
 ];
 
 const totalTests = ALL_PROJECTS.reduce((s, p) => {
@@ -368,7 +372,7 @@ function Hero() {
         {[
           ["Systems Live", `${liveCount} / 11`],
           ["Tests Passing", totalTests.toLocaleString()],
-          ["Current Phase", "Capstone"],
+          ["Status", "Shipped"],
           ["Stack", "Python, Next.js"],
         ].map(([label, value], i) => (
           <div
@@ -503,29 +507,61 @@ function CaseStudy({ cs, isLast, density }) {
           {cs.detail}
         </p>
 
-        <a
-          href={cs.repo}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="case-link"
+        <div
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.65rem",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "1.75rem",
             marginTop: "2rem",
-            fontFamily: T.fMono,
-            fontSize: "0.66rem",
-            fontWeight: 600,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: tierColor,
-            paddingBottom: "0.4rem",
-            borderBottom: `1px solid ${tierColor}`,
           }}
         >
-          {cs.status === "planned" ? "Repo Reserved" : "View Repository"}
-          <span aria-hidden>→</span>
-        </a>
+          {cs.liveUrl && (
+            <a
+              href={cs.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="case-link"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.65rem",
+                fontFamily: T.fMono,
+                fontSize: "0.66rem",
+                fontWeight: 600,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: tierColor,
+                paddingBottom: "0.4rem",
+                borderBottom: `1px solid ${tierColor}`,
+              }}
+            >
+              Live App
+              <span aria-hidden>→</span>
+            </a>
+          )}
+          <a
+            href={cs.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="case-link"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.65rem",
+              fontFamily: T.fMono,
+              fontSize: "0.66rem",
+              fontWeight: 600,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: T.text2,
+              paddingBottom: "0.4rem",
+              borderBottom: `1px solid ${T.border}`,
+            }}
+          >
+            View Repository
+            <span aria-hidden>→</span>
+          </a>
+        </div>
       </div>
 
       {/* Right column: compact specification */}
@@ -749,7 +785,7 @@ function Systems() {
             return (
               <a
                 key={p.num}
-                href={`https://github.com/FrancoisRost1/${p.repo}`}
+                href={p.liveUrl || `https://github.com/FrancoisRost1/${p.repo}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="systems-row"
@@ -832,7 +868,7 @@ function Systems() {
             textTransform: "uppercase",
           }}
         >
-          <span>{liveCount} live / 1 planned</span>
+          <span>{liveCount} of {ALL_PROJECTS.length} live</span>
           <span>{totalTests.toLocaleString()} tests passing</span>
         </div>
       </div>
