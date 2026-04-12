@@ -269,6 +269,21 @@ function Nav() {
               {item.label}
             </a>
           ))}
+          <a
+            href="/CV-francois-rostaing.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: T.fMono,
+              fontSize: "0.62rem",
+              fontWeight: 500,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: T.text2,
+            }}
+          >
+            CV
+          </a>
         </div>
       </div>
     </nav>
@@ -1081,6 +1096,12 @@ function Contact() {
       label: "LinkedIn",
       url: "https://www.linkedin.com/in/francois-rostaing-155371341/",
       display: "linkedin.com/in/francois-rostaing",
+      external: true,
+    },
+    {
+      label: "Resume",
+      url: "/CV-francois-rostaing.pdf",
+      display: "Download PDF",
       external: true,
     },
   ];
