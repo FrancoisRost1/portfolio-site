@@ -59,7 +59,6 @@ const CASE_STUDIES = [
     ],
     repo: "https://github.com/FrancoisRost1/mini-bloomberg-terminal",
     liveUrl: "https://mini-bloomberg.com",
-    image: "/bloomberg-terminal.png",
   },
   {
     num: "02",
@@ -565,48 +564,8 @@ function CaseStudy({ cs, isLast, density }) {
         </div>
       </div>
 
-      {/* Right column: image (if present) + compact specification */}
+      {/* Right column: compact specification */}
       <div>
-        {cs.image && (
-          <div
-            style={{
-              position: "relative",
-              overflow: "hidden",
-              borderRadius: 4,
-              marginBottom: "1.5rem",
-              border: `1px solid ${T.border}`,
-            }}
-          >
-            <img
-              src={cs.image}
-              alt={`${cs.name} screenshot`}
-              className="case-image"
-              style={{
-                display: "block",
-                width: "100%",
-                height: "auto",
-                borderRadius: 4,
-                transition: "transform 0.4s ease, filter 0.4s ease",
-              }}
-            />
-            {/* Edge gradient overlay for blending into dark bg */}
-            <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                inset: 0,
-                borderRadius: 4,
-                pointerEvents: "none",
-                background: `
-                  linear-gradient(180deg, transparent 60%, ${T.bg}22 85%, ${T.bg}44 100%),
-                  linear-gradient(0deg, transparent 70%, ${T.bg}18 100%),
-                  linear-gradient(90deg, ${T.bg}18 0%, transparent 12%),
-                  linear-gradient(270deg, ${T.bg}18 0%, transparent 12%)
-                `,
-              }}
-            />
-          </div>
-        )}
         <div
           style={{
             fontFamily: T.fMono,
@@ -1264,9 +1223,6 @@ export default function Page() {
 
         .case-link { transition: opacity 0.12s linear; }
         .case-link:hover { opacity: 0.78; }
-
-        .case-image { transition: filter 0.25s ease; }
-        .case-image:hover { filter: brightness(1.08); }
 
         @media (max-width: 900px) {
           section[id] > div > div[style*="grid-template-columns"] {
