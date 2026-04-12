@@ -283,16 +283,43 @@ function Hero() {
     <section
       id="top"
       style={{
+        position: "relative",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         padding: "9rem 2rem 1.25rem",
         borderBottom: `1px solid ${T.borderStrong}`,
+        overflow: "hidden",
       }}
     >
+      {/* Faint dashboard texture -- barely visible at 0.04 opacity */}
+      <div
+        aria-hidden
+        className="hero-bg"
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: "url(/bloomberg-terminal.png)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.04,
+        }}
+      />
+      {/* Gradient overlay: fade to bg at top and bottom edges */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          background: `linear-gradient(180deg, ${T.bg} 0%, transparent 18%, transparent 72%, ${T.bg} 100%)`,
+        }}
+      />
       <div
         style={{
+          position: "relative",
           maxWidth: 1280,
           margin: "0 auto",
           width: "100%",
@@ -358,9 +385,10 @@ function Hero() {
         </p>
       </div>
 
-      {/* Bottom data strip — quieter than the headline */}
+      {/* Bottom data strip -- quieter than the headline */}
       <div
         style={{
+          position: "relative",
           maxWidth: 1280,
           margin: "0 auto",
           width: "100%",
@@ -1228,6 +1256,7 @@ export default function Page() {
           section[id] > div > div[style*="grid-template-columns"] {
             grid-template-columns: 1fr !important;
           }
+          .hero-bg { display: none; }
         }
       `}</style>
       <Nav />
