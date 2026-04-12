@@ -304,7 +304,7 @@ function Hero() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          opacity: 0.04,
+          opacity: 0.10,
         }}
       />
       {/* Gradient overlay: fade to bg at top and bottom edges */}
