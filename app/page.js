@@ -58,7 +58,7 @@ const CASE_STUDIES = [
       ["Stack", "Next.js, Python, Plotly"],
     ],
     repo: "https://github.com/FrancoisRost1/mini-bloomberg-terminal",
-    liveUrl: "https://mini-bloomberg.com",
+    liveUrl: "https://terminal.frostaing.com",
   },
   {
     num: "02",
@@ -107,7 +107,7 @@ const ALL_PROJECTS = [
   { num: "08", name: "Portfolio Optimization Engine", tier: "Advanced",   tests: "166", metric: "HRP Sharpe 0.62",           status: "live", repo: "portfolio-optimization-engine", liveUrl: "https://portfolio-optimization-engine1.streamlit.app" },
   { num: "09", name: "Options Pricing Engine",        tier: "Elite",      tests: "230", metric: "3 models, 8 Greeks",        status: "live", repo: "options-pricing-engine",       liveUrl: "https://options-pricing-engine1.streamlit.app" },
   { num: "10", name: "AI Research Agent",             tier: "Elite",      tests: "203", metric: "6 engine pipeline",         status: "live", repo: "ai-research-agent",            liveUrl: "https://ai-research-agent1.streamlit.app" },
-  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "137", metric: "6 Workspaces",              status: "live", repo: "mini-bloomberg-terminal",      liveUrl: "https://mini-bloomberg.com" },
+  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "137", metric: "6 Workspaces",              status: "live", repo: "mini-bloomberg-terminal",      liveUrl: "https://terminal.frostaing.com" },
 ];
 
 const totalTests = ALL_PROJECTS.reduce((s, p) => {
