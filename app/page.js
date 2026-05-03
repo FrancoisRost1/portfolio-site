@@ -1,5 +1,5 @@
 /*
-  Portfolio site. Institutional finance design system.
+  Frostaing AI. Institutional finance design system.
   Single source of truth: DESIGN.md and style_inject.py.
   No em dashes. No emojis. No gradients. No glow. No hover transforms.
 */
@@ -36,10 +36,144 @@ const TIER = {
 };
 
 const NAV = [
-  { id: "work", num: "01", label: "Systems" },
-  { id: "systems", num: "02", label: "Architecture" },
-  { id: "about", num: "03", label: "About" },
-  { id: "contact", num: "04", label: "Contact" },
+  { id: "services",  num: "01", label: "Services" },
+  { id: "work",      num: "02", label: "Systems" },
+  { id: "use-cases", num: "03", label: "Use Cases" },
+  { id: "team",      num: "04", label: "Team" },
+  { id: "about",     num: "05", label: "About" },
+  { id: "contact",   num: "06", label: "Contact" },
+];
+
+const SERVICES = [
+  {
+    num: "A",
+    name: "Claude Integration & Workflow Automation",
+    summary:
+      "We design Claude-powered workflows for research, reporting, internal knowledge management, and operational automation.",
+    bullets: [
+      "Agentic pipelines and orchestrators",
+      "Memo, briefing, and report generation",
+      "Internal knowledge assistants",
+      "Process automation across analyst tasks",
+    ],
+  },
+  {
+    num: "B",
+    name: "AI Investment Research Systems",
+    summary:
+      "We build structured research agents, memo-generation pipelines, valuation tools, and analyst copilots for finance workflows.",
+    bullets: [
+      "Deterministic recommendation engines",
+      "Memo synthesis with rating-lock invariants",
+      "Filing ingestion and entity extraction",
+      "Analyst copilots with auditable traces",
+    ],
+  },
+  {
+    num: "C",
+    name: "Financial Analytics & Decision Support",
+    summary:
+      "We develop valuation, portfolio, options, factor, regime, and screening systems for investment analysis.",
+    bullets: [
+      "Valuation, LBO, and DCF infrastructure",
+      "Portfolio construction and risk decomposition",
+      "Factor and regime models",
+      "Screening and target databases",
+    ],
+  },
+  {
+    num: "D",
+    name: "Custom Internal Tools & Dashboards",
+    summary:
+      "We build internal applications, dashboards, and terminal-style interfaces for teams that need fast, auditable decision infrastructure.",
+    bullets: [
+      "Bloomberg-style research terminals",
+      "Streamlit and Next.js dashboards",
+      "Provider-routing and data layers",
+      "Test-covered, deployable systems",
+    ],
+  },
+];
+
+const USE_CASES = [
+  ["UC1", "Research Memos",     "Claude-powered investment research memo generation with locked, deterministic ratings."],
+  ["UC2", "Analysis Pipelines", "Automated financial analysis pipelines spanning ingestion, valuation, and reporting."],
+  ["UC3", "Knowledge Assistant","Internal AI knowledge assistant workflows over filings, decks, and operating data."],
+  ["UC4", "Valuation & Screen", "Valuation and screening infrastructure across public companies and private targets."],
+  ["UC5", "Decision Terminals", "Terminal-style dashboards for finance workflows requiring auditable decision support."],
+];
+
+const TEAM = [
+  {
+    name: "Francois Rostaing",
+    role: "Founder & Lead AI Finance Systems Architect",
+    email: "francois@frostaing.com",
+    photo: "/team/francois-rostaing.webp",
+    bio: "Builder of the firm's research, valuation, and Claude-powered systems. Combines finance modelling with software engineering and AI workflow design.",
+  },
+  {
+    name: "Alexandre Levy",
+    role: "AI Workflow Specialist",
+    email: "alexandre@frostaing.com",
+    photo: "/team/alexandre-levy.webp",
+    bio: "Designs and ships Claude-driven automations for research and operations. Focused on reliable orchestration, prompts, and tool use.",
+  },
+  {
+    name: "Gizem Gul Dincer",
+    role: "Operations & Client Coordination",
+    email: "gizem@frostaing.com",
+    photo: "/team/gizem-gul-dincer.webp",
+    bio: "Coordinates client engagements and internal delivery. Keeps scoping, timelines, and documentation aligned across projects.",
+  },
+  {
+    name: "Pierre-Jean Remy Martin",
+    role: "Business Development & Implementation Support",
+    email: "pierrejean@frostaing.com",
+    photo: "/team/pierre-jean-remy-martin.webp",
+    bio: "Engages with prospective clients and translates use cases into implementable scopes. Supports rollout of finance and AI workflows.",
+  },
+  {
+    name: "Louis Rostaing",
+    role: "Product & Research Analyst",
+    email: "louis@frostaing.com",
+    photo: "/team/louis-rostaing.webp",
+    bio: "Works across product specification and applied research for the firm's analytics modules. Focused on user-facing analyst tools.",
+  },
+  {
+    name: "Jacques Rostaing",
+    role: "Strategic Advisor",
+    email: "jacques@frostaing.com",
+    photo: "/team/jacques-rostaing.webp",
+    bio: "Advises on positioning, partnerships, and long-horizon strategy. Brings senior perspective on finance and operating decisions.",
+  },
+  {
+    name: "Karine Rostaing",
+    role: "Administrative & Operations Support",
+    email: "karine@frostaing.com",
+    photo: "/team/karine-rostaing.webp",
+    bio: "Supports the firm's administrative operations and back-office processes. Ensures documentation and recordkeeping stay clean.",
+  },
+  {
+    name: "Thomas Vittory",
+    role: "Data & Automation Analyst",
+    email: "thomas@frostaing.com",
+    photo: "/team/thomas-vittory.webp",
+    bio: "Works on data pipelines, ingestion, and process automation. Supports analytics and reporting workflows for client engagements.",
+  },
+  {
+    name: "Emma Vernizeau",
+    role: "Client Experience & Documentation Support",
+    email: "emma@frostaing.com",
+    photo: "/team/emma-vernizeau.webp",
+    bio: "Owns client-facing documentation and communication. Focused on clarity, structure, and a consistent client experience.",
+  },
+  {
+    name: "Florine Reau",
+    role: "Research & Process Documentation Analyst",
+    email: "florine@frostaing.com",
+    photo: "/team/florine-reau.webp",
+    bio: "Writes and maintains internal research and process documentation. Supports knowledge capture across implementations.",
+  },
 ];
 
 const CASE_STUDIES = [
@@ -246,10 +380,10 @@ function Nav() {
           }}
         >
           <span style={{ width: 6, height: 6, background: T.accent }} />
-          François Rostaing
+          Frostaing AI
         </a>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+        <div className="nav-links" style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
           {NAV.map((item) => (
             <a
               key={item.id}
@@ -364,11 +498,11 @@ function Hero() {
               fontWeight: 600,
             }}
           >
-            Finance Lab | Established 2026
+            Frostaing AI | Geneva | Established 2026
           </span>
         </div>
 
-        {/* Main headline: capability, not identity */}
+        {/* Main headline: firm-level capability */}
         <h1
           style={{
             fontFamily: T.fSans,
@@ -381,10 +515,10 @@ function Hero() {
             maxWidth: 1080,
           }}
         >
-          Investment systems that behave like a research desk.
+          AI and finance systems built like a research desk.
         </h1>
 
-        {/* Subtext: 2 lines max */}
+        {/* Positioning line */}
         <p
           style={{
             fontFamily: T.fSans,
@@ -392,11 +526,13 @@ function Hero() {
             color: T.text2,
             lineHeight: 1.55,
             margin: "2.25rem 0 0",
-            maxWidth: 720,
+            maxWidth: 760,
           }}
         >
-          Eleven systems spanning private equity, systematic strategies, and
-          derivatives. Built, tested, and deployed as a unified decision framework.
+          Frostaing AI is an AI and finance systems firm specializing in
+          Claude-powered research, automation, and decision-support tools.
+          Eleven shipped systems span private equity, systematic strategies,
+          derivatives, and a unified research terminal.
         </p>
       </div>
 
@@ -415,8 +551,8 @@ function Hero() {
         {[
           ["Systems Live", `${liveCount} / 11`],
           ["Tests Passing", totalTests.toLocaleString()],
-          ["Status", "Shipped"],
-          ["Stack", "Python, Next.js"],
+          ["Practice", "Geneva, CH"],
+          ["Stack", "Python, Next.js, Claude"],
         ].map(([label, value], i) => (
           <div
             key={label}
@@ -451,6 +587,178 @@ function Hero() {
             </div>
           </div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   SERVICES
+   ───────────────────────────────────────────────────────────────── */
+function Services() {
+  return (
+    <section id="services" style={{ padding: "8.5rem 2rem 5.5rem" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <SectionHead num="01" label="Services" right="4 offerings" />
+
+        {/* Lead statement */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 4fr) minmax(0, 8fr)",
+            gap: "3rem",
+            marginBottom: "3rem",
+            alignItems: "start",
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: T.fSans,
+              fontSize: "clamp(1.5rem, 2.4vw, 2rem)",
+              fontWeight: 600,
+              color: T.text,
+              letterSpacing: "-0.022em",
+              lineHeight: 1.15,
+              margin: 0,
+              maxWidth: 360,
+            }}
+          >
+            What we build for clients.
+          </h2>
+          <p
+            style={{
+              fontFamily: T.fSans,
+              fontSize: "1rem",
+              color: T.text2,
+              lineHeight: 1.7,
+              margin: 0,
+              maxWidth: 620,
+            }}
+          >
+            We help investment and operating teams move from manual work to
+            structured, auditable systems. Engagements are scoped tightly,
+            implemented to test coverage, and deployed as production tools.
+          </p>
+        </div>
+
+        {/* 4 offerings as a 2x2 grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+            border: `1px solid ${T.borderSubtle}`,
+            background: T.bg,
+          }}
+        >
+          {SERVICES.map((s, i) => {
+            const isRight = i % 2 === 1;
+            const isBottom = i >= SERVICES.length - 2;
+            return (
+              <div
+                key={s.num}
+                className="service-cell"
+                style={{
+                  padding: "2.25rem 2rem",
+                  borderRight: isRight ? "none" : `1px solid ${T.borderSubtle}`,
+                  borderBottom: isBottom ? "none" : `1px solid ${T.borderSubtle}`,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.85rem",
+                  }}
+                >
+                  <span
+                    aria-hidden
+                    style={{
+                      width: 7,
+                      height: 7,
+                      background: T.accent,
+                      display: "inline-block",
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontFamily: T.fMono,
+                      fontSize: "0.62rem",
+                      fontWeight: 600,
+                      color: T.accent,
+                      letterSpacing: "0.22em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Offering {s.num}
+                  </span>
+                </div>
+                <h3
+                  style={{
+                    fontFamily: T.fSans,
+                    fontSize: "1.18rem",
+                    fontWeight: 600,
+                    letterSpacing: "-0.018em",
+                    color: T.text,
+                    margin: 0,
+                    lineHeight: 1.25,
+                  }}
+                >
+                  {s.name}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: T.fSans,
+                    fontSize: "0.92rem",
+                    color: T.text2,
+                    lineHeight: 1.7,
+                    margin: 0,
+                  }}
+                >
+                  {s.summary}
+                </p>
+                <ul
+                  style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: "0.4rem 0 0",
+                  }}
+                >
+                  {s.bullets.map((b) => (
+                    <li
+                      key={b}
+                      style={{
+                        fontFamily: T.fMono,
+                        fontSize: "0.72rem",
+                        color: T.text2,
+                        letterSpacing: "0.04em",
+                        padding: "0.4rem 0",
+                        borderTop: `1px solid ${T.borderSubtle}`,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.65rem",
+                      }}
+                    >
+                      <span
+                        aria-hidden
+                        style={{
+                          width: 4,
+                          height: 4,
+                          background: T.text3,
+                          display: "inline-block",
+                          flexShrink: 0,
+                        }}
+                      />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -676,7 +984,48 @@ function SelectedWork() {
       }}
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="01" label="Systems" right="3 of 11 featured" />
+        <SectionHead num="02" label="Systems" right="3 of 11 featured" />
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 4fr) minmax(0, 8fr)",
+            gap: "3rem",
+            marginBottom: "1.5rem",
+            alignItems: "start",
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: T.fSans,
+              fontSize: "clamp(1.2rem, 2vw, 1.55rem)",
+              fontWeight: 600,
+              color: T.text,
+              letterSpacing: "-0.018em",
+              lineHeight: 1.15,
+              margin: 0,
+              maxWidth: 320,
+            }}
+          >
+            Technical foundation and implementation track record.
+          </h3>
+          <p
+            style={{
+              fontFamily: T.fSans,
+              fontSize: "0.95rem",
+              color: T.text2,
+              lineHeight: 1.7,
+              margin: 0,
+              maxWidth: 620,
+            }}
+          >
+            The eleven systems below are how we sharpen the firm's analytical
+            stack. Each ships with full test coverage, a Codex-audited review,
+            and a live app. The capstone integrates the prior ten into a
+            single research terminal.
+          </p>
+        </div>
+
         {CASE_STUDIES.map((cs, i) => (
           <CaseStudy
             key={cs.num}
@@ -706,7 +1055,7 @@ function Systems() {
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <SectionHead
-          num="02"
+          num="02.1"
           label="Architecture"
           right={`${ALL_PROJECTS.length} systems indexed`}
           weight="compact"
@@ -920,13 +1269,277 @@ function Systems() {
 }
 
 /* ─────────────────────────────────────────────────────────────────
+   USE CASES
+   ───────────────────────────────────────────────────────────────── */
+function UseCases() {
+  return (
+    <section id="use-cases" style={{ padding: "8.5rem 2rem 5.5rem" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <SectionHead num="03" label="Use Cases" right={`${USE_CASES.length} implementation areas`} />
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 4fr) minmax(0, 8fr)",
+            gap: "3rem",
+            alignItems: "start",
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: T.fSans,
+              fontSize: "clamp(1.2rem, 2vw, 1.55rem)",
+              fontWeight: 600,
+              color: T.text,
+              letterSpacing: "-0.018em",
+              lineHeight: 1.15,
+              margin: 0,
+              maxWidth: 360,
+            }}
+          >
+            Where Frostaing AI implementations land.
+          </h3>
+
+          <div
+            style={{
+              border: `1px solid ${T.borderSubtle}`,
+              background: T.bg,
+            }}
+          >
+            {USE_CASES.map(([code, title, desc], i) => (
+              <div
+                key={code}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "70px minmax(0, 1.3fr) minmax(0, 3fr)",
+                  padding: "1.15rem 1.25rem",
+                  borderBottom:
+                    i === USE_CASES.length - 1
+                      ? "none"
+                      : `1px solid ${T.borderSubtle}`,
+                  alignItems: "start",
+                  gap: "1rem",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: T.fMono,
+                    fontSize: "0.62rem",
+                    color: T.accent,
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    fontWeight: 600,
+                  }}
+                >
+                  {code}
+                </span>
+                <span
+                  style={{
+                    fontFamily: T.fSans,
+                    fontSize: "0.95rem",
+                    color: T.text,
+                    fontWeight: 500,
+                  }}
+                >
+                  {title}
+                </span>
+                <span
+                  style={{
+                    fontFamily: T.fSans,
+                    fontSize: "0.88rem",
+                    color: T.text2,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {desc}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   TEAM
+   ───────────────────────────────────────────────────────────────── */
+function TeamMemberCard({ m }) {
+  return (
+    <article
+      style={{
+        border: `1px solid ${T.borderSubtle}`,
+        background: T.bg,
+        padding: "1.5rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "1rem",
+        }}
+      >
+        <img
+          src={m.photo}
+          alt={m.name}
+          width={72}
+          height={72}
+          loading="lazy"
+          style={{
+            width: 72,
+            height: 72,
+            objectFit: "cover",
+            border: `1px solid ${T.border}`,
+            background: T.elevated,
+            flexShrink: 0,
+          }}
+        />
+        <div style={{ minWidth: 0 }}>
+          <div
+            style={{
+              fontFamily: T.fSans,
+              fontSize: "1rem",
+              fontWeight: 600,
+              color: T.text,
+              letterSpacing: "-0.012em",
+              lineHeight: 1.2,
+            }}
+          >
+            {m.name}
+          </div>
+          <div
+            style={{
+              fontFamily: T.fMono,
+              fontSize: "0.6rem",
+              fontWeight: 600,
+              color: T.accent,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              marginTop: "0.4rem",
+              lineHeight: 1.4,
+            }}
+          >
+            {m.role}
+          </div>
+        </div>
+      </div>
+
+      <p
+        style={{
+          fontFamily: T.fSans,
+          fontSize: "0.86rem",
+          color: T.text2,
+          lineHeight: 1.6,
+          margin: 0,
+        }}
+      >
+        {m.bio}
+      </p>
+
+      <a
+        href={`mailto:${m.email}`}
+        className="team-email"
+        style={{
+          fontFamily: T.fMono,
+          fontSize: "0.68rem",
+          color: T.text2,
+          letterSpacing: "0.04em",
+          paddingTop: "0.85rem",
+          borderTop: `1px solid ${T.borderSubtle}`,
+          display: "inline-block",
+          marginTop: "auto",
+          wordBreak: "break-all",
+        }}
+      >
+        {m.email}
+      </a>
+    </article>
+  );
+}
+
+function Team() {
+  return (
+    <section
+      id="team"
+      style={{
+        padding: "8.5rem 2rem 5.5rem",
+        background: T.surface,
+        borderTop: `1px solid ${T.borderStrong}`,
+        borderBottom: `1px solid ${T.borderStrong}`,
+      }}
+    >
+      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <SectionHead num="04" label="Team" right={`${TEAM.length} members and collaborators`} />
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 4fr) minmax(0, 8fr)",
+            gap: "3rem",
+            marginBottom: "3rem",
+            alignItems: "start",
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: T.fSans,
+              fontSize: "clamp(1.2rem, 2vw, 1.55rem)",
+              fontWeight: 600,
+              color: T.text,
+              letterSpacing: "-0.018em",
+              lineHeight: 1.15,
+              margin: 0,
+              maxWidth: 360,
+            }}
+          >
+            Practice team and collaborator network.
+          </h3>
+          <p
+            style={{
+              fontFamily: T.fSans,
+              fontSize: "0.95rem",
+              color: T.text2,
+              lineHeight: 1.7,
+              margin: 0,
+              maxWidth: 620,
+            }}
+          >
+            Frostaing AI operates with a small trained practice team and
+            collaborator network focused on Claude-powered implementation,
+            finance systems, and AI workflow deployment.
+          </p>
+        </div>
+
+        <div
+          className="team-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gap: "1rem",
+          }}
+        >
+          {TEAM.map((m) => (
+            <TeamMemberCard key={m.email} m={m} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
    ABOUT
    ───────────────────────────────────────────────────────────────── */
 function About() {
   return (
     <section id="about" style={{ padding: "9rem 2rem 6.5rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="03" label="About" />
+        <SectionHead num="05" label="About" />
 
         <div
           style={{
@@ -947,10 +1560,10 @@ function About() {
                 color: T.text,
                 lineHeight: 1.15,
                 margin: 0,
-                maxWidth: 640,
+                maxWidth: 680,
               }}
             >
-              Modeling and shipping the analytical layer of an investment firm.
+              A Geneva-based AI and finance systems firm.
             </h2>
 
             <div
@@ -972,11 +1585,11 @@ function About() {
                   fontWeight: 500,
                 }}
               >
-                François Rostaing | CFA Level I candidate
+                Frostaing AI | Founded by Francois Rostaing
               </span>
             </div>
 
-            <div style={{ marginTop: "2.25rem", maxWidth: 560 }}>
+            <div style={{ marginTop: "2.25rem", maxWidth: 620 }}>
               <p
                 style={{
                   fontFamily: T.fSans,
@@ -986,9 +1599,26 @@ function About() {
                   margin: "0 0 1.25rem",
                 }}
               >
-                The Finance Lab demonstrates three signals at once: real
-                financial understanding, strong data engineering, and decision
-                tools investors actually use.
+                Frostaing AI is a Geneva-based AI and finance systems firm
+                building practical Claude-powered workflows, analytics
+                engines, and internal decision tools. The firm combines
+                finance, automation, software engineering, and AI
+                implementation to help teams move from manual analysis to
+                structured, auditable systems.
+              </p>
+              <p
+                style={{
+                  fontFamily: T.fSans,
+                  fontSize: "1rem",
+                  color: T.text2,
+                  lineHeight: 1.75,
+                  margin: "0 0 1.25rem",
+                }}
+              >
+                Our work is anchored in three signals: real financial
+                understanding, strong data engineering, and decision tools
+                investors and operators actually use. Every system ships with
+                full test coverage and a Codex-audited review.
               </p>
               <p
                 style={{
@@ -999,9 +1629,10 @@ function About() {
                   margin: 0,
                 }}
               >
-                Each system ships with full test coverage and a Codex audited
-                review. Each engine is reusable. The capstone integrates the
-                prior ten into a single research interface.
+                We focus on practical implementation, not theory. The eleven
+                shipped systems are the firm's technical foundation; client
+                engagements extend that stack into Claude-powered research,
+                automation, and decision-support infrastructure.
               </p>
             </div>
           </div>
@@ -1021,16 +1652,19 @@ function About() {
                 borderBottom: `1px solid ${T.borderStrong}`,
               }}
             >
-              Profile
+              Firm Profile
             </div>
             {[
-              ["Role", "Investment Systems Builder"],
-              ["Credential", "CFA Level I Candidate"],
+              ["Practice", "Frostaing AI"],
+              ["Location", "Geneva, Switzerland"],
+              ["Founded", "2026"],
+              ["Founder", "Francois Rostaing"],
+              ["Focus", "Claude-powered finance and AI systems"],
               ["Languages", "Python, JavaScript, SQL"],
               ["Frameworks", "Next.js, Streamlit, Plotly"],
-              ["Data", "DuckDB, SQLite, yfinance, SEC EDGAR"],
+              ["Data", "DuckDB, SQLite, FMP, FRED, SEC EDGAR"],
               ["AI", "Claude API, deterministic orchestration"],
-              ["Lab Status", `${liveCount} / 11 live`],
+              ["Systems Live", `${liveCount} / 11`],
               ["Total Tests", totalTests.toLocaleString()],
             ].map(([k, v], i, arr) => (
               <div
@@ -1087,6 +1721,12 @@ function Contact() {
       mono: true,
     },
     {
+      label: "Location",
+      url: "https://maps.google.com/?q=Geneva,+Switzerland",
+      display: "Geneva, Switzerland",
+      external: true,
+    },
+    {
       label: "GitHub",
       url: "https://github.com/FrancoisRost1",
       display: "github.com/FrancoisRost1",
@@ -1096,12 +1736,6 @@ function Contact() {
       label: "LinkedIn",
       url: "https://www.linkedin.com/in/francois-rostaing-155371341/",
       display: "linkedin.com/in/francois-rostaing",
-      external: true,
-    },
-    {
-      label: "Resume",
-      url: "/CV-francois-rostaing.pdf",
-      display: "Download PDF",
       external: true,
     },
   ];
@@ -1115,7 +1749,7 @@ function Contact() {
       }}
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="04" label="Contact" weight="compact" />
+        <SectionHead num="06" label="Contact" weight="compact" />
 
         <div
           style={{
@@ -1137,7 +1771,7 @@ function Contact() {
                 margin: 0,
               }}
             >
-              Get in touch.
+              Work with us.
             </h2>
             <p
               style={{
@@ -1149,8 +1783,9 @@ function Contact() {
                 maxWidth: 380,
               }}
             >
-              Open to roles in private equity, hedge funds, and quantitative
-              research. Available to discuss any of the systems above.
+              We engage with investment and operating teams on Claude-powered
+              workflows, AI research systems, financial analytics, and
+              internal decision tools. Reach out to scope a project.
             </p>
           </div>
 
@@ -1235,6 +1870,8 @@ function Footer() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: "0.75rem",
           fontFamily: T.fMono,
           fontSize: "0.6rem",
           color: T.text3,
@@ -1243,8 +1880,16 @@ function Footer() {
           fontWeight: 500,
         }}
       >
-        <span>François Rostaing / Finance Lab / 2026</span>
-        <span>Built with Next.js</span>
+        <span>Frostaing AI / Geneva, Switzerland / 2026</span>
+        <span>
+          <a href="mailto:francois@frostaing.com" style={{ color: T.text3 }}>
+            francois@frostaing.com
+          </a>
+          {"  |  "}
+          <a href="https://frostaing.com" style={{ color: T.text3 }}>
+            frostaing.com
+          </a>
+        </span>
       </div>
     </footer>
   );
@@ -1273,17 +1918,32 @@ export default function Page() {
         .case-link { transition: opacity 0.12s linear; }
         .case-link:hover { opacity: 0.78; }
 
+        .service-cell { transition: background 0.12s linear; }
+        .service-cell:hover { background: rgba(255,255,255,0.02); }
+
+        .team-email { transition: color 0.12s linear; }
+        .team-email:hover { color: ${T.accent}; }
+
+        @media (max-width: 1100px) {
+          .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        }
+
         @media (max-width: 900px) {
           section[id] > div > div[style*="grid-template-columns"] {
             grid-template-columns: 1fr !important;
           }
+          .team-grid { grid-template-columns: 1fr !important; }
+          .nav-links { display: none !important; }
           .hero-bg { display: none; }
         }
       `}</style>
       <Nav />
       <Hero />
+      <Services />
       <SelectedWork />
       <Systems />
+      <UseCases />
+      <Team />
       <About />
       <Contact />
       <Footer />
