@@ -36,12 +36,13 @@ const TIER = {
 };
 
 const NAV = [
-  { id: "services",  num: "01", label: "Services" },
-  { id: "work",      num: "02", label: "Systems" },
-  { id: "use-cases", num: "03", label: "Use Cases" },
-  { id: "team",      num: "04", label: "Team" },
-  { id: "about",     num: "05", label: "About" },
-  { id: "contact",   num: "06", label: "Contact" },
+  { id: "approach",        num: "01", label: "Approach" },
+  { id: "services",        num: "02", label: "Services" },
+  { id: "implementations", num: "03", label: "Implementations" },
+  { id: "work",            num: "04", label: "Systems" },
+  { id: "team",            num: "05", label: "Team" },
+  { id: "about",           num: "06", label: "About" },
+  { id: "contact",         num: "07", label: "Contact" },
 ];
 
 const SERVICES = [
@@ -49,7 +50,7 @@ const SERVICES = [
     num: "A",
     name: "Claude Integration & Workflow Automation",
     summary:
-      "We design Claude-powered workflows for research, reporting, internal knowledge management, and operational automation.",
+      "We design and implement Claude-powered workflows for research, reporting, and internal operations.",
     bullets: [
       "Agentic pipelines and orchestrators",
       "Memo, briefing, and report generation",
@@ -61,7 +62,7 @@ const SERVICES = [
     num: "B",
     name: "AI Investment Research Systems",
     summary:
-      "We build structured research agents, memo-generation pipelines, valuation tools, and analyst copilots for finance workflows.",
+      "We build structured research agents, valuation tools, and memo-generation pipelines for investment workflows.",
     bullets: [
       "Deterministic recommendation engines",
       "Memo synthesis with rating-lock invariants",
@@ -71,9 +72,9 @@ const SERVICES = [
   },
   {
     num: "C",
-    name: "Financial Analytics & Decision Support",
+    name: "Financial Analytics & Decision Systems",
     summary:
-      "We develop valuation, portfolio, options, factor, regime, and screening systems for investment analysis.",
+      "We develop screening, factor, portfolio, and derivatives systems to support investment decisions.",
     bullets: [
       "Valuation, LBO, and DCF infrastructure",
       "Portfolio construction and risk decomposition",
@@ -85,7 +86,7 @@ const SERVICES = [
     num: "D",
     name: "Custom Internal Tools & Dashboards",
     summary:
-      "We build internal applications, dashboards, and terminal-style interfaces for teams that need fast, auditable decision infrastructure.",
+      "We build internal applications and terminal-style interfaces for teams requiring structured decision infrastructure.",
     bullets: [
       "Bloomberg-style research terminals",
       "Streamlit and Next.js dashboards",
@@ -95,12 +96,25 @@ const SERVICES = [
   },
 ];
 
-const USE_CASES = [
-  ["UC1", "Research Memos",     "Claude-powered investment research memo generation with locked, deterministic ratings."],
-  ["UC2", "Analysis Pipelines", "Automated financial analysis pipelines spanning ingestion, valuation, and reporting."],
-  ["UC3", "Knowledge Assistant","Internal AI knowledge assistant workflows over filings, decks, and operating data."],
-  ["UC4", "Valuation & Screen", "Valuation and screening infrastructure across public companies and private targets."],
-  ["UC5", "Decision Terminals", "Terminal-style dashboards for finance workflows requiring auditable decision support."],
+const IMPLEMENTATIONS = [
+  {
+    code: "I1",
+    title: "Claude-powered Investment Research Assistant",
+    body:
+      "Designed a structured research pipeline that generates investment memos combining valuation models, factor exposure, and risk analysis. Enables repeatable, auditable outputs instead of manual analyst work.",
+  },
+  {
+    code: "I2",
+    title: "Automated Financial Analysis Workflows",
+    body:
+      "Built AI-assisted pipelines that transform raw financial data into structured insights, reducing manual processing and improving consistency across analysis.",
+  },
+  {
+    code: "I3",
+    title: "Internal AI Knowledge & Decision Systems",
+    body:
+      "Implemented Claude-based systems to organize, query, and synthesize internal knowledge for faster decision-making.",
+  },
 ];
 
 const TEAM = [
@@ -109,70 +123,70 @@ const TEAM = [
     role: "Founder & Lead AI Finance Systems Architect",
     email: "francois@frostaing.com",
     photo: "/team/francois-rostaing.webp",
-    bio: "Builder of the firm's research, valuation, and Claude-powered systems. Combines finance modelling with software engineering and AI workflow design.",
+    bio: "Leads the firm's research, valuation, and Claude-powered systems work.",
   },
   {
     name: "Alexandre Levy",
     role: "AI Workflow Specialist",
     email: "alexandre@frostaing.com",
     photo: "/team/alexandre-levy.webp",
-    bio: "Designs and ships Claude-driven automations for research and operations. Focused on reliable orchestration, prompts, and tool use.",
+    bio: "Designs and ships Claude-based automations for research and operational workflows.",
   },
   {
     name: "Gizem Gul Dincer",
     role: "Operations & Client Coordination",
     email: "gizem@frostaing.com",
     photo: "/team/gizem-gul-dincer.webp",
-    bio: "Coordinates client engagements and internal delivery. Keeps scoping, timelines, and documentation aligned across projects.",
+    bio: "Coordinates client engagements and keeps internal delivery on schedule.",
   },
   {
     name: "Pierre-Jean Remy Martin",
     role: "Business Development & Implementation Support",
     email: "pierrejean@frostaing.com",
     photo: "/team/pierre-jean-remy-martin.webp",
-    bio: "Engages with prospective clients and translates use cases into implementable scopes. Supports rollout of finance and AI workflows.",
+    bio: "Translates client use cases into implementable scopes and supports rollout.",
   },
   {
     name: "Louis Rostaing",
     role: "Product & Research Analyst",
     email: "louis@frostaing.com",
     photo: "/team/louis-rostaing.webp",
-    bio: "Works across product specification and applied research for the firm's analytics modules. Focused on user-facing analyst tools.",
+    bio: "Supports product specification and applied research for analyst-facing tools.",
   },
   {
     name: "Jacques Rostaing",
     role: "Strategic Advisor",
     email: "jacques@frostaing.com",
     photo: "/team/jacques-rostaing.webp",
-    bio: "Advises on positioning, partnerships, and long-horizon strategy. Brings senior perspective on finance and operating decisions.",
+    bio: "Advises on positioning, partnerships, and long-horizon strategy.",
   },
   {
     name: "Karine Rostaing",
     role: "Administrative & Operations Support",
     email: "karine@frostaing.com",
     photo: "/team/karine-rostaing.webp",
-    bio: "Supports the firm's administrative operations and back-office processes. Ensures documentation and recordkeeping stay clean.",
+    bio: "Supports administrative operations and back-office processes.",
   },
   {
     name: "Thomas Vittory",
     role: "Data & Automation Analyst",
     email: "thomas@frostaing.com",
     photo: "/team/thomas-vittory.webp",
-    bio: "Works on data pipelines, ingestion, and process automation. Supports analytics and reporting workflows for client engagements.",
+    bio: "Supports development of automation workflows and data processing pipelines.",
   },
   {
     name: "Emma Vernizeau",
     role: "Client Experience & Documentation Support",
     email: "emma@frostaing.com",
     photo: "/team/emma-vernizeau.webp",
-    bio: "Owns client-facing documentation and communication. Focused on clarity, structure, and a consistent client experience.",
+    bio: "Maintains client-facing documentation and communication for engagements.",
   },
   {
     name: "Florine Reau",
     role: "Research & Process Documentation Analyst",
     email: "florine@frostaing.com",
     photo: "/team/florine-reau.webp",
-    bio: "Writes and maintains internal research and process documentation. Supports knowledge capture across implementations.",
+    bio: "Writes internal research notes and maintains process documentation.",
   },
 ];
 
@@ -515,10 +529,10 @@ function Hero() {
             maxWidth: 1080,
           }}
         >
-          AI and finance systems built like a research desk.
+          Claude-powered research, automation, and decision infrastructure.
         </h1>
 
-        {/* Positioning line */}
+        {/* Positioning lines */}
         <p
           style={{
             fontFamily: T.fSans,
@@ -526,13 +540,25 @@ function Hero() {
             color: T.text2,
             lineHeight: 1.55,
             margin: "2.25rem 0 0",
-            maxWidth: 760,
+            maxWidth: 780,
           }}
         >
-          Frostaing AI is an AI and finance systems firm specializing in
-          Claude-powered research, automation, and decision-support tools.
-          Eleven shipped systems span private equity, systematic strategies,
-          derivatives, and a unified research terminal.
+          Frostaing AI is a Geneva-based AI and finance systems firm building
+          Claude-powered research, automation, and decision infrastructure
+          for investment and business workflows.
+        </p>
+        <p
+          style={{
+            fontFamily: T.fSans,
+            fontSize: "clamp(0.98rem, 1.3vw, 1.12rem)",
+            color: T.text2,
+            lineHeight: 1.6,
+            margin: "1rem 0 0",
+            maxWidth: 720,
+          }}
+        >
+          We design and deploy production-grade AI systems that replace
+          manual analysis with structured, auditable workflows.
         </p>
       </div>
 
@@ -595,11 +621,73 @@ function Hero() {
 /* ─────────────────────────────────────────────────────────────────
    SERVICES
    ───────────────────────────────────────────────────────────────── */
+function Approach() {
+  return (
+    <section id="approach" style={{ padding: "8.5rem 2rem 5.5rem" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <SectionHead num="01" label="Approach" right="Why we exist" />
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 5fr) minmax(0, 7fr)",
+            gap: "4rem",
+            alignItems: "start",
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: T.fSans,
+              fontSize: "clamp(1.75rem, 3vw, 2.35rem)",
+              fontWeight: 600,
+              letterSpacing: "-0.025em",
+              color: T.text,
+              lineHeight: 1.15,
+              margin: 0,
+              maxWidth: 460,
+            }}
+          >
+            Replace manual analysis with structured, repeatable systems.
+          </h2>
+
+          <div style={{ maxWidth: 620 }}>
+            <p
+              style={{
+                fontFamily: T.fSans,
+                fontSize: "1rem",
+                color: T.text2,
+                lineHeight: 1.75,
+                margin: "0 0 1.25rem",
+              }}
+            >
+              We focus on replacing manual, fragmented analysis with
+              structured, repeatable systems.
+            </p>
+            <p
+              style={{
+                fontFamily: T.fSans,
+                fontSize: "1rem",
+                color: T.text2,
+                lineHeight: 1.75,
+                margin: 0,
+              }}
+            >
+              By combining finance, software engineering, and Claude-based AI,
+              we build tools that produce consistent, auditable outputs
+              instead of one-off work.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Services() {
   return (
     <section id="services" style={{ padding: "8.5rem 2rem 5.5rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="01" label="Services" right="4 offerings" />
+        <SectionHead num="02" label="Services" right="4 offerings" />
 
         {/* Lead statement */}
         <div
@@ -984,7 +1072,7 @@ function SelectedWork() {
       }}
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="02" label="Systems" right="3 of 11 featured" />
+        <SectionHead num="04" label="Core Systems & Technical Foundation" right="3 of 11 featured" />
 
         <div
           style={{
@@ -1004,10 +1092,10 @@ function SelectedWork() {
               letterSpacing: "-0.018em",
               lineHeight: 1.15,
               margin: 0,
-              maxWidth: 320,
+              maxWidth: 340,
             }}
           >
-            Technical foundation and implementation track record.
+            The technical foundation of Frostaing AI's implementation capability.
           </h3>
           <p
             style={{
@@ -1019,10 +1107,10 @@ function SelectedWork() {
               maxWidth: 620,
             }}
           >
-            The eleven systems below are how we sharpen the firm's analytical
-            stack. Each ships with full test coverage, a Codex-audited review,
-            and a live app. The capstone integrates the prior ten into a
-            single research terminal.
+            These systems form the technical foundation of Frostaing AI's
+            implementation capability. Each ships with full test coverage, a
+            Codex-audited review, and a live app. The capstone integrates the
+            prior ten into a single research terminal.
           </p>
         </div>
 
@@ -1055,7 +1143,7 @@ function Systems() {
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <SectionHead
-          num="02.1"
+          num="04.1"
           label="Architecture"
           right={`${ALL_PROJECTS.length} systems indexed`}
           weight="compact"
@@ -1269,13 +1357,13 @@ function Systems() {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   USE CASES
+   APPLIED IMPLEMENTATIONS
    ───────────────────────────────────────────────────────────────── */
-function UseCases() {
+function Implementations() {
   return (
-    <section id="use-cases" style={{ padding: "8.5rem 2rem 5.5rem" }}>
+    <section id="implementations" style={{ padding: "8.5rem 2rem 5.5rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="03" label="Use Cases" right={`${USE_CASES.length} implementation areas`} />
+        <SectionHead num="03" label="Applied Implementations" right={`${IMPLEMENTATIONS.length} examples`} />
 
         <div
           style={{
@@ -1297,7 +1385,7 @@ function UseCases() {
               maxWidth: 360,
             }}
           >
-            Where Frostaing AI implementations land.
+            Systems built and deployable for real-world workflows.
           </h3>
 
           <div
@@ -1306,15 +1394,15 @@ function UseCases() {
               background: T.bg,
             }}
           >
-            {USE_CASES.map(([code, title, desc], i) => (
+            {IMPLEMENTATIONS.map((impl, i) => (
               <div
-                key={code}
+                key={impl.code}
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "70px minmax(0, 1.3fr) minmax(0, 3fr)",
-                  padding: "1.15rem 1.25rem",
+                  gridTemplateColumns: "60px minmax(0, 1fr)",
+                  padding: "1.6rem 1.5rem",
                   borderBottom:
-                    i === USE_CASES.length - 1
+                    i === IMPLEMENTATIONS.length - 1
                       ? "none"
                       : `1px solid ${T.borderSubtle}`,
                   alignItems: "start",
@@ -1329,30 +1417,38 @@ function UseCases() {
                     letterSpacing: "0.18em",
                     textTransform: "uppercase",
                     fontWeight: 600,
+                    paddingTop: "0.25rem",
                   }}
                 >
-                  {code}
+                  {impl.code}
                 </span>
-                <span
-                  style={{
-                    fontFamily: T.fSans,
-                    fontSize: "0.95rem",
-                    color: T.text,
-                    fontWeight: 500,
-                  }}
-                >
-                  {title}
-                </span>
-                <span
-                  style={{
-                    fontFamily: T.fSans,
-                    fontSize: "0.88rem",
-                    color: T.text2,
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {desc}
-                </span>
+                <div>
+                  <h4
+                    style={{
+                      fontFamily: T.fSans,
+                      fontSize: "1.05rem",
+                      color: T.text,
+                      fontWeight: 600,
+                      letterSpacing: "-0.012em",
+                      lineHeight: 1.3,
+                      margin: 0,
+                    }}
+                  >
+                    {impl.title}
+                  </h4>
+                  <p
+                    style={{
+                      fontFamily: T.fSans,
+                      fontSize: "0.92rem",
+                      color: T.text2,
+                      lineHeight: 1.7,
+                      margin: "0.55rem 0 0",
+                      maxWidth: 760,
+                    }}
+                  >
+                    {impl.body}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -1474,7 +1570,7 @@ function Team() {
       }}
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="04" label="Team" right={`${TEAM.length} members and collaborators`} />
+        <SectionHead num="05" label="Practice Team" right={`${TEAM.length} members`} />
 
         <div
           style={{
@@ -1497,7 +1593,7 @@ function Team() {
               maxWidth: 360,
             }}
           >
-            Practice team and collaborator network.
+            A focused team trained on Claude, finance, and AI implementation.
           </h3>
           <p
             style={{
@@ -1509,9 +1605,9 @@ function Team() {
               maxWidth: 620,
             }}
           >
-            Frostaing AI operates with a small trained practice team and
-            collaborator network focused on Claude-powered implementation,
-            finance systems, and AI workflow deployment.
+            Frostaing AI operates with a focused practice team trained on
+            Claude-powered workflows, finance systems, and AI implementation.
+            The team supports delivery, research, and operational execution.
           </p>
         </div>
 
@@ -1539,7 +1635,7 @@ function About() {
   return (
     <section id="about" style={{ padding: "9rem 2rem 6.5rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="05" label="About" />
+        <SectionHead num="06" label="About" />
 
         <div
           style={{
@@ -1749,7 +1845,7 @@ function Contact() {
       }}
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="06" label="Contact" weight="compact" />
+        <SectionHead num="07" label="Contact" weight="compact" />
 
         <div
           style={{
@@ -1886,8 +1982,8 @@ function Footer() {
             francois@frostaing.com
           </a>
           {"  |  "}
-          <a href="https://frostaing.com" style={{ color: T.text3 }}>
-            frostaing.com
+          <a href="https://www.frostaing.com" style={{ color: T.text3 }}>
+            www.frostaing.com
           </a>
         </span>
       </div>
@@ -1939,10 +2035,11 @@ export default function Page() {
       `}</style>
       <Nav />
       <Hero />
+      <Approach />
       <Services />
+      <Implementations />
       <SelectedWork />
       <Systems />
-      <UseCases />
       <Team />
       <About />
       <Contact />
