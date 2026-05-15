@@ -198,9 +198,9 @@ const CASE_STUDIES = [
     tier: "Capstone",
     takeaway: "Ten systems collapse into one research desk.",
     detail:
-      "Unified Bloomberg-style research terminal integrating all 10 prior engines into 6 institutional workspaces (Market, Research, Options, LBO, Comps, Portfolio). 137 tests passing.",
+      "Unified Bloomberg-style research terminal integrating all 10 prior engines into 6 institutional workspaces (Market, Research, Options, LBO, Comps, Portfolio). 506 tests passing.",
     facts: [
-      ["Tests", "137"],
+      ["Tests", "506"],
       ["Integrates", "10 prior systems"],
       ["Workspaces", "6"],
       ["Stack", "Next.js, Python, Plotly"],
@@ -217,7 +217,7 @@ const CASE_STUDIES = [
     detail:
       "Deterministic recommendation aggregator. Engines run in parallel. The model writes the prose. The rating is locked.",
     facts: [
-      ["Tests", "203"],
+      ["Tests", "242"],
       ["Engines", "6, parallel"],
       ["Composite", "BUY ≥ 65, SELL ≤ 35"],
       ["Stack", "Python, Claude API"],
@@ -245,17 +245,17 @@ const CASE_STUDIES = [
 ];
 
 const ALL_PROJECTS = [
-  { num: "01", name: "LBO Engine",                    tier: "Foundation", tests: "-",   metric: "Monte Carlo, 500 sims",     status: "live", repo: "lbo-engine-version1",          liveUrl: "https://lbo-engine-version1.streamlit.app" },
-  { num: "02", name: "PE Target Screener",            tier: "Foundation", tests: "14",  metric: "90 companies scored",       status: "live", repo: "pe-target-screener",           liveUrl: "https://pe-target-screener.streamlit.app" },
-  { num: "03", name: "Factor Backtest Engine",        tier: "Quant Core", tests: "166", metric: "Sharpe 1.55, 503 tickers",  status: "live", repo: "factor-backtest-engine",       liveUrl: "https://factor-backtest-engine.streamlit.app" },
+  { num: "01", name: "LBO Engine",                    tier: "Foundation", tests: "-",   metric: "Monte Carlo, 1000 sims",    status: "live", repo: "lbo-engine-version1",          liveUrl: "https://lbo-engine-version1.streamlit.app" },
+  { num: "02", name: "PE Target Screener",            tier: "Foundation", tests: "28",  metric: "80 companies scored",       status: "live", repo: "pe-target-screener",           liveUrl: "https://pe-target-screener.streamlit.app" },
+  { num: "03", name: "Factor Backtest Engine",        tier: "Quant Core", tests: "170", metric: "Sharpe 1.55, 503 tickers",  status: "live", repo: "factor-backtest-engine",       liveUrl: "https://factor-backtest-engine.streamlit.app" },
   { num: "04", name: "M&A Database",                  tier: "Quant Core", tests: "124", metric: "390 deals, 11 sectors",     status: "live", repo: "ma-database",                  liveUrl: "https://ma-database1.streamlit.app" },
-  { num: "05", name: "Volatility Regime Engine",      tier: "Systematic", tests: "109", metric: "CAGR 10.9, Sharpe 1.03",    status: "live", repo: "volatility-regime-engine",     liveUrl: "https://volatility-regime-engine.streamlit.app" },
+  { num: "05", name: "Volatility Regime Engine",      tier: "Systematic", tests: "109", metric: "CAGR 10.9%, Sharpe 1.03",   status: "live", repo: "volatility-regime-engine",     liveUrl: "https://volatility-regime-engine.streamlit.app" },
   { num: "06", name: "TSMOM Engine",                  tier: "Systematic", tests: "103", metric: "13 ETFs, cross asset",      status: "live", repo: "tsmom-engine",                 liveUrl: "https://tsmom-engine-3kndf2dmvuhcvu2hmrjniz.streamlit.app" },
-  { num: "07", name: "Strategy Robustness Lab",       tier: "Advanced",   tests: "136", metric: "PBO via CSCV",              status: "live", repo: "strategy-robustness-lab",      liveUrl: "https://strategy-robustness-lab.streamlit.app" },
+  { num: "07", name: "Strategy Robustness Lab",       tier: "Advanced",   tests: "138", metric: "PBO via CSCV",              status: "live", repo: "strategy-robustness-lab",      liveUrl: "https://strategy-robustness-lab.streamlit.app" },
   { num: "08", name: "Portfolio Optimization Engine", tier: "Advanced",   tests: "166", metric: "HRP Sharpe 0.62",           status: "live", repo: "portfolio-optimization-engine", liveUrl: "https://portfolio-optimization-engine1.streamlit.app" },
   { num: "09", name: "Options Pricing Engine",        tier: "Elite",      tests: "230", metric: "3 models, 8 Greeks",        status: "live", repo: "options-pricing-engine",       liveUrl: "https://options-pricing-engine1.streamlit.app" },
-  { num: "10", name: "AI Research Agent",             tier: "Elite",      tests: "203", metric: "6 engine pipeline",         status: "live", repo: "ai-research-agent",            liveUrl: "https://ai-research-agent1.streamlit.app" },
-  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "137", metric: "6 Workspaces",              status: "live", repo: "mini-bloomberg-terminal",      liveUrl: "https://terminal.frostaing.com" },
+  { num: "10", name: "AI Research Agent",             tier: "Elite",      tests: "242", metric: "6 engine pipeline",         status: "live", repo: "ai-research-agent",            liveUrl: "https://ai-research-agent1.streamlit.app" },
+  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "506", metric: "6 Workspaces",              status: "live", repo: "mini-bloomberg-terminal",      liveUrl: "https://terminal.frostaing.com" },
 ];
 
 const totalTests = ALL_PROJECTS.reduce((s, p) => {
@@ -1238,6 +1238,7 @@ function Systems() {
         >
           {/* Header row */}
           <div
+            className="systems-table-header"
             style={{
               display: "grid",
               gridTemplateColumns: "50px minmax(0, 3fr) minmax(0, 1.4fr) 70px minmax(0, 2.2fr) 100px",
