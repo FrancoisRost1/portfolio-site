@@ -353,7 +353,7 @@ function Proof() {
 export default function SmeFinancePage() {
   return (
     <main style={{ background: T.bg, color: T.text }}>
-      <SiteHeader />
+      <SiteHeader bookingHref={BOOKING_SME} />
       <Hero />
       <Pricing />
       <Proof />

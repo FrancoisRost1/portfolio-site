@@ -16,13 +16,17 @@ const jetbrains = JetBrains_Mono({
 })
 
 export const metadata = {
-  title: 'Frostaing AI | AI & Finance Systems Firm',
-  description: 'Frostaing AI is a Geneva-based AI and finance systems firm specializing in Claude-powered research, automation, and decision-support tools.',
+  metadataBase: new URL('https://www.frostaing.com'),
+  title: 'Frostaing AI | AI Investment Research & Deal Intelligence',
+  description:
+    'Geneva and Romandie firm building AI investment research and deal intelligence for private equity, venture capital, and family offices. IC memo automation, deal screening, diligence synthesis, portfolio monitoring. Productized analytics for SME finance teams.',
   openGraph: {
-    title: 'Frostaing AI | AI & Finance Systems Firm',
-    description: 'Geneva-based AI and finance systems firm. Claude-powered research, automation, and decision-support tools. Eleven shipped systems.',
+    title: 'Frostaing AI | AI Investment Research & Deal Intelligence',
+    description:
+      'AI investment research and deal intelligence for PE, VC, and family offices in Geneva and Romandie. Productized financial analytics for SME finance teams.',
     type: 'website',
     siteName: 'Frostaing AI',
+    locale: 'en',
   },
 }
 

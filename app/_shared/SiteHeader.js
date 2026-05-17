@@ -6,6 +6,12 @@
   was deliberately removed from the global nav (a firm site does not carry a
   CV in the same row as Services and Contact); the PDF stays reachable from
   the About bio instead. The "Book a call" button is the primary action.
+
+  The header stays dumb: the booking target is a `bookingHref` prop that
+  defaults to BOOKING_PE. Pages own their own header context. Every PE-first
+  route (/, /deal-intelligence) takes the default; /sme-finance passes
+  BOOKING_SME so an SME visitor lands on the 20-min fit call, not the 30-min
+  PE scoping call. No route detection inside the component.
 */
 
 import Link from "next/link";
@@ -20,7 +26,7 @@ const LINKS = [
   { href: "/#contact", label: "Contact", page: false },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ bookingHref = BOOKING_PE }) {
   return (
     <nav
       style={{
@@ -90,7 +96,7 @@ export function SiteHeader() {
         </div>
 
         <a
-          href={BOOKING_PE}
+          href={bookingHref}
           className="cta-btn"
           style={{
             flexShrink: 0,

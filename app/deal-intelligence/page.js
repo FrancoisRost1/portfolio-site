@@ -274,8 +274,8 @@ export default function DealIntelligencePage() {
         id="book"
         kicker="Deal Intelligence"
         title="Book a scoping call."
-        body="A 20-minute scoping call is the fastest way to see if there is a fit. We use it to understand fund size, current memo workflow, and where the manual time goes. Pricing follows from that conversation."
-        buttonLabel="Book a 20-minute scoping call"
+        body="A 30-minute scoping call is the fastest way to see if there is a fit. We use it to understand fund size, current memo workflow, and where the manual time goes. Pricing follows from that conversation."
+        buttonLabel="Book a 30-minute scoping call"
         buttonHref={BOOKING_PE}
       />
       <Footer />

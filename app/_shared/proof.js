@@ -29,7 +29,7 @@ const PROOF = {
     name: "PE Target Screener",
     tier: "Foundation",
     tests: "28",
-    metric: "90 companies scored",
+    metric: "80 companies scored",
     liveUrl: "https://pe-target-screener.streamlit.app",
   },
   "unified-research-terminal": {

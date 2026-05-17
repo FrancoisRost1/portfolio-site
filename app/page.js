@@ -81,7 +81,7 @@ const IMPLEMENTATIONS = [
     source: "Adapted from the PE Target Screener system.",
     specs: [
       ["Tests", "28"],
-      ["Universe", "90 companies scored"],
+      ["Universe", "80 companies scored"],
       ["Output", "Debt-capacity tiers, red flags"],
     ],
   },
