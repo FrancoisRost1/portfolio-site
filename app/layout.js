@@ -26,7 +26,7 @@ export const metadata = {
       'AI investment research and deal intelligence for PE, VC, and family offices in Geneva and Romandie. Productized financial analytics for SME finance teams.',
     type: 'website',
     siteName: 'Frostaing AI',
-    locale: 'en',
+    locale: 'en_US',
   },
 }
 
