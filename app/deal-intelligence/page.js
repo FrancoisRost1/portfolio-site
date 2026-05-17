@@ -254,8 +254,27 @@ function Proof() {
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <ProofStrip
-          ids={["ai-research-agent", "lbo-engine", "pe-target-screener"]}
           label="Proven on shipped systems"
+          tiles={[
+            {
+              title: "LBO & Credit Analysis · Terminal Workspace",
+              blurb:
+                "Live LBO mechanics, equity bridge reconciliation, IRR sensitivity grids. Source-reconciled to FMP and FRED.",
+              href: "https://terminal.frostaing.com",
+            },
+            {
+              title: "Investment Research & Memo Synthesis · Terminal Workspace",
+              blurb:
+                "6-engine deterministic recommendation aggregator with Claude-synthesized memo output and rating-lock invariants.",
+              href: "https://terminal.frostaing.com",
+            },
+            {
+              title: "Portfolio & Risk Analytics · Terminal Workspace",
+              blurb:
+                "Multi-asset portfolio construction, factor exposures, optimization.",
+              href: "https://terminal.frostaing.com",
+            },
+          ]}
         />
       </div>
     </section>

@@ -342,8 +342,19 @@ function Proof() {
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <ProofStrip
-          ids={["unified-research-terminal", "ai-research-agent"]}
           label="Proven on shipped systems"
+          tiles={[
+            {
+              title: "Unified Research Terminal",
+              blurb: "Production app, 506 tests, 6 workspaces.",
+              href: "https://terminal.frostaing.com",
+            },
+            {
+              title: "Investment Research Engine",
+              blurb: "Terminal workspace, Claude-synthesized memo output.",
+              href: "https://terminal.frostaing.com",
+            },
+          ]}
         />
       </div>
     </section>

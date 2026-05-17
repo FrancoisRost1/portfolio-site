@@ -1,53 +1,22 @@
 /*
   Compact proof tiles for the lean offer pages. The offer pages deliberately
-  do NOT reuse the full eleven-system table from the homepage. Each embeds one
-  or two hand-picked systems inline and links back to /#systems for the rest.
+  do NOT reuse the full eleven-system table from the homepage. Each embeds a
+  few hand-picked tiles inline and links back to /#systems for the rest.
 
-  Data is a small explicit subset (not imported from the homepage route file)
-  so the offer pages stay self-contained. Specs mirror the live apps.
+  Tiles are now explicit { title, blurb, href } objects passed by the page,
+  not id lookups into a static dict. Every proof tile points at the live
+  terminal (terminal.frostaing.com) so the story stays one product, not a
+  scatter of standalone Streamlit apps. Deeplinks to specific workspaces are
+  a possible follow-up.
 */
 
-import { T, TIER } from "./theme";
+import { T } from "./theme";
 import { StatusTag } from "./primitives";
 
-const PROOF = {
-  "ai-research-agent": {
-    name: "AI Research Agent",
-    tier: "Elite",
-    tests: "242",
-    metric: "6-engine deterministic pipeline",
-    liveUrl: "https://ai-research-agent1.streamlit.app",
-  },
-  "lbo-engine": {
-    name: "LBO Engine",
-    tier: "Foundation",
-    tests: "n/a",
-    metric: "Monte Carlo, 1000 sims",
-    liveUrl: "https://lbo-engine-version1.streamlit.app",
-  },
-  "pe-target-screener": {
-    name: "PE Target Screener",
-    tier: "Foundation",
-    tests: "28",
-    metric: "80 companies scored",
-    liveUrl: "https://pe-target-screener.streamlit.app",
-  },
-  "unified-research-terminal": {
-    name: "Unified Research Terminal",
-    tier: "Capstone",
-    tests: "506",
-    metric: "6 institutional workspaces",
-    liveUrl: "https://terminal.frostaing.com",
-  },
-};
-
-function ProofTile({ id }) {
-  const p = PROOF[id];
-  if (!p) return null;
-  const tierColor = TIER[p.tier] || T.accent;
+function ProofTile({ title, blurb, href }) {
   return (
     <a
-      href={p.liveUrl}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       className="proof-tile"
@@ -63,19 +32,19 @@ function ProofTile({ id }) {
       <div style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
         <span
           aria-hidden
-          style={{ width: 6, height: 6, background: tierColor, display: "inline-block" }}
+          style={{ width: 6, height: 6, background: T.accent, display: "inline-block" }}
         />
         <span
           style={{
             fontFamily: T.fMono,
             fontSize: "0.58rem",
             fontWeight: 600,
-            color: tierColor,
+            color: T.accent,
             letterSpacing: "0.18em",
             textTransform: "uppercase",
           }}
         >
-          {p.tier}
+          Terminal
         </span>
         <span style={{ flex: 1, height: 1, background: T.border }} />
         <StatusTag status="live" />
@@ -83,34 +52,26 @@ function ProofTile({ id }) {
       <div
         style={{
           fontFamily: T.fSans,
-          fontSize: "1.05rem",
+          fontSize: "1.02rem",
           fontWeight: 600,
           color: T.text,
           letterSpacing: "-0.015em",
+          lineHeight: 1.3,
         }}
       >
-        {p.name}
+        {title}
       </div>
-      <div
+      <p
         style={{
-          display: "grid",
-          gridTemplateColumns: "auto 1fr",
-          gap: "0.5rem 1.25rem",
-          fontFamily: T.fMono,
-          fontSize: "0.7rem",
+          fontFamily: T.fSans,
+          fontSize: "0.88rem",
+          color: T.text2,
+          lineHeight: 1.6,
+          margin: 0,
         }}
       >
-        <span style={{ color: T.text3, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-          Tests
-        </span>
-        <span style={{ color: T.text, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
-          {p.tests}
-        </span>
-        <span style={{ color: T.text3, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-          Metric
-        </span>
-        <span style={{ color: T.text2, textAlign: "right" }}>{p.metric}</span>
-      </div>
+        {blurb}
+      </p>
       <span
         aria-hidden
         style={{
@@ -122,16 +83,16 @@ function ProofTile({ id }) {
           fontWeight: 600,
           letterSpacing: "0.18em",
           textTransform: "uppercase",
-          color: tierColor,
+          color: T.accent,
         }}
       >
-        Live App {"→"}
+        Open terminal {"→"}
       </span>
     </a>
   );
 }
 
-export function ProofStrip({ ids, label = "Proven on shipped systems" }) {
+export function ProofStrip({ tiles, label = "Proven on shipped systems" }) {
   return (
     <div>
       <div
@@ -175,12 +136,12 @@ export function ProofStrip({ ids, label = "Proven on shipped systems" }) {
         className="proof-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${ids.length}, minmax(0, 1fr))`,
+          gridTemplateColumns: `repeat(${tiles.length}, minmax(0, 1fr))`,
           gap: "1rem",
         }}
       >
-        {ids.map((id) => (
-          <ProofTile key={id} id={id} />
+        {tiles.map((t) => (
+          <ProofTile key={t.title} title={t.title} blurb={t.blurb} href={t.href} />
         ))}
       </div>
     </div>
