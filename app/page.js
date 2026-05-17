@@ -1492,7 +1492,7 @@ function Contact() {
     },
     {
       label: "LinkedIn",
-      url: "https://www.linkedin.com/in/francois-rostaing-155371341/",
+      url: "https://www.linkedin.com/in/francois-rostaing/",
       display: "linkedin.com/in/francois-rostaing",
       external: true,
     },
