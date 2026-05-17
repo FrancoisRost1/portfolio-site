@@ -230,7 +230,7 @@ function Hero() {
             display: "flex",
             alignItems: "center",
             gap: "1.25rem",
-            marginBottom: "3rem",
+            marginBottom: "2rem",
           }}
         >
           <span style={{ width: 44, height: 1, background: T.accent }} />
@@ -244,53 +244,54 @@ function Hero() {
               fontWeight: 600,
             }}
           >
-            Frostaing AI | Geneva and Romandie | Established 2026
+            CLAUDE PARTNER NETWORK · GENEVA & ROMANDIE · EST. 2026
           </span>
         </div>
 
         <h1
           style={{
             fontFamily: T.fSans,
-            fontSize: "clamp(2.5rem, 6.4vw, 5.5rem)",
+            fontSize: "clamp(2rem, 4.4vw, 3.5rem)",
             fontWeight: 600,
-            letterSpacing: "-0.035em",
-            lineHeight: 1.02,
+            letterSpacing: "-0.03em",
+            lineHeight: 1.05,
             color: T.text,
             margin: 0,
-            maxWidth: 1080,
+            maxWidth: 820,
           }}
         >
-          AI investment research and deal intelligence for private equity,
-          venture capital, and family offices.
+          AI deal intelligence for private capital.
         </h1>
 
         <p
           style={{
             fontFamily: T.fSans,
-            fontSize: "clamp(1.05rem, 1.45vw, 1.25rem)",
+            fontSize: "clamp(1.2rem, 2.6vw, 2.1rem)",
+            fontWeight: 500,
             color: T.text2,
-            lineHeight: 1.55,
-            margin: "2.25rem 0 0",
-            maxWidth: 820,
+            lineHeight: 1.25,
+            letterSpacing: "-0.015em",
+            margin: "1rem 0 0",
+            maxWidth: 640,
           }}
         >
-          Frostaing AI builds AI investment research and deal intelligence
-          systems for funds and family offices in Geneva and Romandie. IC memo
-          automation, deal screening, diligence synthesis, and portfolio
-          monitoring, delivered as production-grade, auditable tools.
+          For PE, VC, and family offices in Geneva and Romandie.
         </p>
+
         <p
           style={{
             fontFamily: T.fSans,
             fontSize: "clamp(0.98rem, 1.3vw, 1.12rem)",
             color: T.text2,
             lineHeight: 1.6,
-            margin: "1rem 0 0",
-            maxWidth: 760,
+            margin: "1.75rem 0 0",
+            maxWidth: 620,
           }}
         >
-          For finance teams and SME CFOs, we deliver productized financial
-          analytics and internal decision tools on a fixed scope and fixed fee.
+          IC memo automation, deal screening, diligence synthesis, and
+          portfolio monitoring. Production-grade, auditable, source-cited. For
+          finance teams and SME CFOs, productized AI on a fixed scope and fixed
+          fee.
         </p>
 
         <div
