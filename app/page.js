@@ -1,192 +1,101 @@
 /*
-  Frostaing AI. Institutional finance design system.
-  Single source of truth: DESIGN.md and style_inject.py.
-  No em dashes. No emojis. No gradients. No glow. No hover transforms.
+  Frostaing AI. Homepage.
+
+  Positioning: PE / VC / family office deal intelligence is the hero offer;
+  productized SME finance work is the secondary offer. The two offers each
+  have a dedicated route (/deal-intelligence, /sme-finance); this page leads
+  with the wedge and links into them.
+
+  Design system: DESIGN.md and style_inject.py. No em dashes. No emojis.
+  No gradients. No glow. No hover transforms. Shared tokens and chrome live
+  in app/_shared/. Interaction and responsive CSS live in globals.css.
 */
 
-const T = {
-  bg: "#0A0A0F",
-  surface: "#121218",
-  elevated: "#1A1A22",
-  text: "#E8E8EC",
-  text2: "#8E8E9A",
-  text3: "#55555F",
-  border: "rgba(255,255,255,0.08)",
-  borderSubtle: "rgba(255,255,255,0.04)",
-  borderStrong: "rgba(255,255,255,0.16)",
-  // Stronger primary accent. Used for links, key UI elements, and hover states.
-  // Same single hue, higher contrast against the charcoal background.
-  accent: "#E07020",
-  accentSoft: "#C89040",
-  success: "#3D9A50",
-  danger: "#C43D3D",
-  fSans: "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif",
-  fMono: "var(--font-mono), 'SF Mono', Consolas, monospace",
+import Link from "next/link";
+import { T, TIER } from "./_shared/theme";
+import { StatusTag, SectionHead } from "./_shared/primitives";
+import { SiteHeader } from "./_shared/SiteHeader";
+import { Footer } from "./_shared/Footer";
+import { PrimaryButton } from "./_shared/Cta";
+import { BOOKING_PE, CONTACT_EMAIL } from "./_shared/booking";
+
+export const metadata = {
+  title: "Frostaing AI | AI Investment Research & Deal Intelligence",
+  description:
+    "Geneva and Romandie firm building AI investment research and deal intelligence systems for private equity, venture capital, and family offices. IC memo automation, deal screening, diligence synthesis, portfolio monitoring. Productized analytics for SME finance teams.",
 };
 
-// Tier accents. Mirrors DESIGN.md per-project accent guide. Used only
-// for small text accents and 6px tier dots. No backgrounds, no fills.
-const TIER = {
-  Foundation: "#C8962E",   // warm amber, deal modeling
-  "Quant Core": "#4A7FB5", // steel blue, factor research
-  Systematic: "#B86A3A",   // muted red amber, vol regime
-  Advanced: "#5A7A9E",     // cool grey blue, portfolio
-  Elite: "#7C6DB0",        // muted violet, derivatives + research agent
-  Capstone: "#E07020",     // Bloomberg orange, capstone
-};
-
-const NAV = [
-  { id: "approach",        num: "01", label: "Approach" },
-  { id: "services",        num: "02", label: "Services" },
-  { id: "implementations", num: "03", label: "Implementations" },
-  { id: "work",            num: "04", label: "Systems" },
-  { id: "team",            num: "05", label: "Team" },
-  { id: "about",           num: "06", label: "About" },
-  { id: "contact",         num: "07", label: "Contact" },
-];
+/* ─────────────────────────────────────────────────────────────────
+   DATA
+   ───────────────────────────────────────────────────────────────── */
 
 const SERVICES = [
   {
-    num: "A",
-    name: "Claude Integration & Workflow Automation",
+    rank: "Primary offer",
+    name: "Deal Intelligence for PE, VC and Family Offices",
+    href: "/deal-intelligence",
     summary:
-      "We design and implement Claude-powered workflows for research, reporting, and internal operations.",
+      "AI investment research and deal intelligence for funds and family offices in Geneva and Romandie. Scoped per mandate, test covered, deployed as production tools.",
     bullets: [
-      "Agentic pipelines and orchestrators",
-      "Memo, briefing, and report generation",
+      "IC memo automation",
+      "Deal and target screening",
+      "Diligence synthesis",
+      "Portfolio monitoring",
+    ],
+    cta: "Deal intelligence offer",
+  },
+  {
+    rank: "Secondary offer",
+    name: "Financial Analytics and Internal Decision Tools",
+    href: "/sme-finance",
+    summary:
+      "Productized AI for finance teams and SME CFOs. Fixed scope, fixed fee, fixed timeline, from document intake to management reporting and internal knowledge assistants.",
+    bullets: [
+      "Management reporting automation",
+      "Document intake and extraction",
       "Internal knowledge assistants",
-      "Process automation across analyst tasks",
+      "Decision dashboards",
     ],
-  },
-  {
-    num: "B",
-    name: "AI Investment Research Systems",
-    summary:
-      "We build structured research agents, valuation tools, and memo-generation pipelines for investment workflows.",
-    bullets: [
-      "Deterministic recommendation engines",
-      "Memo synthesis with rating-lock invariants",
-      "Filing ingestion and entity extraction",
-      "Analyst copilots with auditable traces",
-    ],
-  },
-  {
-    num: "C",
-    name: "Financial Analytics & Decision Systems",
-    summary:
-      "We develop screening, factor, portfolio, and derivatives systems to support investment decisions.",
-    bullets: [
-      "Valuation, LBO, and DCF infrastructure",
-      "Portfolio construction and risk decomposition",
-      "Factor and regime models",
-      "Screening and target databases",
-    ],
-  },
-  {
-    num: "D",
-    name: "Custom Internal Tools & Dashboards",
-    summary:
-      "We build internal applications and terminal-style interfaces for teams requiring structured decision infrastructure.",
-    bullets: [
-      "Bloomberg-style research terminals",
-      "Streamlit and Next.js dashboards",
-      "Provider-routing and data layers",
-      "Test-covered, deployable systems",
-    ],
+    cta: "Productized SME offer",
   },
 ];
 
 const IMPLEMENTATIONS = [
   {
     code: "I1",
-    title: "Claude-powered Investment Research Assistant",
+    title: "Investment Memo Automation",
     body:
-      "Designed a structured research pipeline that generates investment memos combining valuation models, factor exposure, and risk analysis. Enables repeatable, auditable outputs instead of manual analyst work.",
+      "A deterministic recommendation aggregator that turns filings, financials, valuation, and risk into an IC ready memo. The rating is computed and locked before the model writes any prose, so the narrative can never override the decision.",
+    source: "Adapted from the AI Research Agent system.",
+    specs: [
+      ["Tests", "242"],
+      ["Pipeline", "6 engines, parallel"],
+      ["Composite", "BUY ≥ 65 / SELL ≤ 35"],
+    ],
   },
   {
     code: "I2",
-    title: "Automated Financial Analysis Workflows",
+    title: "Deal and Target Screening",
     body:
-      "Built AI-assisted pipelines that transform raw financial data into structured insights, reducing manual processing and improving consistency across analysis.",
+      "Percentile scoring blended with a simplified LBO IRR, debt capacity tiering, and red flag detection across a screening universe. Built to surface a short list with the reasoning attached, not a black box rank.",
+    source: "Adapted from the PE Target Screener system.",
+    specs: [
+      ["Tests", "28"],
+      ["Universe", "90 companies scored"],
+      ["Output", "Debt-capacity tiers, red flags"],
+    ],
   },
   {
     code: "I3",
-    title: "Internal AI Knowledge & Decision Systems",
+    title: "Portfolio and Market Intelligence",
     body:
-      "Implemented Claude-based systems to organize, query, and synthesize internal knowledge for faster decision-making.",
-  },
-];
-
-const TEAM = [
-  {
-    name: "Francois Rostaing",
-    role: "Founder & Lead AI Finance Systems Architect",
-    email: "francois@frostaing.com",
-    photo: "/team/francois-rostaing.webp",
-    bio: "Leads the firm's research, valuation, and Claude-powered systems work.",
-  },
-  {
-    name: "Alexandre Levy",
-    role: "AI Workflow Specialist",
-    email: "alexandre@frostaing.com",
-    photo: "/team/alexandre-levy.webp",
-    bio: "Designs and ships Claude-based automations for research and operational workflows.",
-  },
-  {
-    name: "Gizem Gul Dincer",
-    role: "Operations & Client Coordination",
-    email: "gizem@frostaing.com",
-    photo: "/team/gizem-gul-dincer.webp",
-    bio: "Coordinates client engagements and keeps internal delivery on schedule.",
-  },
-  {
-    name: "Pierre-Jean Remy Martin",
-    role: "Business Development & Implementation Support",
-    email: "pierrejean@frostaing.com",
-    photo: "/team/pierre-jean-remy-martin.webp",
-    bio: "Translates client use cases into implementable scopes and supports rollout.",
-  },
-  {
-    name: "Louis Rostaing",
-    role: "Product & Research Analyst",
-    email: "louis@frostaing.com",
-    photo: "/team/louis-rostaing.webp",
-    bio: "Supports product specification and applied research for analyst-facing tools.",
-  },
-  {
-    name: "Jacques Rostaing",
-    role: "Strategic Advisor",
-    email: "jacques@frostaing.com",
-    photo: "/team/jacques-rostaing.webp",
-    bio: "Advises on positioning, partnerships, and long-horizon strategy.",
-  },
-  {
-    name: "Karine Rostaing",
-    role: "Administrative & Operations Support",
-    email: "karine@frostaing.com",
-    photo: "/team/karine-rostaing.webp",
-    bio: "Supports administrative operations and back-office processes.",
-  },
-  {
-    name: "Thomas Vittory",
-    role: "Data & Automation Analyst",
-    email: "thomas@frostaing.com",
-    photo: "/team/thomas-vittory.webp",
-    bio: "Supports development of automation workflows and data processing pipelines.",
-  },
-  {
-    name: "Emma Vernizeau",
-    role: "Client Experience & Documentation Support",
-    email: "emma@frostaing.com",
-    photo: "/team/emma-vernizeau.webp",
-    bio: "Maintains client-facing documentation and communication for engagements.",
-  },
-  {
-    name: "Florine Reau",
-    role: "Research & Process Documentation Analyst",
-    email: "florine@frostaing.com",
-    photo: "/team/florine-reau.webp",
-    bio: "Writes internal research notes and maintains process documentation.",
+      "The full engine stack integrated into a Bloomberg style research terminal with institutional workspaces for live market, research, comps, and portfolio work. The capstone that the prior systems compose into.",
+    source: "Adapted from the Unified Research Terminal system.",
+    specs: [
+      ["Tests", "506"],
+      ["Workspaces", "6 institutional"],
+      ["Coverage", "Market, Research, Comps, Portfolio"],
+    ],
   },
 ];
 
@@ -265,180 +174,6 @@ const totalTests = ALL_PROJECTS.reduce((s, p) => {
 const liveCount = ALL_PROJECTS.filter((p) => p.status === "live").length;
 
 /* ─────────────────────────────────────────────────────────────────
-   PRIMITIVES
-   ───────────────────────────────────────────────────────────────── */
-
-function StatusTag({ status }) {
-  const cfg =
-    status === "live"
-      ? { color: T.success, label: "LIVE" }
-      : status === "planned"
-      ? { color: T.text3, label: "PLANNED" }
-      : { color: T.accent, label: "BUILDING" };
-  return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 8,
-        fontFamily: T.fMono,
-        fontSize: "0.62rem",
-        fontWeight: 600,
-        letterSpacing: "0.18em",
-        color: cfg.color,
-      }}
-    >
-      <span style={{ width: 6, height: 6, background: cfg.color }} />
-      {cfg.label}
-    </span>
-  );
-}
-
-function SectionHead({ num, label, right, weight = "default" }) {
-  const compact = weight === "compact";
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "baseline",
-        justifyContent: "space-between",
-        paddingBottom: compact ? "0.7rem" : "1.1rem",
-        borderBottom: compact
-          ? `1px solid ${T.borderSubtle}`
-          : `1px solid ${T.borderStrong}`,
-        marginBottom: compact ? "2.25rem" : "3.5rem",
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "baseline", gap: "1.25rem" }}>
-        <span
-          style={{
-            fontFamily: T.fMono,
-            fontSize: compact ? "0.62rem" : "0.72rem",
-            fontWeight: 600,
-            color: compact ? T.text3 : T.accent,
-            letterSpacing: "0.14em",
-          }}
-        >
-          {num}
-        </span>
-        <span
-          style={{
-            fontFamily: T.fSans,
-            fontSize: compact ? "0.7rem" : "0.82rem",
-            fontWeight: 600,
-            color: compact ? T.text2 : T.text,
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-          }}
-        >
-          {label}
-        </span>
-      </div>
-      {right && (
-        <span
-          style={{
-            fontFamily: T.fMono,
-            fontSize: compact ? "0.58rem" : "0.66rem",
-            fontWeight: 500,
-            color: T.text3,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-          }}
-        >
-          {right}
-        </span>
-      )}
-    </div>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   NAV
-   ───────────────────────────────────────────────────────────────── */
-function Nav() {
-  return (
-    <nav
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        background: "rgba(10, 10, 15, 0.86)",
-        backdropFilter: "blur(10px)",
-        WebkitBackdropFilter: "blur(10px)",
-        borderBottom: `1px solid ${T.border}`,
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          padding: "0.85rem 2rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <a
-          href="#top"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.65rem",
-            color: T.text,
-            fontFamily: T.fSans,
-            fontSize: "0.82rem",
-            fontWeight: 600,
-            letterSpacing: "-0.005em",
-          }}
-        >
-          <span style={{ width: 6, height: 6, background: T.accent }} />
-          Frostaing AI
-        </a>
-
-        <div className="nav-links" style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-          {NAV.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              style={{
-                fontFamily: T.fMono,
-                fontSize: "0.62rem",
-                fontWeight: 500,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: T.text2,
-                display: "inline-flex",
-                gap: "0.55rem",
-              }}
-            >
-              <span style={{ color: T.text3 }}>{item.num}</span>
-              {item.label}
-            </a>
-          ))}
-          <a
-            href="/CV-francois-rostaing.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              fontFamily: T.fMono,
-              fontSize: "0.62rem",
-              fontWeight: 500,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: T.text2,
-            }}
-          >
-            CV
-          </a>
-        </div>
-      </div>
-    </nav>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────
    HERO
    ───────────────────────────────────────────────────────────────── */
 function Hero() {
@@ -456,7 +191,6 @@ function Hero() {
         overflow: "hidden",
       }}
     >
-      {/* Faint dashboard texture -- barely visible at 0.04 opacity */}
       <div
         aria-hidden
         className="hero-bg"
@@ -470,7 +204,6 @@ function Hero() {
           opacity: 0.30,
         }}
       />
-      {/* Gradient overlay: fade to bg at top and bottom edges */}
       <div
         aria-hidden
         style={{
@@ -492,7 +225,6 @@ function Hero() {
           justifyContent: "center",
         }}
       >
-        {/* Top meta line */}
         <div
           style={{
             display: "flex",
@@ -512,11 +244,10 @@ function Hero() {
               fontWeight: 600,
             }}
           >
-            Frostaing AI | Geneva | Established 2026
+            Frostaing AI | Geneva and Romandie | Established 2026
           </span>
         </div>
 
-        {/* Main headline: firm-level capability */}
         <h1
           style={{
             fontFamily: T.fSans,
@@ -529,10 +260,10 @@ function Hero() {
             maxWidth: 1080,
           }}
         >
-          Claude-powered research, automation, and decision infrastructure.
+          AI investment research and deal intelligence for private equity,
+          venture capital, and family offices.
         </h1>
 
-        {/* Positioning lines */}
         <p
           style={{
             fontFamily: T.fSans,
@@ -540,12 +271,13 @@ function Hero() {
             color: T.text2,
             lineHeight: 1.55,
             margin: "2.25rem 0 0",
-            maxWidth: 780,
+            maxWidth: 820,
           }}
         >
-          Frostaing AI is a Geneva-based AI and finance systems firm building
-          Claude-powered research, automation, and decision infrastructure
-          for investment and business workflows.
+          Frostaing AI builds AI investment research and deal intelligence
+          systems for funds and family offices in Geneva and Romandie. IC memo
+          automation, deal screening, diligence synthesis, and portfolio
+          monitoring, delivered as production-grade, auditable tools.
         </p>
         <p
           style={{
@@ -554,15 +286,50 @@ function Hero() {
             color: T.text2,
             lineHeight: 1.6,
             margin: "1rem 0 0",
-            maxWidth: 720,
+            maxWidth: 760,
           }}
         >
-          We design and deploy production-grade AI systems that replace
-          manual analysis with structured, auditable workflows.
+          For finance teams and SME CFOs, we deliver productized financial
+          analytics and internal decision tools on a fixed scope and fixed fee.
         </p>
+
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "2rem",
+            marginTop: "2.5rem",
+          }}
+        >
+          {[
+            ["Deal intelligence for PE, VC and family offices", "/deal-intelligence"],
+            ["Productized AI for SME finance teams", "/sme-finance"],
+          ].map(([label, href]) => (
+            <Link
+              key={href}
+              href={href}
+              className="case-link"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.65rem",
+                fontFamily: T.fMono,
+                fontSize: "0.68rem",
+                fontWeight: 600,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: T.accent,
+                paddingBottom: "0.4rem",
+                borderBottom: `1px solid ${T.accent}`,
+              }}
+            >
+              {label}
+              <span aria-hidden>{"→"}</span>
+            </Link>
+          ))}
+        </div>
       </div>
 
-      {/* Bottom data strip -- quieter than the headline */}
       <div
         style={{
           position: "relative",
@@ -577,7 +344,7 @@ function Hero() {
         {[
           ["Systems Live", `${liveCount} / 11`],
           ["Tests Passing", totalTests.toLocaleString()],
-          ["Practice", "Geneva, CH"],
+          ["Practice", "Geneva and Romandie"],
           ["Stack", "Python, Next.js, Claude"],
         ].map(([label, value], i) => (
           <div
@@ -619,7 +386,7 @@ function Hero() {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   SERVICES
+   APPROACH
    ───────────────────────────────────────────────────────────────── */
 function Approach() {
   return (
@@ -660,8 +427,9 @@ function Approach() {
                 margin: "0 0 1.25rem",
               }}
             >
-              We focus on replacing manual, fragmented analysis with
-              structured, repeatable systems.
+              Investment research and reporting are still largely manual,
+              fragmented, and hard to audit. We replace that work with
+              structured systems that produce the same output every time.
             </p>
             <p
               style={{
@@ -673,8 +441,9 @@ function Approach() {
               }}
             >
               By combining finance, software engineering, and Claude-based AI,
-              we build tools that produce consistent, auditable outputs
-              instead of one-off work.
+              we build tools that produce consistent, auditable outputs instead
+              of one-off work. Every system ships with full test coverage and a
+              Codex-audited review.
             </p>
           </div>
         </div>
@@ -683,13 +452,15 @@ function Approach() {
   );
 }
 
+/* ─────────────────────────────────────────────────────────────────
+   SERVICES
+   ───────────────────────────────────────────────────────────────── */
 function Services() {
   return (
     <section id="services" style={{ padding: "8.5rem 2rem 5.5rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="02" label="Services" right="4 offerings" />
+        <SectionHead num="02" label="Services" right="2 offers" />
 
-        {/* Lead statement */}
         <div
           style={{
             display: "grid",
@@ -711,7 +482,7 @@ function Services() {
               maxWidth: 360,
             }}
           >
-            What we build for clients.
+            One wedge, one supporting offer.
           </h2>
           <p
             style={{
@@ -723,13 +494,13 @@ function Services() {
               maxWidth: 620,
             }}
           >
-            We help investment and operating teams move from manual work to
-            structured, auditable systems. Engagements are scoped tightly,
-            implemented to test coverage, and deployed as production tools.
+            The hero offer is deal intelligence for PE, VC, and family offices.
+            The supporting offer is productized financial analytics for finance
+            teams and SME CFOs. Both are scoped tightly, implemented to test
+            coverage, and deployed as production tools.
           </p>
         </div>
 
-        {/* 4 offerings as a 2x2 grid */}
         <div
           style={{
             display: "grid",
@@ -738,114 +509,282 @@ function Services() {
             background: T.bg,
           }}
         >
-          {SERVICES.map((s, i) => {
-            const isRight = i % 2 === 1;
-            const isBottom = i >= SERVICES.length - 2;
-            return (
-              <div
-                key={s.num}
-                className="service-cell"
+          {SERVICES.map((s, i) => (
+            <Link
+              key={s.href}
+              href={s.href}
+              className="service-cell"
+              style={{
+                padding: "2.5rem 2.25rem",
+                borderRight: i === 0 ? `1px solid ${T.borderSubtle}` : "none",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.1rem",
+                color: T.text,
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
+                <span
+                  aria-hidden
+                  style={{ width: 7, height: 7, background: T.accent, display: "inline-block" }}
+                />
+                <span
+                  style={{
+                    fontFamily: T.fMono,
+                    fontSize: "0.62rem",
+                    fontWeight: 600,
+                    color: T.accent,
+                    letterSpacing: "0.22em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {s.rank}
+                </span>
+              </div>
+              <h3
                 style={{
-                  padding: "2.25rem 2rem",
-                  borderRight: isRight ? "none" : `1px solid ${T.borderSubtle}`,
-                  borderBottom: isBottom ? "none" : `1px solid ${T.borderSubtle}`,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1rem",
+                  fontFamily: T.fSans,
+                  fontSize: "1.32rem",
+                  fontWeight: 600,
+                  letterSpacing: "-0.018em",
+                  color: T.text,
+                  margin: 0,
+                  lineHeight: 1.25,
                 }}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.85rem",
-                  }}
-                >
-                  <span
-                    aria-hidden
-                    style={{
-                      width: 7,
-                      height: 7,
-                      background: T.accent,
-                      display: "inline-block",
-                    }}
-                  />
-                  <span
+                {s.name}
+              </h3>
+              <p
+                style={{
+                  fontFamily: T.fSans,
+                  fontSize: "0.92rem",
+                  color: T.text2,
+                  lineHeight: 1.7,
+                  margin: 0,
+                }}
+              >
+                {s.summary}
+              </p>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0.4rem 0 0" }}>
+                {s.bullets.map((b) => (
+                  <li
+                    key={b}
                     style={{
                       fontFamily: T.fMono,
-                      fontSize: "0.62rem",
-                      fontWeight: 600,
-                      color: T.accent,
-                      letterSpacing: "0.22em",
-                      textTransform: "uppercase",
+                      fontSize: "0.72rem",
+                      color: T.text2,
+                      letterSpacing: "0.04em",
+                      padding: "0.45rem 0",
+                      borderTop: `1px solid ${T.borderSubtle}`,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.65rem",
                     }}
                   >
-                    Offering {s.num}
-                  </span>
-                </div>
-                <h3
-                  style={{
-                    fontFamily: T.fSans,
-                    fontSize: "1.18rem",
-                    fontWeight: 600,
-                    letterSpacing: "-0.018em",
-                    color: T.text,
-                    margin: 0,
-                    lineHeight: 1.25,
-                  }}
-                >
-                  {s.name}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: T.fSans,
-                    fontSize: "0.92rem",
-                    color: T.text2,
-                    lineHeight: 1.7,
-                    margin: 0,
-                  }}
-                >
-                  {s.summary}
-                </p>
-                <ul
-                  style={{
-                    listStyle: "none",
-                    padding: 0,
-                    margin: "0.4rem 0 0",
-                  }}
-                >
-                  {s.bullets.map((b) => (
-                    <li
-                      key={b}
+                    <span
+                      aria-hidden
+                      style={{
+                        width: 4,
+                        height: 4,
+                        background: T.text3,
+                        display: "inline-block",
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+              <span
+                aria-hidden
+                style={{
+                  marginTop: "auto",
+                  paddingTop: "1.1rem",
+                  fontFamily: T.fMono,
+                  fontSize: "0.64rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: T.accent,
+                }}
+              >
+                {s.cta} {"→"}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   REFERENCE IMPLEMENTATIONS
+   ───────────────────────────────────────────────────────────────── */
+function Implementations() {
+  return (
+    <section id="implementations" style={{ padding: "8.5rem 2rem 5.5rem" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <SectionHead
+          num="03"
+          label="Reference Implementations"
+          right={`${IMPLEMENTATIONS.length} examples`}
+        />
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 4fr) minmax(0, 8fr)",
+            gap: "3rem",
+            marginBottom: "3rem",
+            alignItems: "start",
+          }}
+        >
+          <h3
+            style={{
+              fontFamily: T.fSans,
+              fontSize: "clamp(1.2rem, 2vw, 1.55rem)",
+              fontWeight: 600,
+              color: T.text,
+              letterSpacing: "-0.018em",
+              lineHeight: 1.15,
+              margin: 0,
+              maxWidth: 360,
+            }}
+          >
+            Reference implementations built to demonstrate capability.
+          </h3>
+          <p
+            style={{
+              fontFamily: T.fSans,
+              fontSize: "0.95rem",
+              color: T.text2,
+              lineHeight: 1.7,
+              margin: 0,
+              maxWidth: 620,
+            }}
+          >
+            These are not client engagements. They are reference systems built
+            to demonstrate capability, and they are available as starting
+            points for client engagements. Each maps to a shipped, test-covered
+            system you can open and inspect.
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gap: "1rem",
+          }}
+        >
+          {IMPLEMENTATIONS.map((impl) => (
+            <article
+              key={impl.code}
+              style={{
+                border: `1px solid ${T.borderSubtle}`,
+                background: T.bg,
+                padding: "1.75rem 1.6rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: T.fMono,
+                  fontSize: "0.62rem",
+                  color: T.accent,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  fontWeight: 600,
+                }}
+              >
+                {impl.code}
+              </span>
+              <h4
+                style={{
+                  fontFamily: T.fSans,
+                  fontSize: "1.12rem",
+                  color: T.text,
+                  fontWeight: 600,
+                  letterSpacing: "-0.012em",
+                  lineHeight: 1.3,
+                  margin: 0,
+                }}
+              >
+                {impl.title}
+              </h4>
+              <p
+                style={{
+                  fontFamily: T.fSans,
+                  fontSize: "0.9rem",
+                  color: T.text2,
+                  lineHeight: 1.65,
+                  margin: 0,
+                }}
+              >
+                {impl.body}
+              </p>
+              <dl
+                style={{
+                  margin: "0.25rem 0 0",
+                  borderTop: `1px solid ${T.borderSubtle}`,
+                }}
+              >
+                {impl.specs.map(([k, v]) => (
+                  <div
+                    key={k}
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "minmax(0, 1fr) auto",
+                      padding: "0.6rem 0",
+                      borderBottom: `1px solid ${T.borderSubtle}`,
+                      gap: "1rem",
+                      alignItems: "baseline",
+                    }}
+                  >
+                    <dt
                       style={{
                         fontFamily: T.fMono,
-                        fontSize: "0.72rem",
-                        color: T.text2,
-                        letterSpacing: "0.04em",
-                        padding: "0.4rem 0",
-                        borderTop: `1px solid ${T.borderSubtle}`,
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "0.65rem",
+                        fontSize: "0.58rem",
+                        color: T.text3,
+                        letterSpacing: "0.16em",
+                        textTransform: "uppercase",
+                        fontWeight: 500,
                       }}
                     >
-                      <span
-                        aria-hidden
-                        style={{
-                          width: 4,
-                          height: 4,
-                          background: T.text3,
-                          display: "inline-block",
-                          flexShrink: 0,
-                        }}
-                      />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
+                      {k}
+                    </dt>
+                    <dd
+                      style={{
+                        margin: 0,
+                        fontFamily: T.fMono,
+                        fontSize: "0.72rem",
+                        color: T.text,
+                        fontWeight: 500,
+                        textAlign: "right",
+                        fontVariantNumeric: "tabular-nums",
+                      }}
+                    >
+                      {v}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <span
+                style={{
+                  marginTop: "auto",
+                  fontFamily: T.fMono,
+                  fontSize: "0.62rem",
+                  color: T.text3,
+                  letterSpacing: "0.04em",
+                }}
+              >
+                {impl.source}
+              </span>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -867,7 +806,6 @@ function CaseStudy({ cs, isLast, density }) {
         gap: "4rem",
       }}
     >
-      {/* Left column: prose */}
       <div>
         <div
           style={{
@@ -879,12 +817,7 @@ function CaseStudy({ cs, isLast, density }) {
         >
           <span
             aria-hidden
-            style={{
-              width: 7,
-              height: 7,
-              background: tierColor,
-              display: "inline-block",
-            }}
+            style={{ width: 7, height: 7, background: tierColor, display: "inline-block" }}
           />
           <span
             style={{
@@ -916,7 +849,6 @@ function CaseStudy({ cs, isLast, density }) {
           {cs.name}
         </h2>
 
-        {/* Strong takeaway: the one-liner that frames the work */}
         <p
           style={{
             fontFamily: T.fSans,
@@ -932,7 +864,6 @@ function CaseStudy({ cs, isLast, density }) {
           {cs.takeaway}
         </p>
 
-        {/* Short supporting paragraph */}
         <p
           style={{
             fontFamily: T.fSans,
@@ -975,7 +906,7 @@ function CaseStudy({ cs, isLast, density }) {
               }}
             >
               Live App
-              <span aria-hidden>→</span>
+              <span aria-hidden>{"→"}</span>
             </a>
           )}
           <a
@@ -998,12 +929,11 @@ function CaseStudy({ cs, isLast, density }) {
             }}
           >
             View Repository
-            <span aria-hidden>→</span>
+            <span aria-hidden>{"→"}</span>
           </a>
         </div>
       </div>
 
-      {/* Right column: compact specification */}
       <div>
         <div
           style={{
@@ -1065,12 +995,7 @@ function CaseStudy({ cs, isLast, density }) {
 
 function SelectedWork() {
   return (
-    <section
-      id="work"
-      style={{
-        padding: "8.5rem 2rem 5.5rem",
-      }}
-    >
+    <section id="work" style={{ padding: "8.5rem 2rem 5.5rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <SectionHead num="04" label="Core Systems & Technical Foundation" right="3 of 11 featured" />
 
@@ -1149,7 +1074,6 @@ function Systems() {
           weight="compact"
         />
 
-        {/* Intro: short statement, tier index. Tighter than other sections. */}
         <div
           style={{
             display: "grid",
@@ -1181,26 +1105,21 @@ function Systems() {
               ["Advanced", "Strategy validation and portfolio construction."],
               ["Elite", "Derivatives and autonomous research synthesis."],
               ["Capstone", "Unified terminal integrating the full stack."],
-            ].map(([k, v], i) => (
+            ].map(([k, v]) => (
               <div
                 key={k}
                 style={{
                   display: "grid",
                   gridTemplateColumns: "18px 140px 1fr",
                   padding: "0.6rem 0",
-                  borderTop: i === 0 ? `1px solid ${T.borderSubtle}` : `1px solid ${T.borderSubtle}`,
+                  borderTop: `1px solid ${T.borderSubtle}`,
                   gap: "0.85rem",
                   alignItems: "center",
                 }}
               >
                 <span
                   aria-hidden
-                  style={{
-                    width: 6,
-                    height: 6,
-                    background: TIER[k],
-                    display: "inline-block",
-                  }}
+                  style={{ width: 6, height: 6, background: TIER[k], display: "inline-block" }}
                 />
                 <span
                   style={{
@@ -1229,19 +1148,13 @@ function Systems() {
           </div>
         </div>
 
-        {/* Full project index table. Quieter than the case studies. */}
-        <div
-          style={{
-            border: `1px solid ${T.borderSubtle}`,
-            background: T.bg,
-          }}
-        >
-          {/* Header row */}
+        <div style={{ border: `1px solid ${T.borderSubtle}`, background: T.bg }}>
           <div
             className="systems-table-header"
             style={{
               display: "grid",
-              gridTemplateColumns: "50px minmax(0, 3fr) minmax(0, 1.4fr) 70px minmax(0, 2.2fr) 100px",
+              gridTemplateColumns:
+                "50px minmax(0, 3fr) minmax(0, 1.4fr) 70px minmax(0, 2.2fr) 100px",
               padding: "0.7rem 1.1rem",
               borderBottom: `1px solid ${T.borderSubtle}`,
               fontFamily: T.fMono,
@@ -1260,7 +1173,6 @@ function Systems() {
             <span style={{ textAlign: "right" }}>Status</span>
           </div>
 
-          {/* Rows */}
           {ALL_PROJECTS.map((p, i) => {
             const tierColor = TIER[p.tier] || T.text2;
             return (
@@ -1272,9 +1184,11 @@ function Systems() {
                 className="systems-row"
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "50px minmax(0, 3fr) minmax(0, 1.4fr) 70px minmax(0, 2.2fr) 100px",
+                  gridTemplateColumns:
+                    "50px minmax(0, 3fr) minmax(0, 1.4fr) 70px minmax(0, 2.2fr) 100px",
                   padding: "0.72rem 1.1rem",
-                  borderBottom: i === ALL_PROJECTS.length - 1 ? "none" : `1px solid ${T.borderSubtle}`,
+                  borderBottom:
+                    i === ALL_PROJECTS.length - 1 ? "none" : `1px solid ${T.borderSubtle}`,
                   fontFamily: T.fMono,
                   fontSize: "0.72rem",
                   color: T.text2,
@@ -1336,7 +1250,6 @@ function Systems() {
           })}
         </div>
 
-        {/* Footnote */}
         <div
           style={{
             marginTop: "1.1rem",
@@ -1358,285 +1271,13 @@ function Systems() {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   APPLIED IMPLEMENTATIONS
-   ───────────────────────────────────────────────────────────────── */
-function Implementations() {
-  return (
-    <section id="implementations" style={{ padding: "8.5rem 2rem 5.5rem" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="03" label="Applied Implementations" right={`${IMPLEMENTATIONS.length} examples`} />
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "minmax(0, 4fr) minmax(0, 8fr)",
-            gap: "3rem",
-            alignItems: "start",
-          }}
-        >
-          <h3
-            style={{
-              fontFamily: T.fSans,
-              fontSize: "clamp(1.2rem, 2vw, 1.55rem)",
-              fontWeight: 600,
-              color: T.text,
-              letterSpacing: "-0.018em",
-              lineHeight: 1.15,
-              margin: 0,
-              maxWidth: 360,
-            }}
-          >
-            Systems built and deployable for real-world workflows.
-          </h3>
-
-          <div
-            style={{
-              border: `1px solid ${T.borderSubtle}`,
-              background: T.bg,
-            }}
-          >
-            {IMPLEMENTATIONS.map((impl, i) => (
-              <div
-                key={impl.code}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "60px minmax(0, 1fr)",
-                  padding: "1.6rem 1.5rem",
-                  borderBottom:
-                    i === IMPLEMENTATIONS.length - 1
-                      ? "none"
-                      : `1px solid ${T.borderSubtle}`,
-                  alignItems: "start",
-                  gap: "1rem",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: T.fMono,
-                    fontSize: "0.62rem",
-                    color: T.accent,
-                    letterSpacing: "0.18em",
-                    textTransform: "uppercase",
-                    fontWeight: 600,
-                    paddingTop: "0.25rem",
-                  }}
-                >
-                  {impl.code}
-                </span>
-                <div>
-                  <h4
-                    style={{
-                      fontFamily: T.fSans,
-                      fontSize: "1.05rem",
-                      color: T.text,
-                      fontWeight: 600,
-                      letterSpacing: "-0.012em",
-                      lineHeight: 1.3,
-                      margin: 0,
-                    }}
-                  >
-                    {impl.title}
-                  </h4>
-                  <p
-                    style={{
-                      fontFamily: T.fSans,
-                      fontSize: "0.92rem",
-                      color: T.text2,
-                      lineHeight: 1.7,
-                      margin: "0.55rem 0 0",
-                      maxWidth: 760,
-                    }}
-                  >
-                    {impl.body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   TEAM
-   ───────────────────────────────────────────────────────────────── */
-function TeamMemberCard({ m }) {
-  return (
-    <article
-      style={{
-        border: `1px solid ${T.borderSubtle}`,
-        background: T.bg,
-        padding: "1.5rem",
-        display: "flex",
-        flexDirection: "column",
-        gap: "1rem",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "1rem",
-        }}
-      >
-        <img
-          src={m.photo}
-          alt={m.name}
-          width={72}
-          height={72}
-          loading="lazy"
-          style={{
-            width: 72,
-            height: 72,
-            objectFit: "cover",
-            border: `1px solid ${T.border}`,
-            background: T.elevated,
-            flexShrink: 0,
-          }}
-        />
-        <div style={{ minWidth: 0 }}>
-          <div
-            style={{
-              fontFamily: T.fSans,
-              fontSize: "1rem",
-              fontWeight: 600,
-              color: T.text,
-              letterSpacing: "-0.012em",
-              lineHeight: 1.2,
-            }}
-          >
-            {m.name}
-          </div>
-          <div
-            style={{
-              fontFamily: T.fMono,
-              fontSize: "0.6rem",
-              fontWeight: 600,
-              color: T.accent,
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              marginTop: "0.4rem",
-              lineHeight: 1.4,
-            }}
-          >
-            {m.role}
-          </div>
-        </div>
-      </div>
-
-      <p
-        style={{
-          fontFamily: T.fSans,
-          fontSize: "0.86rem",
-          color: T.text2,
-          lineHeight: 1.6,
-          margin: 0,
-        }}
-      >
-        {m.bio}
-      </p>
-
-      <a
-        href={`mailto:${m.email}`}
-        className="team-email"
-        style={{
-          fontFamily: T.fMono,
-          fontSize: "0.68rem",
-          color: T.text2,
-          letterSpacing: "0.04em",
-          paddingTop: "0.85rem",
-          borderTop: `1px solid ${T.borderSubtle}`,
-          display: "inline-block",
-          marginTop: "auto",
-          wordBreak: "break-all",
-        }}
-      >
-        {m.email}
-      </a>
-    </article>
-  );
-}
-
-function Team() {
-  return (
-    <section
-      id="team"
-      style={{
-        padding: "8.5rem 2rem 5.5rem",
-        background: T.surface,
-        borderTop: `1px solid ${T.borderStrong}`,
-        borderBottom: `1px solid ${T.borderStrong}`,
-      }}
-    >
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="05" label="Practice Team" right={`${TEAM.length} members`} />
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "minmax(0, 4fr) minmax(0, 8fr)",
-            gap: "3rem",
-            marginBottom: "3rem",
-            alignItems: "start",
-          }}
-        >
-          <h3
-            style={{
-              fontFamily: T.fSans,
-              fontSize: "clamp(1.2rem, 2vw, 1.55rem)",
-              fontWeight: 600,
-              color: T.text,
-              letterSpacing: "-0.018em",
-              lineHeight: 1.15,
-              margin: 0,
-              maxWidth: 360,
-            }}
-          >
-            A focused team trained on Claude, finance, and AI implementation.
-          </h3>
-          <p
-            style={{
-              fontFamily: T.fSans,
-              fontSize: "0.95rem",
-              color: T.text2,
-              lineHeight: 1.7,
-              margin: 0,
-              maxWidth: 620,
-            }}
-          >
-            Frostaing AI operates with a focused practice team trained on
-            Claude-powered workflows, finance systems, and AI implementation.
-            The team supports delivery, research, and operational execution.
-          </p>
-        </div>
-
-        <div
-          className="team-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-            gap: "1rem",
-          }}
-        >
-          {TEAM.map((m) => (
-            <TeamMemberCard key={m.email} m={m} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────
    ABOUT
    ───────────────────────────────────────────────────────────────── */
 function About() {
   return (
     <section id="about" style={{ padding: "9rem 2rem 6.5rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="06" label="About" />
+        <SectionHead num="05" label="About" />
 
         <div
           style={{
@@ -1646,7 +1287,6 @@ function About() {
             alignItems: "start",
           }}
         >
-          {/* Left: prose. Capability first, credentials secondary. */}
           <div>
             <h2
               style={{
@@ -1669,6 +1309,7 @@ function About() {
                 alignItems: "center",
                 gap: "0.75rem",
                 marginTop: "1rem",
+                flexWrap: "wrap",
               }}
             >
               <span style={{ width: 18, height: 1, background: T.accent }} />
@@ -1682,7 +1323,7 @@ function About() {
                   fontWeight: 500,
                 }}
               >
-                Frostaing AI | Founded by Francois Rostaing
+                Frostaing AI | Geneva and Romandie
               </span>
             </div>
 
@@ -1697,11 +1338,9 @@ function About() {
                 }}
               >
                 Frostaing AI is a Geneva-based AI and finance systems firm
-                building practical Claude-powered workflows, analytics
-                engines, and internal decision tools. The firm combines
-                finance, automation, software engineering, and AI
-                implementation to help teams move from manual analysis to
-                structured, auditable systems.
+                building AI investment research and deal intelligence for
+                private equity, venture capital, and family offices, with a
+                supporting productized offer for finance teams and SME CFOs.
               </p>
               <p
                 style={{
@@ -1712,10 +1351,19 @@ function About() {
                   margin: "0 0 1.25rem",
                 }}
               >
-                Our work is anchored in three signals: real financial
-                understanding, strong data engineering, and decision tools
-                investors and operators actually use. Every system ships with
-                full test coverage and a Codex-audited review.
+                Founded and operated by Francois Rostaing, supported by a
+                network of specialist collaborators.
+              </p>
+              <p
+                style={{
+                  fontFamily: T.fSans,
+                  fontSize: "1rem",
+                  color: T.text2,
+                  lineHeight: 1.75,
+                  margin: "0 0 1.25rem",
+                }}
+              >
+                Member of the Claude Partner Network (Anthropic).
               </p>
               <p
                 style={{
@@ -1726,15 +1374,38 @@ function About() {
                   margin: 0,
                 }}
               >
-                We focus on practical implementation, not theory. The eleven
-                shipped systems are the firm's technical foundation; client
-                engagements extend that stack into Claude-powered research,
-                automation, and decision-support infrastructure.
+                The work is anchored in three signals: real financial
+                understanding, strong data engineering, and decision tools
+                investors and operators actually use. The eleven shipped
+                systems are the firm's technical foundation; client engagements
+                extend that stack into production research, automation, and
+                decision-support infrastructure.
               </p>
+
+              <a
+                href="/CV-francois-rostaing.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="case-link"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.55rem",
+                  marginTop: "1.75rem",
+                  fontFamily: T.fMono,
+                  fontSize: "0.64rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: T.text3,
+                }}
+              >
+                Founder CV (PDF)
+                <span aria-hidden>{"→"}</span>
+              </a>
             </div>
           </div>
 
-          {/* Right: facts table */}
           <div>
             <div
               style={{
@@ -1753,13 +1424,14 @@ function About() {
             </div>
             {[
               ["Practice", "Frostaing AI"],
-              ["Location", "Geneva, Switzerland"],
+              ["Location", "Geneva and Romandie, CH"],
               ["Founded", "2026"],
               ["Founder", "Francois Rostaing"],
-              ["Focus", "Claude-powered finance and AI systems"],
+              ["Hero offer", "PE, VC, family office deal intelligence"],
+              ["Supporting", "Productized SME finance analytics"],
+              ["Network", "Claude Partner Network (Anthropic)"],
               ["Languages", "Python, JavaScript, SQL"],
               ["Frameworks", "Next.js, Streamlit, Plotly"],
-              ["Data", "DuckDB, SQLite, FMP, FRED, SEC EDGAR"],
               ["AI", "Claude API, deterministic orchestration"],
               ["Systems Live", `${liveCount} / 11`],
               ["Total Tests", totalTests.toLocaleString()],
@@ -1768,9 +1440,10 @@ function About() {
                 key={k}
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "130px 1fr",
+                  gridTemplateColumns: "140px 1fr",
                   padding: "0.85rem 0",
-                  borderBottom: i === arr.length - 1 ? "none" : `1px solid ${T.borderSubtle}`,
+                  borderBottom:
+                    i === arr.length - 1 ? "none" : `1px solid ${T.borderSubtle}`,
                   gap: "1rem",
                 }}
               >
@@ -1812,15 +1485,14 @@ function Contact() {
   const links = [
     {
       label: "Email",
-      url: "mailto:francois@frostaing.com",
-      display: "francois@frostaing.com",
+      url: `mailto:${CONTACT_EMAIL}`,
+      display: CONTACT_EMAIL,
       external: false,
-      mono: true,
     },
     {
-      label: "Location",
-      url: "https://maps.google.com/?q=Geneva,+Switzerland",
-      display: "Geneva, Switzerland",
+      label: "LinkedIn",
+      url: "https://www.linkedin.com/in/francois-rostaing-155371341/",
+      display: "linkedin.com/in/francois-rostaing",
       external: true,
     },
     {
@@ -1830,9 +1502,9 @@ function Contact() {
       external: true,
     },
     {
-      label: "LinkedIn",
-      url: "https://www.linkedin.com/in/francois-rostaing-155371341/",
-      display: "linkedin.com/in/francois-rostaing",
+      label: "Location",
+      url: "https://maps.google.com/?q=Geneva,+Switzerland",
+      display: "Geneva, Switzerland",
       external: true,
     },
   ];
@@ -1840,13 +1512,10 @@ function Contact() {
   return (
     <section
       id="contact"
-      style={{
-        padding: "7.5rem 2rem 5rem",
-        borderTop: `1px solid ${T.border}`,
-      }}
+      style={{ padding: "7.5rem 2rem 5rem", borderTop: `1px solid ${T.border}` }}
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="07" label="Contact" weight="compact" />
+        <SectionHead num="06" label="Contact" weight="compact" />
 
         <div
           style={{
@@ -1868,7 +1537,7 @@ function Contact() {
                 margin: 0,
               }}
             >
-              Work with us.
+              Book a call.
             </h2>
             <p
               style={{
@@ -1876,17 +1545,31 @@ function Contact() {
                 fontSize: "0.95rem",
                 color: T.text2,
                 lineHeight: 1.7,
-                margin: "1.5rem 0 0",
+                margin: "1.5rem 0 2.25rem",
                 maxWidth: 380,
               }}
             >
-              We engage with investment and operating teams on Claude-powered
-              workflows, AI research systems, financial analytics, and
-              internal decision tools. Reach out to scope a project.
+              We work with PE, VC, and family office teams on deal intelligence,
+              and with finance teams on productized analytics. A short scoping
+              call is the fastest way to see if there is a fit.
             </p>
+            <PrimaryButton href={BOOKING_PE}>Book a call</PrimaryButton>
           </div>
 
           <div>
+            <div
+              style={{
+                fontFamily: T.fMono,
+                fontSize: "0.58rem",
+                color: T.text3,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                fontWeight: 600,
+                marginBottom: "0.5rem",
+              }}
+            >
+              Or reach us directly
+            </div>
             {links.map((link, i) => (
               <a
                 key={link.label}
@@ -1896,20 +1579,20 @@ function Contact() {
                 className="contact-row"
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "120px 1fr auto",
-                  padding: "1.4rem 0",
+                  gridTemplateColumns: "110px 1fr auto",
+                  padding: "1.05rem 0",
                   borderTop: i === 0 ? `1px solid ${T.border}` : "none",
                   borderBottom: `1px solid ${T.border}`,
                   alignItems: "center",
                   gap: "1.25rem",
-                  color: T.text,
+                  color: T.text2,
                 }}
               >
                 <span
                   className="contact-label"
                   style={{
                     fontFamily: T.fMono,
-                    fontSize: "0.62rem",
+                    fontSize: "0.58rem",
                     color: T.text3,
                     letterSpacing: "0.2em",
                     textTransform: "uppercase",
@@ -1921,9 +1604,9 @@ function Contact() {
                 <span
                   className="contact-value"
                   style={{
-                    fontFamily: link.mono ? T.fMono : T.fSans,
-                    fontSize: "1rem",
-                    color: T.text,
+                    fontFamily: T.fMono,
+                    fontSize: "0.84rem",
+                    color: T.text2,
                     fontWeight: 500,
                   }}
                 >
@@ -1932,13 +1615,9 @@ function Contact() {
                 <span
                   aria-hidden
                   className="contact-arrow"
-                  style={{
-                    fontFamily: T.fMono,
-                    fontSize: "0.75rem",
-                    color: T.text3,
-                  }}
+                  style={{ fontFamily: T.fMono, fontSize: "0.72rem", color: T.text3 }}
                 >
-                  →
+                  {"→"}
                 </span>
               </a>
             ))}
@@ -1950,98 +1629,18 @@ function Contact() {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   FOOTER
-   ───────────────────────────────────────────────────────────────── */
-function Footer() {
-  return (
-    <footer
-      style={{
-        padding: "1.75rem 2rem",
-        borderTop: `1px solid ${T.border}`,
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 1280,
-          margin: "0 auto",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: "0.75rem",
-          fontFamily: T.fMono,
-          fontSize: "0.6rem",
-          color: T.text3,
-          letterSpacing: "0.16em",
-          textTransform: "uppercase",
-          fontWeight: 500,
-        }}
-      >
-        <span>Frostaing AI / Geneva, Switzerland / 2026</span>
-        <span>
-          <a href="mailto:francois@frostaing.com" style={{ color: T.text3 }}>
-            francois@frostaing.com
-          </a>
-          {"  |  "}
-          <a href="https://www.frostaing.com" style={{ color: T.text3 }}>
-            www.frostaing.com
-          </a>
-        </span>
-      </div>
-    </footer>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────
    ROOT
    ───────────────────────────────────────────────────────────────── */
 export default function Page() {
   return (
     <main style={{ background: T.bg, color: T.text }}>
-      <style>{`
-        html { scroll-behavior: smooth; scroll-padding-top: 64px; }
-        a { text-decoration: none; }
-
-        /* Color-only interactions. No transforms, no glow, no animation. */
-        .systems-row { transition: background 0.12s linear, color 0.12s linear; }
-        .systems-row:hover { background: rgba(255,255,255,0.025); color: ${T.text}; }
-
-        .contact-row { transition: border-color 0.12s linear; }
-        .contact-row:hover { border-bottom-color: ${T.accent}; }
-        .contact-row:hover .contact-arrow,
-        .contact-row:hover .contact-value { color: ${T.accent}; }
-        .contact-row:hover .contact-label { color: ${T.text2}; }
-
-        .case-link { transition: opacity 0.12s linear; }
-        .case-link:hover { opacity: 0.78; }
-
-        .service-cell { transition: background 0.12s linear; }
-        .service-cell:hover { background: rgba(255,255,255,0.02); }
-
-        .team-email { transition: color 0.12s linear; }
-        .team-email:hover { color: ${T.accent}; }
-
-        @media (max-width: 1100px) {
-          .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-        }
-
-        @media (max-width: 900px) {
-          section[id] > div > div[style*="grid-template-columns"] {
-            grid-template-columns: 1fr !important;
-          }
-          .team-grid { grid-template-columns: 1fr !important; }
-          .nav-links { display: none !important; }
-          .hero-bg { display: none; }
-        }
-      `}</style>
-      <Nav />
+      <SiteHeader />
       <Hero />
       <Approach />
       <Services />
       <Implementations />
       <SelectedWork />
       <Systems />
-      <Team />
       <About />
       <Contact />
       <Footer />

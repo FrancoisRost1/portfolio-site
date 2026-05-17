@@ -75,3 +75,46 @@ a {
     display: none !important;
   }
 }
+
+/* ------------------------------------------------------------------
+   Site-wide interactions and responsive rules. Migrated out of the
+   per-page inline <style> block so all three routes share one source.
+   Color-only interactions. No transforms, no glow, no animation.
+   ------------------------------------------------------------------ */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 64px;
+}
+
+.systems-row { transition: background 0.12s linear, color 0.12s linear; }
+.systems-row:hover { background: rgba(255, 255, 255, 0.025); color: #e8e8ec; }
+
+.contact-row { transition: border-color 0.12s linear; }
+.contact-row:hover { border-bottom-color: #e07020; }
+.contact-row:hover .contact-arrow,
+.contact-row:hover .contact-value { color: #e07020; }
+.contact-row:hover .contact-label { color: #8e8e9a; }
+
+.case-link { transition: opacity 0.12s linear; }
+.case-link:hover { opacity: 0.78; }
+
+.service-cell { transition: background 0.12s linear; }
+.service-cell:hover { background: rgba(255, 255, 255, 0.02); }
+
+.site-nav-link { transition: color 0.12s linear; }
+.site-nav-link:hover { color: #e8e8ec; }
+
+.cta-btn { transition: background 0.12s linear, border-color 0.12s linear; }
+.cta-btn:hover { background: #c89040; border-color: #c89040; }
+
+.proof-tile { transition: background 0.12s linear; }
+.proof-tile:hover { background: rgba(255, 255, 255, 0.025); }
+
+@media (max-width: 900px) {
+  section[id] > div > div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+  .proof-grid { grid-template-columns: 1fr !important; }
+  .nav-links { display: none !important; }
+  .hero-bg { display: none; }
+}
