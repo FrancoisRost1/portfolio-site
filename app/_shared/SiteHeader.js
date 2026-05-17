@@ -2,10 +2,9 @@
   Site-wide fixed header. Replaces the original single-page anchor Nav.
 
   Now spans three routes, so primary items are real page links (next/link)
-  and the homepage sections are reached via "/#id" hash links. The CV link
-  was deliberately removed from the global nav (a firm site does not carry a
-  CV in the same row as Services and Contact); the PDF stays reachable from
-  the About bio instead. The "Book a call" button is the primary action.
+  and the homepage sections are reached via "/#id" hash links. There is no
+  founder CV anywhere on the site (a firm site does not carry one); the
+  "Book a call" button is the primary action.
 
   The header stays dumb: the booking target is a `bookingHref` prop that
   defaults to BOOKING_PE. Pages own their own header context. Every PE-first

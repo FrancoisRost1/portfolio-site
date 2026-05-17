@@ -18,8 +18,9 @@ Three static routes, all prerendered:
   Reference Implementations honestly framed ("built to demonstrate
   capability ... available as starting points"), I1/I2/I3 each carry a
   quantified spec strip. SelectedWork + Systems table kept. About carries the
-  solo + network line and the Claude Partner Network line, plus a discreet CV
-  PDF link. Contact leads with a "Book a call" button, email de-emphasized.
+  solo + network line and the Claude Partner Network line. No founder CV
+  anywhere (link and PDF removed). Contact leads with a "Book a call" button,
+  email de-emphasized.
 - `app/deal-intelligence/page.js`: hero offer, **unpriced** (priced in the
   scoping call). Coverage (4 workflows), engagement model, 3 inline proof
   tiles (AI Research Agent, LBO Engine, PE Target Screener), `BookCta` ->

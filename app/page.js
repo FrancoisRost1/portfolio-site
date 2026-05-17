@@ -1382,28 +1382,6 @@ function About() {
                 extend that stack into production research, automation, and
                 decision-support infrastructure.
               </p>
-
-              <a
-                href="/CV-francois-rostaing.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="case-link"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.55rem",
-                  marginTop: "1.75rem",
-                  fontFamily: T.fMono,
-                  fontSize: "0.64rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.16em",
-                  textTransform: "uppercase",
-                  color: T.text3,
-                }}
-              >
-                Founder CV (PDF)
-                <span aria-hidden>{"→"}</span>
-              </a>
             </div>
           </div>
 
