@@ -55,18 +55,21 @@ const ENGAGEMENT = [
   ["Priced in the call", "Pricing is set in the scoping call once fund size and workflow complexity are clear. Engagements typically run as a pilot scaling into ongoing work. The terminal's published per-deliverable catalog on /pricing-cards is the reference anchor."],
 ];
 
-// Deep links into the live terminal. The marketing page leads with the
-// scoping call, but a curious buyer can open the product in one click.
+// Deep links a curious buyer might open in one click. The mandate catalog
+// is the in-site /services route (same data as the terminal's
+// /pricing-cards workspace, faster and rendered in the firm chrome);
+// methodology + case studies stay on the terminal where they live.
 const TERMINAL_LINKS = [
+  {
+    label: "Mandate catalog",
+    href: "/services",
+    blurb: "Geneva-anchored per-deliverable and retainer rates.",
+    internal: true,
+  },
   {
     label: "Methodology",
     href: "https://terminal.frostaing.com/methodology",
     blurb: "How every number is computed and the limits we declare.",
-  },
-  {
-    label: "Pricing catalog",
-    href: "https://terminal.frostaing.com/pricing-cards",
-    blurb: "Geneva-anchored per-deliverable and retainer rates.",
   },
   {
     label: "Case studies",
@@ -267,7 +270,7 @@ function TerminalDeepLinks() {
   return (
     <section style={{ padding: "0 2rem 5rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="03" label="Open the terminal" weight="compact" />
+        <SectionHead num="03" label="Open the catalog and the terminal" weight="compact" />
         <div
           style={{
             display: "grid",
@@ -279,8 +282,8 @@ function TerminalDeepLinks() {
             <a
               key={tl.label}
               href={tl.href}
-              target="_blank"
-              rel="noopener noreferrer"
+              target={tl.internal ? undefined : "_blank"}
+              rel={tl.internal ? undefined : "noopener noreferrer"}
               className="proof-tile"
               style={{
                 display: "flex",

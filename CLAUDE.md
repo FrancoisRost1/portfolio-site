@@ -8,27 +8,47 @@
 > positioning decision below. The firm direction has been wrongly reverted
 > by past sessions.
 
-## Current state (EN Pass 1 shipped 2026-05-17, commit f58f5ce)
+## Current state (EN Pass 2 shipped 2026-05-24, terminal-centric)
 
-Three static routes, all prerendered:
+Four static routes, all prerendered:
 
 - `app/page.js`: homepage. Hero names the buyer (PE/VC/family office), not
-  the technology. Services collapsed 4 -> 2 (primary: deal intelligence;
-  secondary: productized SME analytics), each card links to its offer route.
-  Reference Implementations honestly framed ("built to demonstrate
-  capability ... available as starting points"), I1/I2/I3 each carry a
+  the technology. Services grown to 3 cards (deal intelligence / mandate
+  catalog / SME productized), each card links to its dedicated route.
+  Reference Implementations honestly framed, I1/I2/I3 each carry a
   quantified spec strip. SelectedWork + Systems table kept. About carries the
   solo + network line and the Claude Partner Network line. No founder CV
-  anywhere (link and PDF removed). Contact leads with a "Book a call" button,
-  email de-emphasized.
+  anywhere. Contact leads with a "Book a call" button, email de-emphasized.
+  **Every `liveUrl` in `CASE_STUDIES` and `ALL_PROJECTS` is now a
+  `terminal.frostaing.com/<workspace>` route** (LBO -> /lbo-quick-calc,
+  PE Screener -> /universe-screener, etc.). Button copy "Live App" was
+  replaced with "Open in terminal" everywhere. There are NO Streamlit URLs
+  anywhere in the site any more (`grep -r streamlit.app app/` is empty).
+- `app/services/page.js` (NEW): the mandate catalog. 13 priced SKUs grouped
+  by cadence (per-deliverable / monthly retainer / quarterly / subscription).
+  Each card: label, cadence, headline CHF, SLA, includes-list, and
+  "Open in terminal" link to the matching workspace. Data lives in
+  `app/_shared/mandates.js` so the page stays pure layout. `BookCta` ->
+  `BOOKING_PE` (30 min scoping call).
 - `app/deal-intelligence/page.js`: hero offer, **unpriced** (priced in the
   scoping call). Coverage (4 workflows), engagement model, 3 inline proof
-  tiles (AI Research Agent, LBO Engine, PE Target Screener), `BookCta` ->
-  `BOOKING_PE`.
+  tiles (AI Research Agent, LBO Engine, PE Target Screener). The "Open
+  the terminal" section's "Pricing catalog" tile now links INTERNALLY to
+  `/services` (not the terminal's `/pricing-cards`) so the buyer reads the
+  catalog in the firm chrome; methodology + case studies stay on the
+  terminal where they live. `BookCta` -> `BOOKING_PE`.
 - `app/sme-finance/page.js`: productized, **public prices**: Sprint
   CHF 12,000 (4wk), Sprint Plus CHF 22,000 (6wk), optional retainer
-  CHF 1,500/mo. 2 inline proof tiles (Unified Research Terminal, AI Research
-  Agent), `BookCta` -> `BOOKING_SME`.
+  CHF 1,500/mo. 2 inline proof tiles (Unified Research Terminal, IC Memo
+  workspace), `BookCta` -> `BOOKING_SME`.
+
+`app/_shared/mandates.js` is the canonical mirror of the terminal's
+`config.d/pricing-cards.yaml`. When the terminal YAML changes, this file
+changes in the same commit. Drift means the marketing site shows a number
+the buyer won't see on the workspace they land on after the booking call.
+
+`app/_shared/SiteHeader.js` nav order: Deal Intelligence / Services /
+SME & Finance / Systems / About / Contact.
 
 ## Architecture
 
@@ -45,6 +65,15 @@ Three static routes, all prerendered:
 
 ## Hard rules
 
+- **No Streamlit URLs anywhere.** Every "live" link points at the
+  production terminal (`terminal.frostaing.com` or a workspace subroute).
+  The ten engine repos still exist on GitHub as reference implementations,
+  but the marketing site treats them as ONE product: the terminal.
+  Regression check: `grep -r 'streamlit.app' app/` must be empty.
+- **`app/_shared/mandates.js` mirrors `mini-bloomberg-terminal/config.d/
+  pricing-cards.yaml`.** Update both in the same commit when pricing
+  changes. A buyer must never see a different number on the marketing
+  catalog than on the terminal workspace they open after the booking call.
 - No em dashes, no emojis in any user-visible string OR in committed files
   (CLAUDE.md, README) since they surface on GitHub. `->` and `→` arrows are
   an existing accepted convention.

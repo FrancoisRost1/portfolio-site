@@ -18,6 +18,15 @@ import { SiteHeader } from "./_shared/SiteHeader";
 import { Footer } from "./_shared/Footer";
 import { PrimaryButton } from "./_shared/Cta";
 import { BOOKING_PE, CONTACT_EMAIL } from "./_shared/booking";
+import { totalMandateCount } from "./_shared/mandates";
+
+// Every system that ALL_PROJECTS used to flag as a standalone Streamlit
+// app now resolves to the corresponding workspace inside the production
+// terminal. No more cold-starting per-engine apps; the story is one
+// product. Keep this map next to ALL_PROJECTS so a future audit can
+// re-read both at once.
+const TERMINAL_ROOT = "https://terminal.frostaing.com";
+const MANDATE_TOTAL = totalMandateCount();
 
 export const metadata = {
   title: "Frostaing AI | AI Investment Research & Deal Intelligence",
@@ -45,7 +54,20 @@ const SERVICES = [
     cta: "Deal intelligence offer",
   },
   {
-    rank: "Secondary offer",
+    rank: "Mandate catalog",
+    name: "Per-Deliverable Pricing and Retainers",
+    href: "/services",
+    summary: `The full catalog. ${MANDATE_TOTAL} priced mandates across per-deliverable packs, monthly retainers, quarterly reviews, and white-label terminal seats. Geneva-anchored CHF.`,
+    bullets: [
+      "PE diligence packs and M&A memos",
+      "Sector deep-dives and LBO models",
+      "Family-office and macro retainers",
+      "White-label terminal seats",
+    ],
+    cta: "Open mandate catalog",
+  },
+  {
+    rank: "Supporting offer",
     name: "Financial Analytics and Internal Decision Tools",
     href: "/sme-finance",
     summary:
@@ -132,7 +154,7 @@ const CASE_STUDIES = [
       ["Stack", "Python, Claude API"],
     ],
     repo: "https://github.com/FrancoisRost1/ai-research-agent",
-    liveUrl: "https://ai-research-agent1.streamlit.app",
+    liveUrl: `${TERMINAL_ROOT}/ticker-deep-dive`,
   },
   {
     num: "03",
@@ -149,22 +171,22 @@ const CASE_STUDIES = [
       ["Window", "10 year rolling"],
     ],
     repo: "https://github.com/FrancoisRost1/portfolio-optimization-engine",
-    liveUrl: "https://portfolio-optimization-engine1.streamlit.app",
+    liveUrl: `${TERMINAL_ROOT}/portfolio-builder`,
   },
 ];
 
 const ALL_PROJECTS = [
-  { num: "01", name: "LBO Engine",                    tier: "Foundation", tests: "-",   metric: "Monte Carlo, 1000 sims",    status: "live", repo: "lbo-engine-version1",          liveUrl: "https://lbo-engine-version1.streamlit.app" },
-  { num: "02", name: "PE Target Screener",            tier: "Foundation", tests: "28",  metric: "80 companies scored",       status: "live", repo: "pe-target-screener",           liveUrl: "https://pe-target-screener.streamlit.app" },
-  { num: "03", name: "Factor Backtest Engine",        tier: "Quant Core", tests: "170", metric: "Sharpe 1.55, 503 tickers",  status: "live", repo: "factor-backtest-engine",       liveUrl: "https://factor-backtest-engine.streamlit.app" },
-  { num: "04", name: "M&A Database",                  tier: "Quant Core", tests: "124", metric: "90 real + 300 synthetic deals", status: "live", repo: "ma-database",                  liveUrl: "https://ma-database1.streamlit.app" },
-  { num: "05", name: "Volatility Regime Engine",      tier: "Systematic", tests: "109", metric: "CAGR 10.9%, Sharpe 1.03",   status: "live", repo: "volatility-regime-engine",     liveUrl: "https://volatility-regime-engine.streamlit.app" },
-  { num: "06", name: "TSMOM Engine",                  tier: "Systematic", tests: "103", metric: "13 ETFs, cross asset",      status: "live", repo: "tsmom-engine",                 liveUrl: "https://tsmom-engine-3kndf2dmvuhcvu2hmrjniz.streamlit.app" },
-  { num: "07", name: "Strategy Robustness Lab",       tier: "Advanced",   tests: "138", metric: "PBO via CSCV",              status: "live", repo: "strategy-robustness-lab",      liveUrl: "https://strategy-robustness-lab.streamlit.app" },
-  { num: "08", name: "Portfolio Optimization Engine", tier: "Advanced",   tests: "166", metric: "HRP Sharpe 0.62",           status: "live", repo: "portfolio-optimization-engine", liveUrl: "https://portfolio-optimization-engine1.streamlit.app" },
-  { num: "09", name: "Options Pricing Engine",        tier: "Elite",      tests: "230", metric: "3 models, 8 Greeks",        status: "live", repo: "options-pricing-engine",       liveUrl: "https://options-pricing-engine1.streamlit.app" },
-  { num: "10", name: "AI Research Agent",             tier: "Elite",      tests: "242", metric: "6 engine pipeline",         status: "live", repo: "ai-research-agent",            liveUrl: "https://ai-research-agent1.streamlit.app" },
-  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "4,000+", metric: "68 Workspaces",         status: "live", repo: "mini-bloomberg-terminal",      liveUrl: "https://terminal.frostaing.com" },
+  { num: "01", name: "LBO Engine",                    tier: "Foundation", tests: "-",      metric: "Monte Carlo, 1000 sims",        status: "live", repo: "lbo-engine-version1",          liveUrl: `${TERMINAL_ROOT}/lbo-quick-calc` },
+  { num: "02", name: "PE Target Screener",            tier: "Foundation", tests: "28",     metric: "80 companies scored",           status: "live", repo: "pe-target-screener",           liveUrl: `${TERMINAL_ROOT}/universe-screener` },
+  { num: "03", name: "Factor Backtest Engine",        tier: "Quant Core", tests: "170",    metric: "Sharpe 1.55, 503 tickers",      status: "live", repo: "factor-backtest-engine",       liveUrl: `${TERMINAL_ROOT}/live-signals` },
+  { num: "04", name: "M&A Database",                  tier: "Quant Core", tests: "124",    metric: "90 real + 300 synthetic deals", status: "live", repo: "ma-database",                  liveUrl: `${TERMINAL_ROOT}/comps-relative-value` },
+  { num: "05", name: "Volatility Regime Engine",      tier: "Systematic", tests: "109",    metric: "CAGR 10.9%, Sharpe 1.03",       status: "live", repo: "volatility-regime-engine",     liveUrl: `${TERMINAL_ROOT}/live-signals` },
+  { num: "06", name: "TSMOM Engine",                  tier: "Systematic", tests: "103",    metric: "13 ETFs, cross asset",          status: "live", repo: "tsmom-engine",                 liveUrl: `${TERMINAL_ROOT}/live-signals` },
+  { num: "07", name: "Strategy Robustness Lab",       tier: "Advanced",   tests: "138",    metric: "PBO via CSCV",                  status: "live", repo: "strategy-robustness-lab",      liveUrl: `${TERMINAL_ROOT}/strategy-lab` },
+  { num: "08", name: "Portfolio Optimization Engine", tier: "Advanced",   tests: "166",    metric: "HRP Sharpe 0.62",               status: "live", repo: "portfolio-optimization-engine", liveUrl: `${TERMINAL_ROOT}/portfolio-builder` },
+  { num: "09", name: "Options Pricing Engine",        tier: "Elite",      tests: "230",    metric: "3 models, 8 Greeks",            status: "live", repo: "options-pricing-engine",       liveUrl: `${TERMINAL_ROOT}/options-lab` },
+  { num: "10", name: "AI Research Agent",             tier: "Elite",      tests: "242",    metric: "6 engine pipeline",             status: "live", repo: "ai-research-agent",            liveUrl: `${TERMINAL_ROOT}/ticker-deep-dive` },
+  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "4,000+", metric: "68 Workspaces",                 status: "live", repo: "mini-bloomberg-terminal",      liveUrl: TERMINAL_ROOT },
 ];
 
 const totalTests = ALL_PROJECTS.reduce((s, p) => {
@@ -464,7 +486,7 @@ function Services() {
   return (
     <section id="services" style={{ padding: "8.5rem 2rem 5.5rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="02" label="Services" right="2 offers" />
+        <SectionHead num="02" label="Services" right={`${SERVICES.length} routes into the firm`} />
 
         <div
           style={{
@@ -487,7 +509,7 @@ function Services() {
               maxWidth: 360,
             }}
           >
-            One wedge, one supporting offer.
+            One wedge, one catalog, one supporting offer.
           </h2>
           <p
             style={{
@@ -500,16 +522,19 @@ function Services() {
             }}
           >
             The hero offer is deal intelligence for PE, VC, and family offices.
-            The supporting offer is productized financial analytics for finance
-            teams and SME CFOs. Both are scoped tightly, implemented to test
-            coverage, and deployed as production tools.
+            The mandate catalog publishes per-deliverable and retainer pricing
+            for every recurring engagement. The supporting offer is productized
+            financial analytics for finance teams and SME CFOs. All three are
+            scoped tightly, implemented to test coverage, and deployed as
+            production tools.
           </p>
         </div>
 
         <div
+          className="services-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
             border: `1px solid ${T.borderSubtle}`,
             background: T.bg,
           }}
@@ -521,7 +546,10 @@ function Services() {
               className="service-cell"
               style={{
                 padding: "2.5rem 2.25rem",
-                borderRight: i === 0 ? `1px solid ${T.borderSubtle}` : "none",
+                borderRight:
+                  i < SERVICES.length - 1
+                    ? `1px solid ${T.borderSubtle}`
+                    : "none",
                 display: "flex",
                 flexDirection: "column",
                 gap: "1.1rem",
@@ -910,7 +938,7 @@ function CaseStudy({ cs, isLast, density }) {
                 borderBottom: `1px solid ${tierColor}`,
               }}
             >
-              Live App
+              Open in terminal
               <span aria-hidden>{"→"}</span>
             </a>
           )}

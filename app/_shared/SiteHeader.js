@@ -19,6 +19,7 @@ import { BOOKING_PE } from "./booking";
 
 const LINKS = [
   { href: "/deal-intelligence", label: "Deal Intelligence", page: true },
+  { href: "/services", label: "Services", page: true },
   { href: "/sme-finance", label: "SME & Finance", page: true },
   { href: "/#systems", label: "Systems", page: false },
   { href: "/#about", label: "About", page: false },
