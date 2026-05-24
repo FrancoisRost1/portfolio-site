@@ -52,7 +52,30 @@ const ENGAGEMENT = [
   ["Scoped per mandate", "Each engagement is scoped to one fund and one workflow. No open-ended retainers to start."],
   ["Test covered", "Systems ship with full test coverage and a Codex-audited review. The same standard as the eleven shipped systems."],
   ["Deployed", "Delivered as a production tool with code handover, not a slide deck or a notebook."],
-  ["Priced in the call", "Pricing is set in the scoping call once fund size and workflow complexity are clear. Engagements typically run as a pilot scaling into ongoing work."],
+  ["Priced in the call", "Pricing is set in the scoping call once fund size and workflow complexity are clear. Engagements typically run as a pilot scaling into ongoing work. The terminal's published per-deliverable catalog on /pricing-cards is the reference anchor."],
+];
+
+// Deep links a curious buyer might open in one click. The mandate catalog
+// is the in-site /services route (same data as the terminal's
+// /pricing-cards workspace, faster and rendered in the firm chrome);
+// methodology + case studies stay on the terminal where they live.
+const TERMINAL_LINKS = [
+  {
+    label: "Mandate catalog",
+    href: "/services",
+    blurb: "Geneva-anchored per-deliverable and retainer rates.",
+    internal: true,
+  },
+  {
+    label: "Methodology",
+    href: "https://terminal.frostaing.com/methodology",
+    blurb: "How every number is computed and the limits we declare.",
+  },
+  {
+    label: "Case studies",
+    href: "https://terminal.frostaing.com/case-studies",
+    blurb: "Anonymised mandate summaries (populated on first close).",
+  },
 ];
 
 function Hero() {
@@ -243,6 +266,82 @@ function Engagement() {
   );
 }
 
+function TerminalDeepLinks() {
+  return (
+    <section style={{ padding: "0 2rem 5rem" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        <SectionHead num="03" label="Open the catalog and the terminal" weight="compact" />
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gap: "1rem",
+          }}
+        >
+          {TERMINAL_LINKS.map((tl) => (
+            <a
+              key={tl.label}
+              href={tl.href}
+              target={tl.internal ? undefined : "_blank"}
+              rel={tl.internal ? undefined : "noopener noreferrer"}
+              className="proof-tile"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.85rem",
+                border: `1px solid ${T.borderSubtle}`,
+                background: T.bg,
+                padding: "1.6rem 1.5rem",
+                color: T.text,
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: T.fMono,
+                  fontSize: "0.62rem",
+                  color: T.accent,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  fontWeight: 600,
+                }}
+              >
+                {tl.label}
+              </div>
+              <p
+                style={{
+                  fontFamily: T.fSans,
+                  fontSize: "0.92rem",
+                  color: T.text2,
+                  lineHeight: 1.65,
+                  margin: 0,
+                }}
+              >
+                {tl.blurb}
+              </p>
+              <span
+                aria-hidden
+                style={{
+                  marginTop: "auto",
+                  paddingTop: "0.85rem",
+                  borderTop: `1px solid ${T.borderSubtle}`,
+                  fontFamily: T.fMono,
+                  fontSize: "0.62rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: T.accent,
+                }}
+              >
+                Open {"→"}
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Proof() {
   return (
     <section
@@ -254,25 +353,31 @@ function Proof() {
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <ProofStrip
-          label="Proven on shipped systems"
+          label="Proven on shipped systems · open the live workspace"
           tiles={[
             {
-              title: "LBO & Credit Analysis · Terminal Workspace",
+              title: "IC Memo Automation · Terminal Workspace",
               blurb:
-                "Live LBO mechanics, equity bridge reconciliation, IRR sensitivity grids. Source-reconciled to FMP and FRED.",
-              href: "https://terminal.frostaing.com",
+                "Six-engine deterministic recommendation aggregator with Claude-synthesized memo and PDF export. Rating is locked before the LLM writes prose.",
+              href: "https://terminal.frostaing.com/memo-builder",
             },
             {
-              title: "Investment Research & Memo Synthesis · Terminal Workspace",
+              title: "Deal and Target Screening · Terminal Workspace",
               blurb:
-                "6-engine deterministic recommendation aggregator with Claude-synthesized memo output and rating-lock invariants.",
-              href: "https://terminal.frostaing.com",
+                "Universe-scale percentile scoring plus simplified LBO IRR, debt-capacity tiering and red-flag detection. A short list with reasoning attached.",
+              href: "https://terminal.frostaing.com/universe-screener",
             },
             {
-              title: "Portfolio & Risk Analytics · Terminal Workspace",
+              title: "LBO and Credit Mechanics · Terminal Workspace",
               blurb:
-                "Multi-asset portfolio construction, factor exposures, optimization.",
-              href: "https://terminal.frostaing.com",
+                "Live LBO base case, equity bridge, IRR sensitivity grid. Source-reconciled to FMP and FRED, with a mega-cap guard so multi-trillion targets cannot accidentally clear.",
+              href: "https://terminal.frostaing.com/lbo-quick-calc",
+            },
+            {
+              title: "Portfolio and Risk Analytics · Terminal Workspace",
+              blurb:
+                "MV, HRP, Risk Parity and Black-Litterman; Brinson attribution, ex-ante factor exposure, and a PBO / DSR robustness pass on the chosen basket.",
+              href: "https://terminal.frostaing.com/portfolio-builder",
             },
           ]}
         />
@@ -288,6 +393,7 @@ export default function DealIntelligencePage() {
       <Hero />
       <Coverage />
       <Engagement />
+      <TerminalDeepLinks />
       <Proof />
       <BookCta
         id="book"
