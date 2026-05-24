@@ -92,8 +92,8 @@ const IMPLEMENTATIONS = [
       "The full engine stack integrated into a Bloomberg style research terminal with institutional workspaces for live market, research, comps, and portfolio work. The capstone that the prior systems compose into.",
     source: "Adapted from the Unified Research Terminal system.",
     specs: [
-      ["Tests", "506"],
-      ["Workspaces", "6 institutional"],
+      ["Tests", "4,000+"],
+      ["Workspaces", "68 institutional"],
       ["Coverage", "Market, Research, Comps, Portfolio"],
     ],
   },
@@ -107,12 +107,12 @@ const CASE_STUDIES = [
     tier: "Capstone",
     takeaway: "Ten systems collapse into one research desk.",
     detail:
-      "Unified Bloomberg-style research terminal integrating all 10 prior engines into 6 institutional workspaces (Market, Research, Options, LBO, Comps, Portfolio). 506 tests passing.",
+      "Unified Bloomberg-style research terminal integrating all 10 prior engines into 68 institutional workspaces (Market, Research, Options, LBO, Comps, Portfolio, sector pages, intelligence surfaces). 3,700+ tests passing.",
     facts: [
-      ["Tests", "506"],
+      ["Tests", "4,000+"],
       ["Integrates", "10 prior systems"],
-      ["Workspaces", "6"],
-      ["Stack", "Next.js, Python, Plotly"],
+      ["Workspaces", "68"],
+      ["Stack", "Python, Streamlit, Plotly"],
     ],
     repo: "https://github.com/FrancoisRost1/mini-bloomberg-terminal",
     liveUrl: "https://terminal.frostaing.com",
@@ -164,11 +164,15 @@ const ALL_PROJECTS = [
   { num: "08", name: "Portfolio Optimization Engine", tier: "Advanced",   tests: "166", metric: "HRP Sharpe 0.62",           status: "live", repo: "portfolio-optimization-engine", liveUrl: "https://portfolio-optimization-engine1.streamlit.app" },
   { num: "09", name: "Options Pricing Engine",        tier: "Elite",      tests: "230", metric: "3 models, 8 Greeks",        status: "live", repo: "options-pricing-engine",       liveUrl: "https://options-pricing-engine1.streamlit.app" },
   { num: "10", name: "AI Research Agent",             tier: "Elite",      tests: "242", metric: "6 engine pipeline",         status: "live", repo: "ai-research-agent",            liveUrl: "https://ai-research-agent1.streamlit.app" },
-  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "506", metric: "6 Workspaces",              status: "live", repo: "mini-bloomberg-terminal",      liveUrl: "https://terminal.frostaing.com" },
+  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "4,000+", metric: "68 Workspaces",         status: "live", repo: "mini-bloomberg-terminal",      liveUrl: "https://terminal.frostaing.com" },
 ];
 
 const totalTests = ALL_PROJECTS.reduce((s, p) => {
-  const n = parseInt(p.tests, 10);
+  // tests may carry a comma separator and/or a trailing "+" for
+  // approximate live counts (e.g. "4,000+" for the terminal); strip
+  // both before parseInt.
+  const clean = String(p.tests).replace(/[,+]/g, "");
+  const n = parseInt(clean, 10);
   return s + (Number.isFinite(n) ? n : 0);
 }, 0);
 const liveCount = ALL_PROJECTS.filter((p) => p.status === "live").length;

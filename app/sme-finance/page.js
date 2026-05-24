@@ -342,17 +342,19 @@ function Proof() {
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <ProofStrip
-          label="Proven on shipped systems"
+          label="Proven on shipped systems · open the live workspace"
           tiles={[
             {
               title: "Unified Research Terminal",
-              blurb: "Production app, 506 tests, 6 workspaces.",
+              blurb:
+                "Production application, 4,000+ tests passing across 68 institutional workspaces. The platform our SME work is built on.",
               href: "https://terminal.frostaing.com",
             },
             {
-              title: "Investment Research Engine",
-              blurb: "Terminal workspace, Claude-synthesized memo output.",
-              href: "https://terminal.frostaing.com",
+              title: "IC Memo Automation · Terminal Workspace",
+              blurb:
+                "Claude-synthesized memo output with a locked deterministic rating and PDF export. The pattern we reuse for SME management reporting.",
+              href: "https://terminal.frostaing.com/memo-builder",
             },
           ]}
         />
