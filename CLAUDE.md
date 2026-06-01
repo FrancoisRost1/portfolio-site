@@ -61,9 +61,9 @@ Playwright at 375x844 and 1280.
 - **Test count reconciled to one canonical figure.** The capstone terminal was
   quoted as both `3,700+` and `4,000+` on one page. Pulled the real current
   number from `mini-bloomberg-terminal/CLAUDE.md` (v3.0.0-rc1, 2026-05-31):
-  **7,567 backend pytest + 2,342 frontend vitest**. Used everywhere (capstone
+  **7,734 backend pytest + 2,542 frontend vitest**. Used everywhere (capstone
   card, systems table, I3 spec, /sme-finance proof tile). The `ALL_PROJECTS`
-  reducer now sums to a deterministic **8,877** via `toLocaleString("en-US")`
+  reducer now sums to a deterministic **9,044** via `toLocaleString("en-US")`
   (was locale-dependent; a comma-locale vs apostrophe-locale build would flip
   it). NOTE: the GitHub README (3,946) is stale and is the terminal repo's job
   to sync; do not anchor the site to it.

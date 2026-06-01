@@ -347,7 +347,7 @@ function Proof() {
             {
               title: "Unified Research Terminal",
               blurb:
-                "Production application, 7,567 backend tests passing across 68 institutional workspaces. The platform our SME work is built on.",
+                "Production application, 7,734 backend tests passing across 68 institutional workspaces. The platform our SME work is built on.",
               href: "https://terminal.frostaing.com",
             },
             {

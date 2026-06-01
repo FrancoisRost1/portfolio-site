@@ -114,8 +114,8 @@ const IMPLEMENTATIONS = [
       "The full engine stack integrated into a Bloomberg style research terminal with institutional workspaces for live market, research, comps, and portfolio work. The capstone that the prior systems compose into.",
     source: "Adapted from the Unified Research Terminal system.",
     specs: [
-      ["Tests", "7,567 backend"],
-      ["Frontend", "2,342 vitest"],
+      ["Tests", "7,734 backend"],
+      ["Frontend", "2,542 vitest"],
       ["Workspaces", "68 institutional"],
     ],
   },
@@ -129,10 +129,10 @@ const CASE_STUDIES = [
     tier: "Capstone",
     takeaway: "Ten systems collapse into one research desk.",
     detail:
-      "Unified Bloomberg-style research terminal integrating all 10 prior engines into 68 institutional workspaces (Market, Research, Options, LBO, Comps, Portfolio, sector pages, intelligence surfaces). 7,567 backend tests passing, plus 2,342 frontend.",
+      "Unified Bloomberg-style research terminal integrating all 10 prior engines into 68 institutional workspaces (Market, Research, Options, LBO, Comps, Portfolio, sector pages, intelligence surfaces). 7,734 backend tests passing, plus 2,542 frontend.",
     facts: [
-      ["Tests", "7,567 backend"],
-      ["Frontend", "2,342 vitest"],
+      ["Tests", "7,734 backend"],
+      ["Frontend", "2,542 vitest"],
       ["Integrates", "10 prior systems"],
       ["Workspaces", "68"],
     ],
@@ -186,7 +186,7 @@ const ALL_PROJECTS = [
   { num: "08", name: "Portfolio Optimization Engine", tier: "Advanced",   tests: "166",    metric: "HRP Sharpe 0.62",               status: "live", repo: "portfolio-optimization-engine", liveUrl: `${TERMINAL_ROOT}/portfolio-builder` },
   { num: "09", name: "Options Pricing Engine",        tier: "Elite",      tests: "230",    metric: "3 models, 8 Greeks",            status: "live", repo: "options-pricing-engine",       liveUrl: `${TERMINAL_ROOT}/options-lab` },
   { num: "10", name: "AI Research Agent",             tier: "Elite",      tests: "242",    metric: "6 engine pipeline",             status: "live", repo: "ai-research-agent",            liveUrl: `${TERMINAL_ROOT}/ticker-deep-dive` },
-  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "7,567",  metric: "68 Workspaces",                 status: "live", repo: "mini-bloomberg-terminal",      liveUrl: TERMINAL_ROOT },
+  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "7,734",  metric: "68 Workspaces",                 status: "live", repo: "mini-bloomberg-terminal",      liveUrl: TERMINAL_ROOT },
 ];
 
 const totalTests = ALL_PROJECTS.reduce((s, p) => {
