@@ -114,9 +114,9 @@ const IMPLEMENTATIONS = [
       "The full engine stack integrated into a Bloomberg style research terminal with institutional workspaces for live market, research, comps, and portfolio work. The capstone that the prior systems compose into.",
     source: "Adapted from the Unified Research Terminal system.",
     specs: [
-      ["Tests", "4,000+"],
+      ["Tests", "7,567 backend"],
+      ["Frontend", "2,342 vitest"],
       ["Workspaces", "68 institutional"],
-      ["Coverage", "Market, Research, Comps, Portfolio"],
     ],
   },
 ];
@@ -129,12 +129,12 @@ const CASE_STUDIES = [
     tier: "Capstone",
     takeaway: "Ten systems collapse into one research desk.",
     detail:
-      "Unified Bloomberg-style research terminal integrating all 10 prior engines into 68 institutional workspaces (Market, Research, Options, LBO, Comps, Portfolio, sector pages, intelligence surfaces). 3,700+ tests passing.",
+      "Unified Bloomberg-style research terminal integrating all 10 prior engines into 68 institutional workspaces (Market, Research, Options, LBO, Comps, Portfolio, sector pages, intelligence surfaces). 7,567 backend tests passing, plus 2,342 frontend.",
     facts: [
-      ["Tests", "4,000+"],
+      ["Tests", "7,567 backend"],
+      ["Frontend", "2,342 vitest"],
       ["Integrates", "10 prior systems"],
       ["Workspaces", "68"],
-      ["Stack", "Python, Streamlit, Plotly"],
     ],
     repo: "https://github.com/FrancoisRost1/mini-bloomberg-terminal",
     liveUrl: "https://terminal.frostaing.com",
@@ -176,7 +176,7 @@ const CASE_STUDIES = [
 ];
 
 const ALL_PROJECTS = [
-  { num: "01", name: "LBO Engine",                    tier: "Foundation", tests: "-",      metric: "Monte Carlo, 1000 sims",        status: "live", repo: "lbo-engine-version1",          liveUrl: `${TERMINAL_ROOT}/lbo-quick-calc` },
+  { num: "01", name: "LBO Engine",                    tier: "Foundation", tests: "n/a",    metric: "Monte Carlo, 500 sims",         status: "live", repo: "lbo-engine-version1",          liveUrl: `${TERMINAL_ROOT}/lbo-quick-calc` },
   { num: "02", name: "PE Target Screener",            tier: "Foundation", tests: "28",     metric: "80 companies scored",           status: "live", repo: "pe-target-screener",           liveUrl: `${TERMINAL_ROOT}/universe-screener` },
   { num: "03", name: "Factor Backtest Engine",        tier: "Quant Core", tests: "170",    metric: "Sharpe 1.55, 503 tickers",      status: "live", repo: "factor-backtest-engine",       liveUrl: `${TERMINAL_ROOT}/live-signals` },
   { num: "04", name: "M&A Database",                  tier: "Quant Core", tests: "124",    metric: "90 real + 300 synthetic deals", status: "live", repo: "ma-database",                  liveUrl: `${TERMINAL_ROOT}/comps-relative-value` },
@@ -186,13 +186,14 @@ const ALL_PROJECTS = [
   { num: "08", name: "Portfolio Optimization Engine", tier: "Advanced",   tests: "166",    metric: "HRP Sharpe 0.62",               status: "live", repo: "portfolio-optimization-engine", liveUrl: `${TERMINAL_ROOT}/portfolio-builder` },
   { num: "09", name: "Options Pricing Engine",        tier: "Elite",      tests: "230",    metric: "3 models, 8 Greeks",            status: "live", repo: "options-pricing-engine",       liveUrl: `${TERMINAL_ROOT}/options-lab` },
   { num: "10", name: "AI Research Agent",             tier: "Elite",      tests: "242",    metric: "6 engine pipeline",             status: "live", repo: "ai-research-agent",            liveUrl: `${TERMINAL_ROOT}/ticker-deep-dive` },
-  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "4,000+", metric: "68 Workspaces",                 status: "live", repo: "mini-bloomberg-terminal",      liveUrl: TERMINAL_ROOT },
+  { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "7,567",  metric: "68 Workspaces",                 status: "live", repo: "mini-bloomberg-terminal",      liveUrl: TERMINAL_ROOT },
 ];
 
 const totalTests = ALL_PROJECTS.reduce((s, p) => {
   // tests may carry a comma separator and/or a trailing "+" for
-  // approximate live counts (e.g. "4,000+" for the terminal); strip
-  // both before parseInt.
+  // approximate live counts; strip both before parseInt. Non-numeric
+  // values (e.g. "n/a" for the LBO engine, which has no suite) yield
+  // NaN and contribute 0.
   const clean = String(p.tests).replace(/[,+]/g, "");
   const n = parseInt(clean, 10);
   return s + (Number.isFinite(n) ? n : 0);
@@ -227,7 +228,7 @@ function Hero() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          opacity: 0.30,
+          opacity: 0.16,
         }}
       />
       <div
@@ -236,7 +237,7 @@ function Hero() {
           position: "absolute",
           inset: 0,
           pointerEvents: "none",
-          background: `linear-gradient(180deg, ${T.bg} 0%, transparent 18%, transparent 72%, ${T.bg} 100%)`,
+          background: `linear-gradient(180deg, ${T.bg} 0%, rgba(10,10,15,0.55) 30%, rgba(10,10,15,0.55) 68%, ${T.bg} 100%)`,
         }}
       />
       <div
@@ -308,7 +309,7 @@ function Hero() {
           style={{
             fontFamily: T.fSans,
             fontSize: "clamp(0.98rem, 1.3vw, 1.12rem)",
-            color: T.text2,
+            color: T.text,
             lineHeight: 1.6,
             margin: "1.75rem 0 0",
             maxWidth: 620,
@@ -358,6 +359,7 @@ function Hero() {
       </div>
 
       <div
+        className="hero-stats"
         style={{
           position: "relative",
           maxWidth: 1280,
@@ -370,7 +372,7 @@ function Hero() {
       >
         {[
           ["Systems Live", `${liveCount} / 11`],
-          ["Tests Passing", totalTests.toLocaleString()],
+          ["Tests Passing", totalTests.toLocaleString("en-US")],
           ["Practice", "Geneva and Romandie"],
           ["Stack", "Python, Next.js, Claude"],
         ].map(([label, value], i) => (
@@ -831,6 +833,7 @@ function CaseStudy({ cs, isLast, density }) {
   const tierColor = TIER[cs.tier] || T.accent;
   return (
     <article
+      className="case-grid"
       style={{
         padding: density === "tight" ? "3.25rem 0" : "4.25rem 0",
         borderBottom: isLast ? "none" : `1px solid ${T.border}`,
@@ -1296,7 +1299,7 @@ function Systems() {
           }}
         >
           <span>{liveCount} of {ALL_PROJECTS.length} live</span>
-          <span>{totalTests.toLocaleString()} tests passing</span>
+          <span>{totalTests.toLocaleString("en-US")} tests passing</span>
         </div>
       </div>
     </section>
@@ -1384,8 +1387,9 @@ function About() {
                   margin: "0 0 1.25rem",
                 }}
               >
-                Founded and operated by Francois Rostaing, supported by a
-                network of specialist collaborators.
+                Founded and operated by Francois Rostaing, Claude Certified
+                Architect (Anthropic), supported by a network of specialist
+                collaborators.
               </p>
               <p
                 style={{
@@ -1440,12 +1444,13 @@ function About() {
               ["Founder", "Francois Rostaing"],
               ["Hero offer", "PE, VC, family office deal intelligence"],
               ["Supporting", "Productized SME finance analytics"],
+              ["Certification", "Claude Certified Architect (Anthropic)"],
               ["Network", "Claude Partner Network (Anthropic)"],
               ["Languages", "Python, JavaScript, SQL"],
               ["Frameworks", "Next.js, Streamlit, Plotly"],
               ["AI", "Claude API, deterministic orchestration"],
               ["Systems Live", `${liveCount} / 11`],
-              ["Total Tests", totalTests.toLocaleString()],
+              ["Total Tests", totalTests.toLocaleString("en-US")],
             ].map(([k, v], i, arr) => (
               <div
                 key={k}

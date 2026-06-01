@@ -110,6 +110,17 @@ html {
 .proof-tile { transition: background 0.12s linear; }
 .proof-tile:hover { background: rgba(255, 255, 255, 0.025); }
 
+/* ------------------------------------------------------------------
+   Mobile navigation. CSS-only hamburger (checkbox pattern) so the
+   header stays a server component. Desktop is byte-identical: the
+   checkbox, burger, and dropdown are display:none above 900px.
+   ------------------------------------------------------------------ */
+.nav-toggle-checkbox { position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0; }
+.nav-burger { transition: border-color 0.12s linear; }
+.nav-burger:hover { border-color: rgba(255, 255, 255, 0.16); }
+.mobile-menu-link { transition: color 0.12s linear, background 0.12s linear; }
+.mobile-menu-link:hover { color: #e8e8ec; background: rgba(255, 255, 255, 0.025); }
+
 @media (max-width: 900px) {
   section[id] > div > div[style*="grid-template-columns"] {
     grid-template-columns: 1fr !important;
@@ -117,4 +128,21 @@ html {
   .proof-grid { grid-template-columns: 1fr !important; }
   .nav-links { display: none !important; }
   .hero-bg { display: none; }
+
+  /* Hero stat strip: collapse 4-up to 2 columns so labels do not cramp. */
+  .hero-stats { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Case-study rows are <article> grids, which the div-only collapse rule
+     above misses; stack them so the narrow spec column cannot overflow. */
+  .case-grid { grid-template-columns: 1fr !important; gap: 2.25rem !important; }
+
+  /* Contact rows carry long unbreakable mono strings (emails, handles).
+     Let the value track shrink and the string wrap so it cannot push the
+     grid past the viewport. */
+  .contact-row { grid-template-columns: 80px minmax(0, 1fr) auto !important; gap: 0.75rem !important; }
+  .contact-value { overflow-wrap: anywhere; }
+
+  /* Reveal the burger and the checkbox-driven dropdown. */
+  .nav-burger { display: flex !important; }
+  .nav-toggle-checkbox:checked ~ .mobile-menu { display: flex !important; }
 }

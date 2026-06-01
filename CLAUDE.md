@@ -38,8 +38,9 @@ Four static routes, all prerendered:
   catalog in the firm chrome; methodology + case studies stay on the
   terminal where they live. `BookCta` -> `BOOKING_PE`.
 - `app/sme-finance/page.js`: productized, **public prices**: Sprint
-  CHF 12,000 (4wk), Sprint Plus CHF 22,000 (6wk), optional retainer
-  CHF 1,500/mo. 2 inline proof tiles (Unified Research Terminal, IC Memo
+  CHF 12'000 (4wk), Sprint Plus CHF 22'000 (6wk), optional retainer
+  CHF 1'500/mo (Swiss apostrophe, matching /services formatChf en-CH).
+  2 inline proof tiles (Unified Research Terminal, IC Memo
   workspace), `BookCta` -> `BOOKING_SME`.
 
 `app/_shared/mandates.js` is the canonical mirror of the terminal's
@@ -49,6 +50,55 @@ the buyer won't see on the workspace they land on after the booking call.
 
 `app/_shared/SiteHeader.js` nav order: Deal Intelligence / Services /
 SME & Finance / Systems / About / Contact.
+
+## Audit pass (2026-06-01, investor + mobile audit, NOT yet pushed)
+
+Applied from two external audits (`frostaing-audit.md`, `frostaing-mobile-audit.md`,
+phone tested at 375x844). Working-tree only; nothing committed/pushed (a parallel
+session was live in `mini-bloomberg-terminal`). Verified with `npm run build` +
+Playwright at 375x844 and 1280.
+
+- **Test count reconciled to one canonical figure.** The capstone terminal was
+  quoted as both `3,700+` and `4,000+` on one page. Pulled the real current
+  number from `mini-bloomberg-terminal/CLAUDE.md` (v3.0.0-rc1, 2026-05-31):
+  **7,567 backend pytest + 2,342 frontend vitest**. Used everywhere (capstone
+  card, systems table, I3 spec, /sme-finance proof tile). The `ALL_PROJECTS`
+  reducer now sums to a deterministic **8,877** via `toLocaleString("en-US")`
+  (was locale-dependent; a comma-locale vs apostrophe-locale build would flip
+  it). NOTE: the GitHub README (3,946) is stale and is the terminal repo's job
+  to sync; do not anchor the site to it.
+- **Branded 404** at `app/not-found.js` (server component, dark chrome,
+  SiteHeader + Footer + 4 back-into-site routes). Replaces Next's bare white
+  default.
+- **`/pricing-cards` dead-link copy** on /deal-intelligence ENGAGEMENT now reads
+  "the Services page" (in-site `/services`), not the non-existent route.
+- **LBO row**: tests `-` -> `n/a`; metric `1000 sims` -> `500 sims` (matches the
+  LBO repo + master index).
+- **/sme-finance CHF** commas -> Swiss apostrophes.
+- **Hero contrast**: bg image opacity 0.30 -> 0.16, stronger mid scrim, sub-
+  paragraph bumped to `T.text`.
+- **Mobile nav (CSS-only, no `use client`).** `SiteHeader` gained a hidden
+  `#nav-toggle` checkbox (direct child of `<nav>`), a `.nav-burger` label, and a
+  `.mobile-menu` sibling revealed by `.nav-toggle-checkbox:checked ~ .mobile-menu`
+  under 900px. Page navigations reset the checkbox (header re-renders); same-page
+  anchor taps leave it open (accepted no-JS trade-off). Keeps the server-component
+  rule intact.
+- **Mobile overflow fixes (375x844 now has zero horizontal scroll).** Hero stat
+  strip `.hero-stats` collapses 4-up -> 2-up. `CaseStudy` `<article>` got a
+  `.case-grid` class that stacks on mobile (the existing `div[style*=grid]`
+  collapse rule misses `<article>`, so the narrow 4fr spec column was overflowing
+  its right-aligned `<dd>` values). Contact rows shrink the value track
+  (`minmax(0,1fr)`) + `overflow-wrap:anywhere` so long mono strings (the LinkedIn
+  handle) wrap instead of pushing the grid past the viewport.
+- **About: Claude Certified Architect** added (the audit confirmed the exam is
+  passed, which clears the Pass 2 gate below). Founder paragraph now reads
+  "Francois Rostaing, Claude Certified Architect (Anthropic), supported by ...",
+  and a `CERTIFICATION -> Claude Certified Architect (Anthropic)` row was added to
+  the firm-profile box. If the exam is NOT actually passed, revert both.
+
+Still NOT fixable in code (owner / other-repo follow-ups): Cal.com booking loads
+in French (dashboard event-locale setting); GitHub repo description + README say
+"4 institutional workspaces" / 3,946 tests (stale, terminal repo's job).
 
 ## Architecture
 
@@ -106,5 +156,6 @@ Add `/fr` route + a language toggle. Translate ONLY: homepage,
 `/deal-intelligence`, `/sme-finance`, contact. Skip systems index, about,
 architecture. Romandie finance register; keep "family office" and "deal
 intelligence" in English; "note d'investissement" for IC memo. Avoid literal
-translation. Add the "Claude Certified Architect" line to About only after
-the exam is passed (not before).
+translation. (The "Claude Certified Architect" line is now LIVE in About as of
+the 2026-06-01 audit pass, the exam having been confirmed passed; it no longer
+gates Pass 2.)

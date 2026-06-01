@@ -1,16 +1,25 @@
 /*
   Site-wide fixed header. Replaces the original single-page anchor Nav.
 
-  Now spans three routes, so primary items are real page links (next/link)
+  Now spans four routes, so primary items are real page links (next/link)
   and the homepage sections are reached via "/#id" hash links. There is no
   founder CV anywhere on the site (a firm site does not carry one); the
   "Book a call" button is the primary action.
 
   The header stays dumb: the booking target is a `bookingHref` prop that
   defaults to BOOKING_PE. Pages own their own header context. Every PE-first
-  route (/, /deal-intelligence) takes the default; /sme-finance passes
-  BOOKING_SME so an SME visitor lands on the 20-min fit call, not the 30-min
-  PE scoping call. No route detection inside the component.
+  route (/, /deal-intelligence, /services) takes the default; /sme-finance
+  passes BOOKING_SME so an SME visitor lands on the 20-min fit call, not the
+  30-min PE scoping call. No route detection inside the component.
+
+  Mobile nav: the desktop link row is display:none under 900px. To keep the
+  links reachable on a phone WITHOUT introducing a client component (the
+  architecture rule is server components throughout), the hamburger is a
+  CSS-only checkbox toggle. The hidden checkbox is a direct child of <nav>;
+  the label (burger) flips it via htmlFor; the mobile menu is a sibling of
+  the checkbox so a `:checked ~ .mobile-menu` rule in globals.css reveals it.
+  Page navigations re-render the header fresh (checkbox resets); same-page
+  anchor taps leave it open, an accepted no-JS trade-off.
 */
 
 import Link from "next/link";
@@ -25,6 +34,27 @@ const LINKS = [
   { href: "/#about", label: "About", page: false },
   { href: "/#contact", label: "Contact", page: false },
 ];
+
+const NAV_LINK_STYLE = {
+  fontFamily: T.fMono,
+  fontSize: "0.62rem",
+  fontWeight: 500,
+  letterSpacing: "0.18em",
+  textTransform: "uppercase",
+  color: T.text2,
+};
+
+function NavLink({ item, style, className }) {
+  return item.page ? (
+    <Link href={item.href} className={className} style={style}>
+      {item.label}
+    </Link>
+  ) : (
+    <a href={item.href} className={className} style={style}>
+      {item.label}
+    </a>
+  );
+}
 
 export function SiteHeader({ bookingHref = BOOKING_PE }) {
   return (
@@ -41,6 +71,15 @@ export function SiteHeader({ bookingHref = BOOKING_PE }) {
         borderBottom: `1px solid ${T.border}`,
       }}
     >
+      {/* CSS-only toggle. Hidden control; flipped by the burger label. */}
+      <input
+        type="checkbox"
+        id="nav-toggle"
+        className="nav-toggle-checkbox"
+        aria-hidden="true"
+        tabIndex={-1}
+      />
+
       <div
         style={{
           maxWidth: 1280,
@@ -74,45 +113,88 @@ export function SiteHeader({ bookingHref = BOOKING_PE }) {
           className="nav-links"
           style={{ display: "flex", alignItems: "center", gap: "1.6rem" }}
         >
-          {LINKS.map((item) => {
-            const style = {
+          {LINKS.map((item) => (
+            <NavLink
+              key={item.href}
+              item={item}
+              className="site-nav-link"
+              style={NAV_LINK_STYLE}
+            />
+          ))}
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "0.9rem", flexShrink: 0 }}>
+          <a
+            href={bookingHref}
+            className="cta-btn"
+            style={{
+              flexShrink: 0,
               fontFamily: T.fMono,
               fontSize: "0.62rem",
+              fontWeight: 600,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: T.bg,
+              background: T.accent,
+              padding: "0.62rem 1.1rem",
+              border: `1px solid ${T.accent}`,
+            }}
+          >
+            Book a call
+          </a>
+
+          {/* Burger. Shown only under 900px via globals.css. */}
+          <label
+            htmlFor="nav-toggle"
+            className="nav-burger"
+            aria-label="Toggle navigation menu"
+            role="button"
+            style={{
+              display: "none",
+              flexDirection: "column",
+              justifyContent: "center",
+              gap: 4,
+              width: 34,
+              height: 34,
+              cursor: "pointer",
+              border: `1px solid ${T.border}`,
+              padding: "0 7px",
+            }}
+          >
+            <span className="nav-burger-bar" style={{ height: 1.5, background: T.text2, display: "block" }} />
+            <span className="nav-burger-bar" style={{ height: 1.5, background: T.text2, display: "block" }} />
+            <span className="nav-burger-bar" style={{ height: 1.5, background: T.text2, display: "block" }} />
+          </label>
+        </div>
+      </div>
+
+      {/* Mobile dropdown. Revealed by `.nav-toggle-checkbox:checked ~`. */}
+      <div
+        className="mobile-menu"
+        style={{
+          display: "none",
+          flexDirection: "column",
+          borderTop: `1px solid ${T.border}`,
+          background: "rgba(10, 10, 15, 0.98)",
+        }}
+      >
+        {LINKS.map((item) => (
+          <NavLink
+            key={item.href}
+            item={item}
+            className="mobile-menu-link"
+            style={{
+              fontFamily: T.fMono,
+              fontSize: "0.72rem",
               fontWeight: 500,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
               color: T.text2,
-            };
-            return item.page ? (
-              <Link key={item.href} href={item.href} className="site-nav-link" style={style}>
-                {item.label}
-              </Link>
-            ) : (
-              <a key={item.href} href={item.href} className="site-nav-link" style={style}>
-                {item.label}
-              </a>
-            );
-          })}
-        </div>
-
-        <a
-          href={bookingHref}
-          className="cta-btn"
-          style={{
-            flexShrink: 0,
-            fontFamily: T.fMono,
-            fontSize: "0.62rem",
-            fontWeight: 600,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: T.bg,
-            background: T.accent,
-            padding: "0.62rem 1.1rem",
-            border: `1px solid ${T.accent}`,
-          }}
-        >
-          Book a call
-        </a>
+              padding: "1rem 2rem",
+              borderTop: `1px solid ${T.borderSubtle}`,
+            }}
+          />
+        ))}
       </div>
     </nav>
   );

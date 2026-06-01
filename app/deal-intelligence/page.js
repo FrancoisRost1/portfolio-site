@@ -52,7 +52,7 @@ const ENGAGEMENT = [
   ["Scoped per mandate", "Each engagement is scoped to one fund and one workflow. No open-ended retainers to start."],
   ["Test covered", "Systems ship with full test coverage and a Codex-audited review. The same standard as the eleven shipped systems."],
   ["Deployed", "Delivered as a production tool with code handover, not a slide deck or a notebook."],
-  ["Priced in the call", "Pricing is set in the scoping call once fund size and workflow complexity are clear. Engagements typically run as a pilot scaling into ongoing work. The terminal's published per-deliverable catalog on /pricing-cards is the reference anchor."],
+  ["Priced in the call", "Pricing is set in the scoping call once fund size and workflow complexity are clear. Engagements typically run as a pilot scaling into ongoing work. The firm's published per-deliverable catalog on the Services page is the reference anchor."],
 ];
 
 // Deep links a curious buyer might open in one click. The mandate catalog

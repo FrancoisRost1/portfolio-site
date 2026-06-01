@@ -18,13 +18,13 @@ import { BOOKING_SME } from "../_shared/booking";
 export const metadata = {
   title: "Productized AI for SME Finance Teams | Frostaing AI",
   description:
-    "Fixed-scope, fixed-fee AI for finance teams and SME CFOs. Sprint (4 weeks, CHF 12,000) and Sprint Plus (6 weeks, CHF 22,000), with an optional CHF 1,500 per month retainer. Public prices, productized delivery.",
+    "Fixed-scope, fixed-fee AI for finance teams and SME CFOs. Sprint (4 weeks, CHF 12'000) and Sprint Plus (6 weeks, CHF 22'000), with an optional CHF 1'500 per month retainer. Public prices, productized delivery.",
 };
 
 const SKUS = [
   {
     name: "Sprint",
-    price: "CHF 12,000",
+    price: "CHF 12'000",
     terms: "4 weeks, fixed fee",
     summary: "One workflow productized end to end.",
     examples: [
@@ -36,7 +36,7 @@ const SKUS = [
   },
   {
     name: "Sprint Plus",
-    price: "CHF 22,000",
+    price: "CHF 22'000",
     terms: "6 weeks, fixed fee",
     summary:
       "Two connected workflows, or one workflow with deeper integration.",
@@ -323,7 +323,7 @@ function Pricing() {
               fontVariantNumeric: "tabular-nums",
             }}
           >
-            CHF 1,500 / month
+            CHF 1'500 / month
           </div>
         </div>
       </div>
@@ -347,7 +347,7 @@ function Proof() {
             {
               title: "Unified Research Terminal",
               blurb:
-                "Production application, 4,000+ tests passing across 68 institutional workspaces. The platform our SME work is built on.",
+                "Production application, 7,567 backend tests passing across 68 institutional workspaces. The platform our SME work is built on.",
               href: "https://terminal.frostaing.com",
             },
             {
