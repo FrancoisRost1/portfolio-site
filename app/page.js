@@ -123,15 +123,12 @@ const ALL_PROJECTS = [
   { num: "11", name: "Unified Research Terminal",     tier: "Capstone",   tests: "7,734",  metric: "68 Workspaces",                 status: "live", repo: "mini-bloomberg-terminal",      liveUrl: TERMINAL_ROOT },
 ];
 
-const totalTests = ALL_PROJECTS.reduce((s, p) => {
-  // tests may carry a comma separator and/or a trailing "+" for
-  // approximate live counts; strip both before parseInt. Non-numeric
-  // values (e.g. "n/a" for the LBO engine, which has no suite) yield
-  // NaN and contribute 0.
-  const clean = String(p.tests).replace(/[,+]/g, "");
-  const n = parseInt(clean, 10);
-  return s + (Number.isFinite(n) ? n : 0);
-}, 0);
+// Headline test count, shown in the hero stats, the systems footer, and the
+// firm profile. Held as a fixed display string ("10'000+", Swiss apostrophe)
+// rather than summing ALL_PROJECTS, since the live terminal test suite grows
+// past what the per-system table records. Update this when the real count
+// crosses the next round number.
+const TESTS_DISPLAY = "10'000+";
 
 /* ─────────────────────────────────────────────────────────────────
    HERO
@@ -324,7 +321,7 @@ function Hero() {
       >
         {[
           ["Workspaces", "68 institutional"],
-          ["Tests Passing", totalTests.toLocaleString("en-US")],
+          ["Tests Passing", TESTS_DISPLAY],
           ["Beta", "Free to use"],
           ["Planned Price", `${PRICE_CHF} / mo`],
         ].map(([label, value], i) => (
@@ -1104,7 +1101,7 @@ function Systems() {
           }}
         >
           <span>All composed into one terminal</span>
-          <span>{totalTests.toLocaleString("en-US")} tests passing</span>
+          <span>{TESTS_DISPLAY} tests passing</span>
         </div>
       </div>
     </section>
@@ -1241,7 +1238,7 @@ function About() {
               ["Network", "Claude Partner Network (Anthropic)"],
               ["Stack", "Python, Next.js, FastAPI, Claude"],
               ["Workspaces", "68 institutional"],
-              ["Total Tests", totalTests.toLocaleString("en-US")],
+              ["Total Tests", TESTS_DISPLAY],
             ].map(([k, v], i, arr) => (
               <div
                 key={k}
