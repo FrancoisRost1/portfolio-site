@@ -35,5 +35,5 @@ export const TIER = {
   Systematic: "#B86A3A",   // muted red amber, vol regime
   Advanced: "#5A7A9E",     // cool grey blue, portfolio
   Elite: "#7C6DB0",        // muted violet, derivatives + research agent
-  Capstone: "#E07020",     // Bloomberg orange, capstone
+  Capstone: "#E07020",     // amber accent, capstone
 };

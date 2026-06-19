@@ -2,7 +2,7 @@
   Frostaing AI. Homepage.
 
   Positioning (2026-06-19): the product is the terminal. This site sells ONE
-  thing, the mini Bloomberg terminal at terminal.frostaing.com. We do not sell
+  thing, the terminal at terminal.frostaing.com. We do not sell
   bespoke AI mandates or consulting any more. The terminal is in open beta and
   free to use; the planned price at general availability is CHF 200 / month.
   Every page leads to either opening the terminal or giving feedback on it.
@@ -28,9 +28,9 @@ const TERMINAL_ROOT = "https://terminal.frostaing.com";
 const PRICE_CHF = "CHF 200";
 
 export const metadata = {
-  title: "Frostaing AI | An AI-native Bloomberg terminal",
+  title: "Frostaing AI | An AI-native finance research terminal",
   description:
-    "Frostaing is an AI-native mini Bloomberg terminal: live markets, AI equity research, options, LBO and deal modeling, comps, portfolio construction, and systematic signals in one research desk. Open beta, free to use. Planned price CHF 200 per month.",
+    "Frostaing is an AI-native finance research terminal: live markets, AI equity research, options, LBO and deal modeling, comps, portfolio construction, and systematic signals in one research desk. Open beta, free to use. Planned price CHF 200 per month.",
 };
 
 /* ─────────────────────────────────────────────────────────────────
@@ -154,7 +154,7 @@ function Hero() {
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage: "url(/bloomberg-terminal.png)",
+          backgroundImage: "url(/terminal-hero.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -218,7 +218,7 @@ function Hero() {
             maxWidth: 880,
           }}
         >
-          An AI-native Bloomberg terminal.
+          An AI-native finance research terminal.
         </h1>
 
         <p
