@@ -32,6 +32,16 @@ Two static routes, both prerendered: `/` and `/_not-found`.
   Tests Passing / Beta Free / Planned Price CHF 200. `FEATURES`, `INCLUDED`,
   and `ALL_PROJECTS` are the only data arrays. No Streamlit URLs
   (`grep -r streamlit.app app/` empty).
+- **Test count is a fixed display string `TESTS_DISPLAY = "10'000+"`** at the
+  top of `app/page.js` (hero stat, systems footer, firm-profile row). The old
+  `totalTests` reducer that summed ALL_PROJECTS to 9,044 was removed. Update
+  `TESTS_DISPLAY` when the real count crosses the next round number.
+- **No "Bloomberg" anywhere visitor-facing (2026-06-19).** The product is "an
+  AI-native finance research terminal" (hero H1 + all metadata). Hero asset
+  renamed `public/bloomberg-terminal.png` -> `public/terminal-hero.png`. The
+  only surviving "bloomberg" token is the GitHub repo slug
+  `mini-bloomberg-terminal` in the ALL_PROJECTS #11 row, which is never
+  rendered (that row links via `liveUrl` = TERMINAL_ROOT).
 - **Feedback is a first-class section** (`#feedback`, owner explicitly
   required a feedback path). Two channels: (1) in-terminal feedback control
   on every workspace, (2) a 30-min beta call via `BOOKING_PE`. Email

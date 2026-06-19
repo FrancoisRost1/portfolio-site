@@ -1,44 +1,46 @@
 # Frostaing AI | Public marketing site
 
-Public site for **Frostaing AI**, a Geneva and Romandie AI and finance systems firm. Live at **[frostaing.com](https://frostaing.com)**.
+Public site for the **Frostaing terminal**, an AI-native finance research terminal built by Frostaing AI in Geneva and Romandie. Live at **[frostaing.com](https://frostaing.com)**.
 
-This repository is the marketing site only. The technical work lives in sibling repositories; the eleven shipped systems are the firm's technical foundation, with the [Unified Research Terminal](https://terminal.frostaing.com) (`mini-bloomberg-terminal`) as the capstone.
+This repository is the marketing site only. The product itself lives at **[terminal.frostaing.com](https://terminal.frostaing.com)**; the eleven shipped systems in sibling repositories are the terminal's technical foundation.
 
 ## What we sell
 
-- **Deal Intelligence** for PE, VC, and family offices in Geneva and Romandie. IC memo automation, deal screening, diligence synthesis, and portfolio monitoring. Scoped per mandate. Priced in the scoping call. Lives at `/deal-intelligence`.
-- **Productized AI for SME finance teams**: fixed scope, fixed fee, fixed timeline. Sprint (4 weeks, CHF 12,000), Sprint Plus (6 weeks, CHF 22,000), optional retainer (CHF 1,500 / month). Lives at `/sme-finance`.
+One thing: **access to the terminal**.
 
-Both offers route to live calendars via Cal.com. Pricing for the deal-intelligence side is anchored to the published per-deliverable catalog on the terminal at [terminal.frostaing.com/pricing-cards](https://terminal.frostaing.com/pricing-cards).
+- Live markets, AI equity research with locked deterministic ratings, options, LBO and deal modeling, comps, portfolio construction, and systematic signals, in one research desk.
+- **Open beta, free to use right now.** No card, no trial clock.
+- Planned price at general availability: **CHF 200 / month** (held as the `PRICE_CHF` constant in `app/page.js`, the single source of truth for the number on the site).
+
+The site does not sell consulting or bespoke AI mandates. Feedback from beta users is a first-class call to action: an in-terminal feedback control on every workspace, plus a 30-minute beta call via Cal.com.
 
 ## Stack
 
 - **Framework**: Next.js 16.2 (App Router, server components throughout; no `"use client"`)
-- **Hosting**: Vercel (deploys from `main`)
-- **Booking**: Cal.com (live event types: 30-min PE Scoping Call, 20-min SME Fit Call)
+- **Hosting**: deploys from `main`
+- **Booking**: Cal.com (30-minute beta call, `BOOKING_PE`)
 - **Design system**: shared tokens in `app/_shared/theme.js`; interaction + responsive CSS in `app/globals.css`
 
 ## Architecture
 
 ```
 app/
-  page.js                      # homepage
-  deal-intelligence/page.js    # hero offer (PE / VC / family offices)
-  sme-finance/page.js          # supporting offer (SME CFOs)
-  layout.js                    # root layout
+  page.js                      # single homepage (hero / overview / features /
+                               #   pricing / feedback / systems / about / contact)
+  not-found.js                 # branded 404
+  layout.js                    # root layout + metadata
   globals.css                  # interaction + responsive CSS (single source)
   _shared/                     # shared, non-routable (underscore-prefixed)
     theme.js                   # T (color/type tokens), TIER (tier colors)
     primitives.js              # StatusTag, SectionHead
-    SiteHeader.js              # cross-route fixed nav, bookingHref prop
+    SiteHeader.js              # fixed nav, ctaHref prop (opens the terminal)
     Footer.js                  # cross-route footer
-    Cta.js                     # PrimaryButton, BookCta
-    proof.js                   # ProofStrip (deep-links to terminal workspaces)
-    booking.js                 # BOOKING_PE, BOOKING_SME, CONTACT_EMAIL
-public/                        # static assets (favicon, OG image, hero png)
+    Cta.js                     # PrimaryButton
+    booking.js                 # BOOKING_PE, CONTACT_EMAIL
+public/                        # static assets (favicon, terminal-hero.png)
 ```
 
-Every proof tile on the offer pages deep-links to a specific terminal workspace (`/memo-builder`, `/universe-screener`, `/lbo-quick-calc`, `/portfolio-builder`) so a curious buyer can open the live product in one click.
+Each of the eight feature tiles and every row of the technical-foundation table deep-links to a live terminal workspace, so a curious visitor can open the real product in one click.
 
 ## Local development
 
@@ -49,7 +51,7 @@ npm run build                  # production build (must pass before push)
 npm run start                  # serve the built output
 ```
 
-Verify every change with `npm run build` before pushing. Vercel deploys from `main`.
+Verify every change with `npm run build` before pushing. Deploys from `main`.
 
 ## Design rules
 
@@ -57,23 +59,22 @@ Verify every change with `npm run build` before pushing. Vercel deploys from `ma
 - No em dashes, no emojis in any user-visible string or in committed files. `->` and `→` arrows are the accepted convention.
 - All colors and type via `T` from `app/_shared/theme.js`. No new hex literals in page code.
 - Color-only interactions. No transforms, no glow, no animation.
-- Server components only. `next/link` for internal routes, plain `<a>` for external links and the booking URLs.
+- Server components only. `next/link` for internal anchors, plain `<a>` for external links and the booking URL.
 
 ## Hard rules (do not undo without explicit owner direction)
 
-The firm direction has been wrongly reverted by past sessions. These decisions are deliberate and durable. Read `CLAUDE.md` before changing any of them.
+These decisions are deliberate and durable. Read `CLAUDE.md` before changing any of them.
 
-- **Hero offer is deal intelligence for PE / VC / family offices**, not "AI/finance portfolio". Reverted twice before by sessions misreading the firm direction as a mistake.
-- **Founder CV is removed** (no nav link, no About-bio link, the PDF was deleted). A firm site does not carry a founder CV.
-- **No multi-person team page** until verified LinkedIns exist. The previous 10-persona team page was a credibility liability; photos archived (not deleted) at `public/_archive/team/` for a possible Pass 2 verified-advisors section.
-- **The `Claude Certified Architect` line goes into About only after the exam is passed**, never before.
+- **The product is the terminal.** The site sells terminal access, not consulting. The consulting routes (`/deal-intelligence`, `/services`, `/sme-finance`) were deleted in the 2026-06-19 pivot. Do not re-create them without explicit owner instruction.
+- **Beta feedback is a required, first-class section.** The owner wants a feedback path on the site.
+- **One price**, `PRICE_CHF` in `app/page.js`. Do not hardcode the number anywhere else.
+- **Founder CV is removed**, and **no multi-person team page** until verified LinkedIns exist (photos archived at `public/_archive/team/`).
 
 ## Pass 2 (pending)
 
-Add `/fr` route + a language toggle. Translate ONLY the homepage, `/deal-intelligence`, `/sme-finance`, and contact. Skip the systems index, about, and architecture sections. Use Romandie finance register; keep "family office" and "deal intelligence" in English; use "note d'investissement" for IC memo. Avoid literal translation.
+Add `/fr` route + a language toggle on the single homepage. Render CHF 200 / mois; keep "terminal" in English. Skip the systems table and about. Use Romandie finance register. Avoid literal translation.
 
 ## Related
 
-- **Terminal (capstone product)**: [terminal.frostaing.com](https://terminal.frostaing.com), repo `mini-bloomberg-terminal`. Sixty-eight institutional workspaces, ~4,000 tests, seven institutional audit closure passes through v2.79.0.
+- **Terminal (the product)**: [terminal.frostaing.com](https://terminal.frostaing.com), repo `mini-bloomberg-terminal`. Sixty-eight institutional workspaces.
 - **Engines (technical foundation)**: ten sibling repositories for LBO, PE screening, factor models, regime detection, TSMOM, options pricing, portfolio optimization, robustness lab, M&A database, and the AI research agent. The terminal integrates all ten.
-- **Methodology**: [terminal.frostaing.com/methodology](https://terminal.frostaing.com/methodology) is the trust surface that names every kernel, every limit, and every config-truthful threshold.
