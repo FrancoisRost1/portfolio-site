@@ -1,10 +1,11 @@
 /*
   Frostaing AI. Homepage.
 
-  Positioning: PE / VC / family office deal intelligence is the hero offer;
-  productized SME finance work is the secondary offer. The two offers each
-  have a dedicated route (/deal-intelligence, /sme-finance); this page leads
-  with the wedge and links into them.
+  Positioning (2026-06-19): the product is the terminal. This site sells ONE
+  thing, the mini Bloomberg terminal at terminal.frostaing.com. We do not sell
+  bespoke AI mandates or consulting any more. The terminal is in open beta and
+  free to use; the planned price at general availability is CHF 200 / month.
+  Every page leads to either opening the terminal or giving feedback on it.
 
   Design system: DESIGN.md and style_inject.py. No em dashes. No emojis.
   No gradients. No glow. No hover transforms. Shared tokens and chrome live
@@ -18,161 +19,94 @@ import { SiteHeader } from "./_shared/SiteHeader";
 import { Footer } from "./_shared/Footer";
 import { PrimaryButton } from "./_shared/Cta";
 import { BOOKING_PE, CONTACT_EMAIL } from "./_shared/booking";
-import { totalMandateCount } from "./_shared/mandates";
 
-// Every system that ALL_PROJECTS used to flag as a standalone Streamlit
-// app now resolves to the corresponding workspace inside the production
-// terminal. No more cold-starting per-engine apps; the story is one
-// product. Keep this map next to ALL_PROJECTS so a future audit can
-// re-read both at once.
 const TERMINAL_ROOT = "https://terminal.frostaing.com";
-const MANDATE_TOTAL = totalMandateCount();
+
+// Planned price at general availability. The terminal is free during beta;
+// this number anchors the value and is the single source of truth for the
+// price shown anywhere on the site.
+const PRICE_CHF = "CHF 200";
 
 export const metadata = {
-  title: "Frostaing AI | AI Investment Research & Deal Intelligence",
+  title: "Frostaing AI | An AI-native Bloomberg terminal",
   description:
-    "Geneva and Romandie firm building AI investment research and deal intelligence systems for private equity, venture capital, and family offices. IC memo automation, deal screening, diligence synthesis, portfolio monitoring. Productized analytics for SME finance teams.",
+    "Frostaing is an AI-native mini Bloomberg terminal: live markets, AI equity research, options, LBO and deal modeling, comps, portfolio construction, and systematic signals in one research desk. Open beta, free to use. Planned price CHF 200 per month.",
 };
 
 /* ─────────────────────────────────────────────────────────────────
    DATA
    ───────────────────────────────────────────────────────────────── */
 
-const SERVICES = [
+// What the terminal actually does. Each tile maps to a live workspace so the
+// visitor can open the exact surface from the marketing copy.
+const FEATURES = [
   {
-    rank: "Primary offer",
-    name: "Deal Intelligence for PE, VC and Family Offices",
-    href: "/deal-intelligence",
-    summary:
-      "AI investment research and deal intelligence for funds and family offices in Geneva and Romandie. Scoped per mandate, test covered, deployed as production tools.",
-    bullets: [
-      "IC memo automation",
-      "Deal and target screening",
-      "Diligence synthesis",
-      "Portfolio monitoring",
-    ],
-    cta: "Deal intelligence offer",
+    code: "F1",
+    title: "Live Market Overview",
+    body:
+      "Indices, FX, commodities, a sector heatmap, breadth, and top movers on a single tape. Built live-first with honest stale indicators when a feed degrades.",
+    href: `${TERMINAL_ROOT}/market-overview`,
   },
   {
-    rank: "Mandate catalog",
-    name: "Per-Deliverable Pricing and Retainers",
-    href: "/services",
-    summary: `The full catalog. ${MANDATE_TOTAL} priced mandates across per-deliverable packs, monthly retainers, quarterly reviews, and white-label terminal seats. Geneva-anchored CHF.`,
-    bullets: [
-      "PE diligence packs and M&A memos",
-      "Sector deep-dives and LBO models",
-      "Family-office and macro retainers",
-      "White-label terminal seats",
-    ],
-    cta: "Open mandate catalog",
+    code: "F2",
+    title: "AI Equity Research",
+    body:
+      "A deterministic recommendation aggregator turns filings, financials, valuation, and risk into an IC-ready memo. The rating is computed and locked before the model writes a word.",
+    href: `${TERMINAL_ROOT}/ticker-deep-dive`,
   },
   {
-    rank: "Supporting offer",
-    name: "Financial Analytics and Internal Decision Tools",
-    href: "/sme-finance",
-    summary:
-      "Productized AI for finance teams and SME CFOs. Fixed scope, fixed fee, fixed timeline, from document intake to management reporting and internal knowledge assistants.",
-    bullets: [
-      "Management reporting automation",
-      "Document intake and extraction",
-      "Internal knowledge assistants",
-      "Decision dashboards",
-    ],
-    cta: "Productized SME offer",
+    code: "F3",
+    title: "Options Lab",
+    body:
+      "Black-Scholes, binomial, and Monte Carlo pricing, eight analytical Greeks, implied-vol extraction, an empirical vol surface, and P&L scenario analysis.",
+    href: `${TERMINAL_ROOT}/options-lab`,
+  },
+  {
+    code: "F4",
+    title: "LBO and Deal Modeling",
+    body:
+      "Entry assumptions through exit returns with a full debt schedule, scenario analysis, and a Monte Carlo distribution on MOIC and IRR.",
+    href: `${TERMINAL_ROOT}/lbo-quick-calc`,
+  },
+  {
+    code: "F5",
+    title: "Comps and Relative Value",
+    body:
+      "Peer screening, sector premium and discount, and historical valuation percentiles, blended with a simplified LBO IRR and red-flag detection.",
+    href: `${TERMINAL_ROOT}/comps-relative-value`,
+  },
+  {
+    code: "F6",
+    title: "Portfolio Construction",
+    body:
+      "Mean variance, risk parity, HRP, and Black-Litterman across three covariance estimators, with a rolling backtest and vol-normalized comparison.",
+    href: `${TERMINAL_ROOT}/portfolio-builder`,
+  },
+  {
+    code: "F7",
+    title: "Systematic Signals",
+    body:
+      "Cross-asset time-series momentum, a five-factor model, and a regime engine with vol targeting, all computed with strict no-lookahead signal timing.",
+    href: `${TERMINAL_ROOT}/live-signals`,
+  },
+  {
+    code: "F8",
+    title: "Strategy Robustness Lab",
+    body:
+      "Probability of backtest overfitting via CSCV, deflated Sharpe, stochastic dominance, and parameter-stability plateau detection on any strategy.",
+    href: `${TERMINAL_ROOT}/strategy-lab`,
   },
 ];
 
-const IMPLEMENTATIONS = [
-  {
-    code: "I1",
-    title: "Investment Memo Automation",
-    body:
-      "A deterministic recommendation aggregator that turns filings, financials, valuation, and risk into an IC ready memo. The rating is computed and locked before the model writes any prose, so the narrative can never override the decision.",
-    source: "Adapted from the AI Research Agent system.",
-    specs: [
-      ["Tests", "242"],
-      ["Pipeline", "6 engines, parallel"],
-      ["Composite", "BUY ≥ 65 / SELL ≤ 35"],
-    ],
-  },
-  {
-    code: "I2",
-    title: "Deal and Target Screening",
-    body:
-      "Percentile scoring blended with a simplified LBO IRR, debt capacity tiering, and red flag detection across a screening universe. Built to surface a short list with the reasoning attached, not a black box rank.",
-    source: "Adapted from the PE Target Screener system.",
-    specs: [
-      ["Tests", "28"],
-      ["Universe", "80 companies scored"],
-      ["Output", "Debt-capacity tiers, red flags"],
-    ],
-  },
-  {
-    code: "I3",
-    title: "Portfolio and Market Intelligence",
-    body:
-      "The full engine stack integrated into a Bloomberg style research terminal with institutional workspaces for live market, research, comps, and portfolio work. The capstone that the prior systems compose into.",
-    source: "Adapted from the Unified Research Terminal system.",
-    specs: [
-      ["Tests", "7,734 backend"],
-      ["Frontend", "2,542 vitest"],
-      ["Workspaces", "68 institutional"],
-    ],
-  },
-];
-
-const CASE_STUDIES = [
-  {
-    num: "01",
-    name: "Unified Research Terminal",
-    status: "live",
-    tier: "Capstone",
-    takeaway: "Ten systems collapse into one research desk.",
-    detail:
-      "Unified Bloomberg-style research terminal integrating all 10 prior engines into 68 institutional workspaces (Market, Research, Options, LBO, Comps, Portfolio, sector pages, intelligence surfaces). 7,734 backend tests passing, plus 2,542 frontend.",
-    facts: [
-      ["Tests", "7,734 backend"],
-      ["Frontend", "2,542 vitest"],
-      ["Integrates", "10 prior systems"],
-      ["Workspaces", "68"],
-    ],
-    repo: "https://github.com/FrancoisRost1/mini-bloomberg-terminal",
-    liveUrl: "https://terminal.frostaing.com",
-  },
-  {
-    num: "02",
-    name: "AI Research Agent",
-    status: "live",
-    tier: "Elite",
-    takeaway: "Six engines decide. The LLM only writes the memo.",
-    detail:
-      "Deterministic recommendation aggregator. Engines run in parallel. The model writes the prose. The rating is locked.",
-    facts: [
-      ["Tests", "242"],
-      ["Engines", "6, parallel"],
-      ["Composite", "BUY ≥ 65, SELL ≤ 35"],
-      ["Stack", "Python, Claude API"],
-    ],
-    repo: "https://github.com/FrancoisRost1/ai-research-agent",
-    liveUrl: `${TERMINAL_ROOT}/ticker-deep-dive`,
-  },
-  {
-    num: "03",
-    name: "Portfolio Optimization Engine",
-    status: "live",
-    tier: "Advanced",
-    takeaway: "HRP with RMT cleaning beats classical Mean Variance.",
-    detail:
-      "Four optimizers, three covariance methods. Ten year rolling backtest across fourteen ETFs. Sharpe 0.62 at 10 percent target volatility.",
-    facts: [
-      ["Tests", "166"],
-      ["Methods", "4 x 3 grid"],
-      ["Best", "HRP Sharpe 0.62"],
-      ["Window", "10 year rolling"],
-    ],
-    repo: "https://github.com/FrancoisRost1/portfolio-optimization-engine",
-    liveUrl: `${TERMINAL_ROOT}/portfolio-builder`,
-  },
+// What is included in the terminal. Used by the pricing card. The beta state
+// gives all of this away free; CHF 200 / month is the planned GA price.
+const INCLUDED = [
+  "Every workspace, no tiering during beta",
+  "Live market, FX, commodity, and macro data",
+  "AI equity research with locked deterministic ratings",
+  "Options, LBO, comps, portfolio, and signal engines",
+  "Non-US equity coverage and multi-exchange calendars",
+  "Watchlists and saved research",
 ];
 
 const ALL_PROJECTS = [
@@ -198,7 +132,6 @@ const totalTests = ALL_PROJECTS.reduce((s, p) => {
   const n = parseInt(clean, 10);
   return s + (Number.isFinite(n) ? n : 0);
 }, 0);
-const liveCount = ALL_PROJECTS.filter((p) => p.status === "live").length;
 
 /* ─────────────────────────────────────────────────────────────────
    HERO
@@ -258,6 +191,7 @@ function Hero() {
             alignItems: "center",
             gap: "1.25rem",
             marginBottom: "2rem",
+            flexWrap: "wrap",
           }}
         >
           <span style={{ width: 44, height: 1, background: T.accent }} />
@@ -271,7 +205,7 @@ function Hero() {
               fontWeight: 600,
             }}
           >
-            CLAUDE PARTNER NETWORK · GENEVA & ROMANDIE · EST. 2026
+            OPEN BETA · FREE TO USE · GENEVA & ROMANDIE
           </span>
         </div>
 
@@ -284,10 +218,10 @@ function Hero() {
             lineHeight: 1.05,
             color: T.text,
             margin: 0,
-            maxWidth: 820,
+            maxWidth: 880,
           }}
         >
-          AI deal intelligence for private capital.
+          An AI-native Bloomberg terminal.
         </h1>
 
         <p
@@ -299,10 +233,10 @@ function Hero() {
             lineHeight: 1.25,
             letterSpacing: "-0.015em",
             margin: "1rem 0 0",
-            maxWidth: 640,
+            maxWidth: 720,
           }}
         >
-          For PE, VC, and family offices in Geneva and Romandie.
+          Live markets, AI research, and the full quant stack in one desk.
         </p>
 
         <p
@@ -312,49 +246,67 @@ function Hero() {
             color: T.text,
             lineHeight: 1.6,
             margin: "1.75rem 0 0",
-            maxWidth: 620,
+            maxWidth: 640,
           }}
         >
-          IC memo automation, deal screening, diligence synthesis, and
-          portfolio monitoring. Production-grade, auditable, source-cited. For
-          finance teams and SME CFOs, productized AI on a fixed scope and fixed
-          fee.
+          Live market data, AI equity research with locked deterministic
+          ratings, options, LBO and deal modeling, comps, portfolio
+          construction, and systematic signals. Production-grade, auditable,
+          and test-covered. Open beta, free to use right now.
         </p>
 
         <div
           style={{
             display: "flex",
             flexWrap: "wrap",
-            gap: "2rem",
+            gap: "1.1rem 1.4rem",
             marginTop: "2.5rem",
+            alignItems: "center",
           }}
         >
-          {[
-            ["Deal intelligence for PE, VC and family offices", "/deal-intelligence"],
-            ["Productized AI for SME finance teams", "/sme-finance"],
-          ].map(([label, href]) => (
-            <Link
-              key={href}
-              href={href}
-              className="case-link"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.65rem",
-                fontFamily: T.fMono,
-                fontSize: "0.68rem",
-                fontWeight: 600,
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: T.accent,
-                paddingBottom: "0.4rem",
-                borderBottom: `1px solid ${T.accent}`,
-              }}
-            >
-              {label}
-              <span aria-hidden>{"→"}</span>
-            </Link>
-          ))}
+          <PrimaryButton href={TERMINAL_ROOT} external>
+            Open the terminal
+          </PrimaryButton>
+          <Link
+            href="/#pricing"
+            className="case-link"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.65rem",
+              fontFamily: T.fMono,
+              fontSize: "0.68rem",
+              fontWeight: 600,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: T.accent,
+              paddingBottom: "0.4rem",
+              borderBottom: `1px solid ${T.accent}`,
+            }}
+          >
+            Pricing
+            <span aria-hidden>{"→"}</span>
+          </Link>
+          <Link
+            href="/#feedback"
+            className="case-link"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.65rem",
+              fontFamily: T.fMono,
+              fontSize: "0.68rem",
+              fontWeight: 600,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: T.text2,
+              paddingBottom: "0.4rem",
+              borderBottom: `1px solid ${T.border}`,
+            }}
+          >
+            Give feedback
+            <span aria-hidden>{"→"}</span>
+          </Link>
         </div>
       </div>
 
@@ -371,10 +323,10 @@ function Hero() {
         }}
       >
         {[
-          ["Systems Live", `${liveCount} / 11`],
+          ["Workspaces", "68 institutional"],
           ["Tests Passing", totalTests.toLocaleString("en-US")],
-          ["Practice", "Geneva and Romandie"],
-          ["Stack", "Python, Next.js, Claude"],
+          ["Beta", "Free to use"],
+          ["Planned Price", `${PRICE_CHF} / mo`],
         ].map(([label, value], i) => (
           <div
             key={label}
@@ -415,13 +367,13 @@ function Hero() {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   APPROACH
+   APPROACH (What the terminal is)
    ───────────────────────────────────────────────────────────────── */
 function Approach() {
   return (
-    <section id="approach" style={{ padding: "8.5rem 2rem 5.5rem" }}>
+    <section id="overview" style={{ padding: "8.5rem 2rem 5.5rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="01" label="Approach" right="Why we exist" />
+        <SectionHead num="01" label="The Terminal" right="What it is" />
 
         <div
           style={{
@@ -443,7 +395,7 @@ function Approach() {
               maxWidth: 460,
             }}
           >
-            Replace manual analysis with structured, repeatable systems.
+            One research desk, built the way an analyst actually works.
           </h2>
 
           <div style={{ maxWidth: 620 }}>
@@ -456,9 +408,11 @@ function Approach() {
                 margin: "0 0 1.25rem",
               }}
             >
-              Investment research and reporting are still largely manual,
-              fragmented, and hard to audit. We replace that work with
-              structured systems that produce the same output every time.
+              Institutional terminals cost thousands of dollars a month and lock
+              a desk into a single vendor. Frostaing brings the same workflow,
+              live markets, equity research, derivatives, deal modeling, and
+              portfolio construction, into one AI-native desk priced for
+              individuals and small teams.
             </p>
             <p
               style={{
@@ -469,10 +423,10 @@ function Approach() {
                 margin: 0,
               }}
             >
-              By combining finance, software engineering, and Claude-based AI,
-              we build tools that produce consistent, auditable outputs instead
-              of one-off work. Every system ships with full test coverage and a
-              Codex-audited review.
+              Every number is computed by a shipped, test-covered engine, not a
+              black box. AI writes the narrative, but the rating is locked
+              before the model is ever called, so the analysis stays auditable
+              from input to recommendation.
             </p>
           </div>
         </div>
@@ -482,13 +436,13 @@ function Approach() {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   SERVICES
+   FEATURES (Inside the terminal)
    ───────────────────────────────────────────────────────────────── */
-function Services() {
+function Features() {
   return (
-    <section id="services" style={{ padding: "8.5rem 2rem 5.5rem" }}>
+    <section id="features" style={{ padding: "8.5rem 2rem 5.5rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="02" label="Services" right={`${SERVICES.length} routes into the firm`} />
+        <SectionHead num="02" label="Inside the Terminal" right={`${FEATURES.length} core engines`} />
 
         <div
           style={{
@@ -511,7 +465,7 @@ function Services() {
               maxWidth: 360,
             }}
           >
-            One wedge, one catalog, one supporting offer.
+            Ten engines, one terminal.
           </h2>
           <p
             style={{
@@ -523,12 +477,10 @@ function Services() {
               maxWidth: 620,
             }}
           >
-            The hero offer is deal intelligence for PE, VC, and family offices.
-            The mandate catalog publishes per-deliverable and retainer pricing
-            for every recurring engagement. The supporting offer is productized
-            financial analytics for finance teams and SME CFOs. All three are
-            scoped tightly, implemented to test coverage, and deployed as
-            production tools.
+            The terminal integrates ten shipped, test-covered engines into 68
+            institutional workspaces. Open any surface below directly. They all
+            run on the same live-first data layer and the same auditable
+            compute, so research, valuation, and portfolio work stay consistent.
           </p>
         </div>
 
@@ -536,116 +488,87 @@ function Services() {
           className="services-grid"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
             border: `1px solid ${T.borderSubtle}`,
             background: T.bg,
           }}
         >
-          {SERVICES.map((s, i) => (
-            <Link
-              key={s.href}
-              href={s.href}
+          {FEATURES.map((f, i) => (
+            <a
+              key={f.code}
+              href={f.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="service-cell"
               style={{
-                padding: "2.5rem 2.25rem",
+                padding: "2rem 1.75rem",
                 borderRight:
-                  i < SERVICES.length - 1
-                    ? `1px solid ${T.borderSubtle}`
-                    : "none",
+                  (i + 1) % 4 !== 0 ? `1px solid ${T.borderSubtle}` : "none",
+                borderTop: i >= 4 ? `1px solid ${T.borderSubtle}` : "none",
                 display: "flex",
                 flexDirection: "column",
-                gap: "1.1rem",
+                gap: "0.95rem",
                 color: T.text,
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
                 <span
                   aria-hidden
-                  style={{ width: 7, height: 7, background: T.accent, display: "inline-block" }}
+                  style={{ width: 6, height: 6, background: T.accent, display: "inline-block" }}
                 />
                 <span
                   style={{
                     fontFamily: T.fMono,
-                    fontSize: "0.62rem",
+                    fontSize: "0.58rem",
                     fontWeight: 600,
                     color: T.accent,
-                    letterSpacing: "0.22em",
+                    letterSpacing: "0.2em",
                     textTransform: "uppercase",
                   }}
                 >
-                  {s.rank}
+                  {f.code}
                 </span>
               </div>
               <h3
                 style={{
                   fontFamily: T.fSans,
-                  fontSize: "1.32rem",
+                  fontSize: "1.08rem",
                   fontWeight: 600,
-                  letterSpacing: "-0.018em",
+                  letterSpacing: "-0.015em",
                   color: T.text,
                   margin: 0,
                   lineHeight: 1.25,
                 }}
               >
-                {s.name}
+                {f.title}
               </h3>
               <p
                 style={{
                   fontFamily: T.fSans,
-                  fontSize: "0.92rem",
+                  fontSize: "0.86rem",
                   color: T.text2,
-                  lineHeight: 1.7,
+                  lineHeight: 1.6,
                   margin: 0,
                 }}
               >
-                {s.summary}
+                {f.body}
               </p>
-              <ul style={{ listStyle: "none", padding: 0, margin: "0.4rem 0 0" }}>
-                {s.bullets.map((b) => (
-                  <li
-                    key={b}
-                    style={{
-                      fontFamily: T.fMono,
-                      fontSize: "0.72rem",
-                      color: T.text2,
-                      letterSpacing: "0.04em",
-                      padding: "0.45rem 0",
-                      borderTop: `1px solid ${T.borderSubtle}`,
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.65rem",
-                    }}
-                  >
-                    <span
-                      aria-hidden
-                      style={{
-                        width: 4,
-                        height: 4,
-                        background: T.text3,
-                        display: "inline-block",
-                        flexShrink: 0,
-                      }}
-                    />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
               <span
                 aria-hidden
                 style={{
                   marginTop: "auto",
-                  paddingTop: "1.1rem",
+                  paddingTop: "1rem",
                   fontFamily: T.fMono,
-                  fontSize: "0.64rem",
+                  fontSize: "0.6rem",
                   fontWeight: 600,
-                  letterSpacing: "0.18em",
+                  letterSpacing: "0.16em",
                   textTransform: "uppercase",
                   color: T.accent,
                 }}
               >
-                {s.cta} {"→"}
+                Open {"→"}
               </span>
-            </Link>
+            </a>
           ))}
         </div>
       </div>
@@ -654,172 +577,170 @@ function Services() {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   REFERENCE IMPLEMENTATIONS
+   PRICING
    ───────────────────────────────────────────────────────────────── */
-function Implementations() {
+function Pricing() {
   return (
-    <section id="implementations" style={{ padding: "8.5rem 2rem 5.5rem" }}>
+    <section
+      id="pricing"
+      style={{
+        padding: "8.5rem 2rem 6rem",
+        background: T.surface,
+        borderTop: `1px solid ${T.borderStrong}`,
+        borderBottom: `1px solid ${T.borderStrong}`,
+      }}
+    >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead
-          num="03"
-          label="Reference Implementations"
-          right={`${IMPLEMENTATIONS.length} examples`}
-        />
+        <SectionHead num="03" label="Pricing" right="Free during beta" />
 
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "minmax(0, 4fr) minmax(0, 8fr)",
-            gap: "3rem",
-            marginBottom: "3rem",
+            gridTemplateColumns: "minmax(0, 5fr) minmax(0, 7fr)",
+            gap: "4rem",
             alignItems: "start",
           }}
         >
-          <h3
-            style={{
-              fontFamily: T.fSans,
-              fontSize: "clamp(1.2rem, 2vw, 1.55rem)",
-              fontWeight: 600,
-              color: T.text,
-              letterSpacing: "-0.018em",
-              lineHeight: 1.15,
-              margin: 0,
-              maxWidth: 360,
-            }}
-          >
-            Reference implementations built to demonstrate capability.
-          </h3>
-          <p
-            style={{
-              fontFamily: T.fSans,
-              fontSize: "0.95rem",
-              color: T.text2,
-              lineHeight: 1.7,
-              margin: 0,
-              maxWidth: 620,
-            }}
-          >
-            These are not client engagements. They are reference systems built
-            to demonstrate capability, and they are available as starting
-            points for client engagements. Each maps to a shipped, test-covered
-            system you can open and inspect.
-          </p>
-        </div>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-            gap: "1rem",
-          }}
-        >
-          {IMPLEMENTATIONS.map((impl) => (
-            <article
-              key={impl.code}
+          <div>
+            <h2
               style={{
-                border: `1px solid ${T.borderSubtle}`,
-                background: T.bg,
-                padding: "1.75rem 1.6rem",
+                fontFamily: T.fSans,
+                fontSize: "clamp(1.75rem, 3vw, 2.35rem)",
+                fontWeight: 600,
+                letterSpacing: "-0.025em",
+                color: T.text,
+                lineHeight: 1.15,
+                margin: 0,
+                maxWidth: 420,
+              }}
+            >
+              Free while we are in beta.
+            </h2>
+            <p
+              style={{
+                fontFamily: T.fSans,
+                fontSize: "1rem",
+                color: T.text2,
+                lineHeight: 1.75,
+                margin: "1.5rem 0 0",
+                maxWidth: 440,
+              }}
+            >
+              The terminal is in open beta. Every workspace is free to use right
+              now, with no card and no trial clock. When the terminal reaches
+              general availability the price will be {PRICE_CHF} per month, a
+              fraction of what an institutional terminal costs. Early beta users
+              help shape what ships.
+            </p>
+            <div style={{ marginTop: "2.5rem" }}>
+              <PrimaryButton href={TERMINAL_ROOT} external>
+                Start using it free
+              </PrimaryButton>
+            </div>
+          </div>
+
+          {/* Price card */}
+          <div
+            style={{
+              border: `1px solid ${T.borderStrong}`,
+              background: T.bg,
+              padding: "2.25rem 2.1rem",
+            }}
+          >
+            <div
+              style={{
                 display: "flex",
-                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "space-between",
                 gap: "1rem",
+                paddingBottom: "1.4rem",
+                borderBottom: `1px solid ${T.borderSubtle}`,
+                flexWrap: "wrap",
               }}
             >
               <span
                 style={{
                   fontFamily: T.fMono,
                   fontSize: "0.62rem",
+                  fontWeight: 600,
                   color: T.accent,
-                  letterSpacing: "0.18em",
+                  letterSpacing: "0.2em",
                   textTransform: "uppercase",
-                  fontWeight: 600,
                 }}
               >
-                {impl.code}
+                Terminal access
               </span>
-              <h4
-                style={{
-                  fontFamily: T.fSans,
-                  fontSize: "1.12rem",
-                  color: T.text,
-                  fontWeight: 600,
-                  letterSpacing: "-0.012em",
-                  lineHeight: 1.3,
-                  margin: 0,
-                }}
-              >
-                {impl.title}
-              </h4>
-              <p
-                style={{
-                  fontFamily: T.fSans,
-                  fontSize: "0.9rem",
-                  color: T.text2,
-                  lineHeight: 1.65,
-                  margin: 0,
-                }}
-              >
-                {impl.body}
-              </p>
-              <dl
-                style={{
-                  margin: "0.25rem 0 0",
-                  borderTop: `1px solid ${T.borderSubtle}`,
-                }}
-              >
-                {impl.specs.map(([k, v]) => (
-                  <div
-                    key={k}
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "minmax(0, 1fr) auto",
-                      padding: "0.6rem 0",
-                      borderBottom: `1px solid ${T.borderSubtle}`,
-                      gap: "1rem",
-                      alignItems: "baseline",
-                    }}
-                  >
-                    <dt
-                      style={{
-                        fontFamily: T.fMono,
-                        fontSize: "0.58rem",
-                        color: T.text3,
-                        letterSpacing: "0.16em",
-                        textTransform: "uppercase",
-                        fontWeight: 500,
-                      }}
-                    >
-                      {k}
-                    </dt>
-                    <dd
-                      style={{
-                        margin: 0,
-                        fontFamily: T.fMono,
-                        fontSize: "0.72rem",
-                        color: T.text,
-                        fontWeight: 500,
-                        textAlign: "right",
-                        fontVariantNumeric: "tabular-nums",
-                      }}
-                    >
-                      {v}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
+              <StatusTag status="building" />
+            </div>
+
+            <div style={{ display: "flex", alignItems: "baseline", gap: "0.9rem", margin: "1.6rem 0 0.4rem" }}>
               <span
                 style={{
-                  marginTop: "auto",
+                  fontFamily: T.fSans,
+                  fontSize: "clamp(2.4rem, 5vw, 3.4rem)",
+                  fontWeight: 600,
+                  letterSpacing: "-0.03em",
+                  color: T.text,
+                  lineHeight: 1,
+                }}
+              >
+                Free
+              </span>
+              <span
+                style={{
                   fontFamily: T.fMono,
-                  fontSize: "0.62rem",
+                  fontSize: "0.72rem",
                   color: T.text3,
                   letterSpacing: "0.04em",
                 }}
               >
-                {impl.source}
+                during open beta
               </span>
-            </article>
-          ))}
+            </div>
+            <div
+              style={{
+                fontFamily: T.fMono,
+                fontSize: "0.74rem",
+                color: T.text2,
+                letterSpacing: "0.04em",
+                marginBottom: "1.6rem",
+              }}
+            >
+              Planned at general availability: {PRICE_CHF} / month
+            </div>
+
+            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              {INCLUDED.map((item) => (
+                <li
+                  key={item}
+                  style={{
+                    fontFamily: T.fSans,
+                    fontSize: "0.88rem",
+                    color: T.text2,
+                    lineHeight: 1.5,
+                    padding: "0.7rem 0",
+                    borderTop: `1px solid ${T.borderSubtle}`,
+                    display: "flex",
+                    alignItems: "baseline",
+                    gap: "0.75rem",
+                  }}
+                >
+                  <span
+                    aria-hidden
+                    style={{
+                      width: 5,
+                      height: 5,
+                      background: T.accent,
+                      display: "inline-block",
+                      flexShrink: 0,
+                      transform: "translateY(-1px)",
+                    }}
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -827,269 +748,153 @@ function Implementations() {
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   CASE STUDY (Selected Work)
+   FEEDBACK
    ───────────────────────────────────────────────────────────────── */
-function CaseStudy({ cs, isLast, density }) {
-  const tierColor = TIER[cs.tier] || T.accent;
+function Feedback() {
   return (
-    <article
-      className="case-grid"
-      style={{
-        padding: density === "tight" ? "3.25rem 0" : "4.25rem 0",
-        borderBottom: isLast ? "none" : `1px solid ${T.border}`,
-        display: "grid",
-        gridTemplateColumns: "minmax(0, 6fr) minmax(0, 4fr)",
-        gap: "4rem",
-      }}
-    >
-      <div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.85rem",
-            marginBottom: "1.75rem",
-          }}
-        >
-          <span
-            aria-hidden
-            style={{ width: 7, height: 7, background: tierColor, display: "inline-block" }}
-          />
-          <span
-            style={{
-              fontFamily: T.fMono,
-              fontSize: "0.62rem",
-              fontWeight: 600,
-              color: tierColor,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-            }}
-          >
-            Case {cs.num} / {cs.tier}
-          </span>
-          <span style={{ flex: 1, height: 1, background: T.border }} />
-          <StatusTag status={cs.status} />
-        </div>
-
-        <h2
-          style={{
-            fontFamily: T.fSans,
-            fontSize: "clamp(1.7rem, 3.2vw, 2.4rem)",
-            fontWeight: 600,
-            letterSpacing: "-0.025em",
-            color: T.text,
-            margin: 0,
-            lineHeight: 1.1,
-          }}
-        >
-          {cs.name}
-        </h2>
-
-        <p
-          style={{
-            fontFamily: T.fSans,
-            fontSize: "clamp(1.1rem, 1.55vw, 1.3rem)",
-            color: T.text,
-            fontWeight: 500,
-            lineHeight: 1.4,
-            letterSpacing: "-0.005em",
-            margin: "1.25rem 0 0",
-            maxWidth: 580,
-          }}
-        >
-          {cs.takeaway}
-        </p>
-
-        <p
-          style={{
-            fontFamily: T.fSans,
-            fontSize: "0.92rem",
-            color: T.text2,
-            lineHeight: 1.7,
-            margin: "1.1rem 0 0",
-            maxWidth: 540,
-          }}
-        >
-          {cs.detail}
-        </p>
-
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "1.75rem",
-            marginTop: "2rem",
-          }}
-        >
-          {cs.liveUrl && (
-            <a
-              href={cs.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="case-link"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.65rem",
-                fontFamily: T.fMono,
-                fontSize: "0.66rem",
-                fontWeight: 600,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: tierColor,
-                paddingBottom: "0.4rem",
-                borderBottom: `1px solid ${tierColor}`,
-              }}
-            >
-              Open in terminal
-              <span aria-hidden>{"→"}</span>
-            </a>
-          )}
-          <a
-            href={cs.repo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="case-link"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.65rem",
-              fontFamily: T.fMono,
-              fontSize: "0.66rem",
-              fontWeight: 600,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: T.text2,
-              paddingBottom: "0.4rem",
-              borderBottom: `1px solid ${T.border}`,
-            }}
-          >
-            View Repository
-            <span aria-hidden>{"→"}</span>
-          </a>
-        </div>
-      </div>
-
-      <div>
-        <div
-          style={{
-            fontFamily: T.fMono,
-            fontSize: "0.6rem",
-            color: T.text3,
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            fontWeight: 600,
-            marginBottom: "0.85rem",
-            paddingBottom: "0.6rem",
-            borderBottom: `1px solid ${T.border}`,
-          }}
-        >
-          Specification
-        </div>
-        <dl style={{ margin: 0 }}>
-          {cs.facts.map(([k, v]) => (
-            <div
-              key={k}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "110px 1fr",
-                padding: "0.7rem 0",
-                borderBottom: `1px solid ${T.borderSubtle}`,
-                gap: "1rem",
-              }}
-            >
-              <dt
-                style={{
-                  fontFamily: T.fMono,
-                  fontSize: "0.6rem",
-                  color: T.text3,
-                  letterSpacing: "0.16em",
-                  textTransform: "uppercase",
-                  fontWeight: 500,
-                }}
-              >
-                {k}
-              </dt>
-              <dd
-                style={{
-                  margin: 0,
-                  fontFamily: T.fMono,
-                  fontSize: "0.78rem",
-                  color: T.text,
-                  fontWeight: 500,
-                }}
-              >
-                {v}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </article>
-  );
-}
-
-function SelectedWork() {
-  return (
-    <section id="work" style={{ padding: "8.5rem 2rem 5.5rem" }}>
+    <section id="feedback" style={{ padding: "8.5rem 2rem 6rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="04" label="Core Systems & Technical Foundation" right="3 of 11 featured" />
+        <SectionHead num="04" label="Beta Feedback" right="Shape what ships" />
 
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "minmax(0, 4fr) minmax(0, 8fr)",
-            gap: "3rem",
-            marginBottom: "1.5rem",
+            gridTemplateColumns: "minmax(0, 5fr) minmax(0, 7fr)",
+            gap: "4rem",
             alignItems: "start",
           }}
         >
-          <h3
+          <h2
             style={{
               fontFamily: T.fSans,
-              fontSize: "clamp(1.2rem, 2vw, 1.55rem)",
+              fontSize: "clamp(1.75rem, 3vw, 2.35rem)",
               fontWeight: 600,
+              letterSpacing: "-0.025em",
               color: T.text,
-              letterSpacing: "-0.018em",
               lineHeight: 1.15,
               margin: 0,
-              maxWidth: 340,
+              maxWidth: 420,
             }}
           >
-            The technical foundation of Frostaing AI's implementation capability.
-          </h3>
-          <p
-            style={{
-              fontFamily: T.fSans,
-              fontSize: "0.95rem",
-              color: T.text2,
-              lineHeight: 1.7,
-              margin: 0,
-              maxWidth: 620,
-            }}
-          >
-            These systems form the technical foundation of Frostaing AI's
-            implementation capability. Each ships with full test coverage, a
-            Codex-audited review, and a live app. The capstone integrates the
-            prior ten into a single research terminal.
-          </p>
-        </div>
+            Tell us what to build next.
+          </h2>
 
-        {CASE_STUDIES.map((cs, i) => (
-          <CaseStudy
-            key={cs.num}
-            cs={cs}
-            isLast={i === CASE_STUDIES.length - 1}
-            density={i === 1 ? "tight" : "default"}
-          />
-        ))}
+          <div style={{ maxWidth: 620 }}>
+            <p
+              style={{
+                fontFamily: T.fSans,
+                fontSize: "1rem",
+                color: T.text2,
+                lineHeight: 1.75,
+                margin: "0 0 1.5rem",
+              }}
+            >
+              The terminal is in active development and your feedback decides the
+              roadmap. There are two ways to send it.
+            </p>
+
+            <div
+              style={{
+                border: `1px solid ${T.borderSubtle}`,
+                background: T.bg,
+              }}
+            >
+              {[
+                {
+                  k: "Inside the terminal",
+                  v: "Every workspace carries a feedback control. Flag a bug, request a data source, or suggest a workspace without leaving the page you are on.",
+                  href: TERMINAL_ROOT,
+                  cta: "Open the terminal",
+                  external: true,
+                },
+                {
+                  k: "On a short call",
+                  v: "Book a 30-minute beta call to walk through what works, what is missing, and what you would pay for at launch. The fastest way to influence the roadmap.",
+                  href: BOOKING_PE,
+                  cta: "Book a beta call",
+                  external: true,
+                },
+              ].map((row, i) => (
+                <div
+                  key={row.k}
+                  style={{
+                    padding: "1.6rem 1.5rem",
+                    borderTop: i === 0 ? "none" : `1px solid ${T.borderSubtle}`,
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: T.fMono,
+                      fontSize: "0.6rem",
+                      fontWeight: 600,
+                      color: T.accent,
+                      letterSpacing: "0.18em",
+                      textTransform: "uppercase",
+                      marginBottom: "0.7rem",
+                    }}
+                  >
+                    {row.k}
+                  </div>
+                  <p
+                    style={{
+                      fontFamily: T.fSans,
+                      fontSize: "0.92rem",
+                      color: T.text2,
+                      lineHeight: 1.65,
+                      margin: "0 0 1rem",
+                    }}
+                  >
+                    {row.v}
+                  </p>
+                  <a
+                    href={row.href}
+                    target={row.external ? "_blank" : undefined}
+                    rel={row.external ? "noopener noreferrer" : undefined}
+                    className="case-link"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.6rem",
+                      fontFamily: T.fMono,
+                      fontSize: "0.64rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                      color: T.accent,
+                      paddingBottom: "0.35rem",
+                      borderBottom: `1px solid ${T.accent}`,
+                    }}
+                  >
+                    {row.cta}
+                    <span aria-hidden>{"→"}</span>
+                  </a>
+                </div>
+              ))}
+            </div>
+
+            <p
+              style={{
+                fontFamily: T.fMono,
+                fontSize: "0.72rem",
+                color: T.text3,
+                letterSpacing: "0.04em",
+                margin: "1.5rem 0 0",
+              }}
+            >
+              Prefer email?{" "}
+              <a href={`mailto:${CONTACT_EMAIL}?subject=Terminal%20feedback`} style={{ color: T.text2 }}>
+                {CONTACT_EMAIL}
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
 /* ─────────────────────────────────────────────────────────────────
-   SYSTEMS (Architecture / Index)
+   SYSTEMS (Technical foundation / Index)
    ───────────────────────────────────────────────────────────────── */
 function Systems() {
   return (
@@ -1104,8 +909,8 @@ function Systems() {
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         <SectionHead
-          num="04.1"
-          label="Architecture"
+          num="05"
+          label="Technical Foundation"
           right={`${ALL_PROJECTS.length} systems indexed`}
           weight="compact"
         />
@@ -1131,7 +936,7 @@ function Systems() {
               maxWidth: 320,
             }}
           >
-            Eleven systems. Built to compose.
+            Eleven systems compose into the terminal.
           </h3>
           <div>
             {[
@@ -1298,7 +1103,7 @@ function Systems() {
             textTransform: "uppercase",
           }}
         >
-          <span>{liveCount} of {ALL_PROJECTS.length} live</span>
+          <span>All composed into one terminal</span>
           <span>{totalTests.toLocaleString("en-US")} tests passing</span>
         </div>
       </div>
@@ -1313,7 +1118,7 @@ function About() {
   return (
     <section id="about" style={{ padding: "9rem 2rem 6.5rem" }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="05" label="About" />
+        <SectionHead num="06" label="About" />
 
         <div
           style={{
@@ -1336,7 +1141,7 @@ function About() {
                 maxWidth: 680,
               }}
             >
-              A Geneva-based AI and finance systems firm.
+              Built in Geneva, for anyone who runs research.
             </h2>
 
             <div
@@ -1373,10 +1178,10 @@ function About() {
                   margin: "0 0 1.25rem",
                 }}
               >
-                Frostaing AI is a Geneva-based AI and finance systems firm
-                building AI investment research and deal intelligence for
-                private equity, venture capital, and family offices, with a
-                supporting productized offer for finance teams and SME CFOs.
+                Frostaing AI is a Geneva-based AI and finance systems firm. The
+                terminal is its product: an AI-native research desk that brings
+                institutional-grade analysis to individuals and small teams at a
+                price that is not institutional.
               </p>
               <p
                 style={{
@@ -1388,19 +1193,8 @@ function About() {
                 }}
               >
                 Founded and operated by Francois Rostaing, Claude Certified
-                Architect (Anthropic), supported by a network of specialist
-                collaborators.
-              </p>
-              <p
-                style={{
-                  fontFamily: T.fSans,
-                  fontSize: "1rem",
-                  color: T.text2,
-                  lineHeight: 1.75,
-                  margin: "0 0 1.25rem",
-                }}
-              >
-                Member of the Claude Partner Network (Anthropic).
+                Architect (Anthropic), and a member of the Claude Partner
+                Network (Anthropic).
               </p>
               <p
                 style={{
@@ -1413,10 +1207,8 @@ function About() {
               >
                 The work is anchored in three signals: real financial
                 understanding, strong data engineering, and decision tools
-                investors and operators actually use. The eleven shipped
-                systems are the firm's technical foundation; client engagements
-                extend that stack into production research, automation, and
-                decision-support infrastructure.
+                investors actually use. Eleven shipped, test-covered systems are
+                the terminal's technical foundation.
               </p>
             </div>
           </div>
@@ -1438,18 +1230,17 @@ function About() {
               Firm Profile
             </div>
             {[
+              ["Product", "Frostaing terminal"],
+              ["Status", "Open beta, free to use"],
+              ["Planned price", `${PRICE_CHF} / month`],
               ["Practice", "Frostaing AI"],
               ["Location", "Geneva and Romandie, CH"],
               ["Founded", "2026"],
               ["Founder", "Francois Rostaing"],
-              ["Hero offer", "PE, VC, family office deal intelligence"],
-              ["Supporting", "Productized SME finance analytics"],
               ["Certification", "Claude Certified Architect (Anthropic)"],
               ["Network", "Claude Partner Network (Anthropic)"],
-              ["Languages", "Python, JavaScript, SQL"],
-              ["Frameworks", "Next.js, Streamlit, Plotly"],
-              ["AI", "Claude API, deterministic orchestration"],
-              ["Systems Live", `${liveCount} / 11`],
+              ["Stack", "Python, Next.js, FastAPI, Claude"],
+              ["Workspaces", "68 institutional"],
               ["Total Tests", totalTests.toLocaleString("en-US")],
             ].map(([k, v], i, arr) => (
               <div
@@ -1531,7 +1322,7 @@ function Contact() {
       style={{ padding: "7.5rem 2rem 5rem", borderTop: `1px solid ${T.border}` }}
     >
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-        <SectionHead num="06" label="Contact" weight="compact" />
+        <SectionHead num="07" label="Contact" weight="compact" />
 
         <div
           style={{
@@ -1553,7 +1344,7 @@ function Contact() {
                 margin: 0,
               }}
             >
-              Book a call.
+              Open the terminal.
             </h2>
             <p
               style={{
@@ -1565,11 +1356,13 @@ function Contact() {
                 maxWidth: 380,
               }}
             >
-              We work with PE, VC, and family office teams on deal intelligence,
-              and with finance teams on productized analytics. A short scoping
-              call is the fastest way to see if there is a fit.
+              The terminal is free to use during beta. Open it, run real
+              research, and tell us what to build next. A short beta call is the
+              fastest way to shape the roadmap.
             </p>
-            <PrimaryButton href={BOOKING_PE}>Book a call</PrimaryButton>
+            <PrimaryButton href={TERMINAL_ROOT} external>
+              Open the terminal
+            </PrimaryButton>
           </div>
 
           <div>
@@ -1653,9 +1446,9 @@ export default function Page() {
       <SiteHeader />
       <Hero />
       <Approach />
-      <Services />
-      <Implementations />
-      <SelectedWork />
+      <Features />
+      <Pricing />
+      <Feedback />
       <Systems />
       <About />
       <Contact />

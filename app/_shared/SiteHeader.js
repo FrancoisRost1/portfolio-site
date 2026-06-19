@@ -6,11 +6,10 @@
   founder CV anywhere on the site (a firm site does not carry one); the
   "Book a call" button is the primary action.
 
-  The header stays dumb: the booking target is a `bookingHref` prop that
-  defaults to BOOKING_PE. Pages own their own header context. Every PE-first
-  route (/, /deal-intelligence, /services) takes the default; /sme-finance
-  passes BOOKING_SME so an SME visitor lands on the 20-min fit call, not the
-  30-min PE scoping call. No route detection inside the component.
+  The primary action is opening the terminal, since the product is the
+  terminal and it is free during beta. The target is a `ctaHref` prop that
+  defaults to the production terminal; pages can override it but the homepage
+  does not need to. No route detection inside the component.
 
   Mobile nav: the desktop link row is display:none under 900px. To keep the
   links reachable on a phone WITHOUT introducing a client component (the
@@ -24,12 +23,13 @@
 
 import Link from "next/link";
 import { T } from "./theme";
-import { BOOKING_PE } from "./booking";
+
+const TERMINAL_ROOT = "https://terminal.frostaing.com";
 
 const LINKS = [
-  { href: "/deal-intelligence", label: "Deal Intelligence", page: true },
-  { href: "/services", label: "Services", page: true },
-  { href: "/sme-finance", label: "SME & Finance", page: true },
+  { href: "/#features", label: "Terminal", page: false },
+  { href: "/#pricing", label: "Pricing", page: false },
+  { href: "/#feedback", label: "Feedback", page: false },
   { href: "/#systems", label: "Systems", page: false },
   { href: "/#about", label: "About", page: false },
   { href: "/#contact", label: "Contact", page: false },
@@ -56,7 +56,7 @@ function NavLink({ item, style, className }) {
   );
 }
 
-export function SiteHeader({ bookingHref = BOOKING_PE }) {
+export function SiteHeader({ ctaHref = TERMINAL_ROOT }) {
   return (
     <nav
       style={{
@@ -125,7 +125,9 @@ export function SiteHeader({ bookingHref = BOOKING_PE }) {
 
         <div style={{ display: "flex", alignItems: "center", gap: "0.9rem", flexShrink: 0 }}>
           <a
-            href={bookingHref}
+            href={ctaHref}
+            target="_blank"
+            rel="noopener noreferrer"
             className="cta-btn"
             style={{
               flexShrink: 0,
@@ -140,7 +142,7 @@ export function SiteHeader({ bookingHref = BOOKING_PE }) {
               border: `1px solid ${T.accent}`,
             }}
           >
-            Book a call
+            Open terminal
           </a>
 
           {/* Burger. Shown only under 900px via globals.css. */}

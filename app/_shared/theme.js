@@ -3,8 +3,8 @@
   Single source of truth: DESIGN.md and style_inject.py.
   No em dashes. No emojis. No gradients. No glow. No hover transforms.
 
-  Shared across the homepage and the offer routes (/deal-intelligence,
-  /sme-finance). This is the one place colors and type tokens are defined.
+  Shared across the homepage and the 404 route. This is the one place
+  colors and type tokens are defined.
 */
 
 export const T = {

@@ -107,9 +107,6 @@ html {
 .cta-btn { transition: background 0.12s linear, border-color 0.12s linear; }
 .cta-btn:hover { background: #c89040; border-color: #c89040; }
 
-.proof-tile { transition: background 0.12s linear; }
-.proof-tile:hover { background: rgba(255, 255, 255, 0.025); }
-
 /* ------------------------------------------------------------------
    Mobile navigation. CSS-only hamburger (checkbox pattern) so the
    header stays a server component. Desktop is byte-identical: the
@@ -125,7 +122,6 @@ html {
   section[id] > div > div[style*="grid-template-columns"] {
     grid-template-columns: 1fr !important;
   }
-  .proof-grid { grid-template-columns: 1fr !important; }
   .nav-links { display: none !important; }
   .hero-bg { display: none; }
 

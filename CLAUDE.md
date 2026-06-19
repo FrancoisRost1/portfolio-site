@@ -8,48 +8,44 @@
 > positioning decision below. The firm direction has been wrongly reverted
 > by past sessions.
 
-## Current state (EN Pass 2 shipped 2026-05-24, terminal-centric)
+## Current state (TERMINAL-AS-PRODUCT pivot, 2026-06-19)
 
-Four static routes, all prerendered:
+**Direction change (owner request, 2026-06-19): the site sells ONE thing,
+the terminal.** We no longer sell bespoke AI mandates / deal-intelligence
+consulting / SME productized work. The three consulting routes
+(`/deal-intelligence`, `/services`, `/sme-finance`) and their data files
+(`app/_shared/mandates.js`, `app/_shared/proof.js`) were DELETED. The
+terminal (`terminal.frostaing.com`) is the product, in open beta and FREE
+to use; planned price at general availability is **CHF 200 / month** (one
+number, `PRICE_CHF` constant at the top of `app/page.js`, do not hardcode
+elsewhere). Do not re-add the consulting offering without explicit owner
+instruction.
 
-- `app/page.js`: homepage. Hero names the buyer (PE/VC/family office), not
-  the technology. Services grown to 3 cards (deal intelligence / mandate
-  catalog / SME productized), each card links to its dedicated route.
-  Reference Implementations honestly framed, I1/I2/I3 each carry a
-  quantified spec strip. SelectedWork + Systems table kept. About carries the
-  solo + network line and the Claude Partner Network line. No founder CV
-  anywhere. Contact leads with a "Book a call" button, email de-emphasized.
-  **Every `liveUrl` in `CASE_STUDIES` and `ALL_PROJECTS` is now a
-  `terminal.frostaing.com/<workspace>` route** (LBO -> /lbo-quick-calc,
-  PE Screener -> /universe-screener, etc.). Button copy "Live App" was
-  replaced with "Open in terminal" everywhere. There are NO Streamlit URLs
-  anywhere in the site any more (`grep -r streamlit.app app/` is empty).
-- `app/services/page.js` (NEW): the mandate catalog. 13 priced SKUs grouped
-  by cadence (per-deliverable / monthly retainer / quarterly / subscription).
-  Each card: label, cadence, headline CHF, SLA, includes-list, and
-  "Open in terminal" link to the matching workspace. Data lives in
-  `app/_shared/mandates.js` so the page stays pure layout. `BookCta` ->
-  `BOOKING_PE` (30 min scoping call).
-- `app/deal-intelligence/page.js`: hero offer, **unpriced** (priced in the
-  scoping call). Coverage (4 workflows), engagement model, 3 inline proof
-  tiles (AI Research Agent, LBO Engine, PE Target Screener). The "Open
-  the terminal" section's "Pricing catalog" tile now links INTERNALLY to
-  `/services` (not the terminal's `/pricing-cards`) so the buyer reads the
-  catalog in the firm chrome; methodology + case studies stay on the
-  terminal where they live. `BookCta` -> `BOOKING_PE`.
-- `app/sme-finance/page.js`: productized, **public prices**: Sprint
-  CHF 12'000 (4wk), Sprint Plus CHF 22'000 (6wk), optional retainer
-  CHF 1'500/mo (Swiss apostrophe, matching /services formatChf en-CH).
-  2 inline proof tiles (Unified Research Terminal, IC Memo
-  workspace), `BookCta` -> `BOOKING_SME`.
+Two static routes, both prerendered: `/` and `/_not-found`.
 
-`app/_shared/mandates.js` is the canonical mirror of the terminal's
-`config.d/pricing-cards.yaml`. When the terminal YAML changes, this file
-changes in the same commit. Drift means the marketing site shows a number
-the buyer won't see on the workspace they land on after the booking call.
+- `app/page.js`: single-product homepage. Section order: Hero -> Approach
+  (what the terminal is) -> Features (8 engine tiles, each links to a live
+  workspace) -> Pricing (free during beta, CHF 200/mo planned) -> Feedback
+  -> Systems (technical foundation, 11-system table kept) -> About ->
+  Contact. Primary action everywhere is "Open the terminal"
+  (`TERMINAL_ROOT`), not "Book a call". Hero stat strip: Workspaces 68 /
+  Tests Passing / Beta Free / Planned Price CHF 200. `FEATURES`, `INCLUDED`,
+  and `ALL_PROJECTS` are the only data arrays. No Streamlit URLs
+  (`grep -r streamlit.app app/` empty).
+- **Feedback is a first-class section** (`#feedback`, owner explicitly
+  required a feedback path). Two channels: (1) in-terminal feedback control
+  on every workspace, (2) a 30-min beta call via `BOOKING_PE`. Email
+  fallback `francois@frostaing.com?subject=Terminal%20feedback`.
+- `app/not-found.js` ROUTES now point at `/`, `/#features`, `/#pricing`,
+  `/#feedback` (the old consulting routes are gone).
 
-`app/_shared/SiteHeader.js` nav order: Deal Intelligence / Services /
-SME & Finance / Systems / About / Contact.
+`app/_shared/SiteHeader.js` nav order: Terminal / Pricing / Feedback /
+Systems / About / Contact (all `/#anchor` hash links now; no separate
+routes). Header CTA button is "Open terminal" -> `ctaHref` prop (defaults
+to the production terminal); the old `bookingHref`/`BOOKING_SME` are gone.
+`app/_shared/Cta.js` `BookCta` was deleted (only `PrimaryButton` remains).
+`app/_shared/booking.js` keeps only `BOOKING_PE` (repurposed as the beta
+call) + `CONTACT_EMAIL`.
 
 ## Audit pass (2026-06-01, investor + mobile audit, NOT yet pushed)
 
@@ -104,9 +100,10 @@ in French (dashboard event-locale setting); GitHub repo description + README say
 
 - `app/_shared/`: shared, non-routable (underscore-prefixed):
   `theme.js` (`T`, `TIER`), `primitives.js` (`StatusTag`, `SectionHead`),
-  `SiteHeader.js` (cross-route fixed nav, no CV link, `bookingHref` prop),
-  `Footer.js`, `Cta.js` (`PrimaryButton`, `BookCta`), `proof.js`
-  (`ProofStrip` + tile data subset), `booking.js`.
+  `SiteHeader.js` (fixed nav, no CV link, `ctaHref` prop -> terminal),
+  `Footer.js`, `Cta.js` (`PrimaryButton` only), `booking.js`
+  (`BOOKING_PE` + `CONTACT_EMAIL`). `mandates.js` and `proof.js` were
+  deleted in the 2026-06-19 terminal pivot.
 - `app/globals.css`: all interaction + responsive CSS. No per-page inline
   `<style>` blocks (removed in this pass). Color-only interactions: no
   transforms, glow, or animation.
@@ -120,10 +117,9 @@ in French (dashboard event-locale setting); GitHub repo description + README say
   The ten engine repos still exist on GitHub as reference implementations,
   but the marketing site treats them as ONE product: the terminal.
   Regression check: `grep -r 'streamlit.app' app/` must be empty.
-- **`app/_shared/mandates.js` mirrors `mini-bloomberg-terminal/config.d/
-  pricing-cards.yaml`.** Update both in the same commit when pricing
-  changes. A buyer must never see a different number on the marketing
-  catalog than on the terminal workspace they open after the booking call.
+- **One price on the site: `PRICE_CHF` in `app/page.js` (CHF 200 / mo,
+  planned GA price; free during beta).** Do not hardcode the number
+  anywhere else. If the terminal's launch price changes, change it here.
 - No em dashes, no emojis in any user-visible string OR in committed files
   (CLAUDE.md, README) since they surface on GitHub. `->` and `→` arrows are
   an existing accepted convention.
@@ -136,12 +132,10 @@ in French (dashboard event-locale setting); GitHub repo description + README say
 
 ## Booking
 
-`app/_shared/booking.js` exports `BOOKING_PE` and `BOOKING_SME`, now live
-Cal.com URLs (PE Scoping Call 30 min, SME Fit Call 20 min). The `SiteHeader`
-takes a `bookingHref` prop defaulting to `BOOKING_PE`; `/sme-finance` passes
-`BOOKING_SME` so the header CTA matches the page buyer. PE-facing copy says
-"30-minute"; SME-facing copy says "20-minute". Keep that split if the Cal.com
-event durations change: PE is 30, SME is 20.
+`app/_shared/booking.js` exports a single `BOOKING_PE` Cal.com URL (a 30-min
+call), repurposed in the 2026-06-19 pivot as the BETA FEEDBACK call used by
+the homepage `#feedback` section. `BOOKING_SME` was removed. The header CTA is
+no longer a booking button; it opens the terminal (`ctaHref`).
 
 ## Team page (do not re-add naively)
 
@@ -152,10 +146,8 @@ with real people and verified LinkedIn links.
 
 ## Pass 2 (pending, next session): French
 
-Add `/fr` route + a language toggle. Translate ONLY: homepage,
-`/deal-intelligence`, `/sme-finance`, contact. Skip systems index, about,
-architecture. Romandie finance register; keep "family office" and "deal
-intelligence" in English; "note d'investissement" for IC memo. Avoid literal
-translation. (The "Claude Certified Architect" line is now LIVE in About as of
-the 2026-06-01 audit pass, the exam having been confirmed passed; it no longer
-gates Pass 2.)
+Add `/fr` route + a language toggle. Translate ONLY the single homepage
+(hero, terminal overview, features, pricing, feedback, contact). Skip the
+systems table and about. Romandie finance register; keep "terminal" in
+English; render CHF 200 / mois. Avoid literal translation. ("Claude Certified
+Architect" is LIVE in About; it no longer gates Pass 2.)

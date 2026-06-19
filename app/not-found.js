@@ -20,9 +20,9 @@ export const metadata = {
 
 const ROUTES = [
   ["Home", "/"],
-  ["Deal intelligence", "/deal-intelligence"],
-  ["Services and pricing", "/services"],
-  ["SME and finance", "/sme-finance"],
+  ["Inside the terminal", "/#features"],
+  ["Pricing", "/#pricing"],
+  ["Beta feedback", "/#feedback"],
 ];
 
 export default function NotFound() {

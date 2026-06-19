@@ -17,13 +17,13 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata = {
   metadataBase: new URL('https://www.frostaing.com'),
-  title: 'Frostaing AI | AI Investment Research & Deal Intelligence',
+  title: 'Frostaing AI | An AI-native Bloomberg terminal',
   description:
-    'Geneva and Romandie firm building AI investment research and deal intelligence for private equity, venture capital, and family offices. IC memo automation, deal screening, diligence synthesis, portfolio monitoring. Productized analytics for SME finance teams.',
+    'Frostaing is an AI-native mini Bloomberg terminal: live markets, AI equity research, options, LBO and deal modeling, comps, portfolio construction, and systematic signals in one research desk. Open beta, free to use. Planned price CHF 200 per month.',
   openGraph: {
-    title: 'Frostaing AI | AI Investment Research & Deal Intelligence',
+    title: 'Frostaing AI | An AI-native Bloomberg terminal',
     description:
-      'AI investment research and deal intelligence for PE, VC, and family offices in Geneva and Romandie. Productized financial analytics for SME finance teams.',
+      'Live markets, AI research, and the full quant stack in one desk. Open beta, free to use. Planned price CHF 200 per month. Built in Geneva.',
     type: 'website',
     siteName: 'Frostaing AI',
     locale: 'en_US',
