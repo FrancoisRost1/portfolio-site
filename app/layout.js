@@ -16,10 +16,11 @@ const jetbrains = JetBrains_Mono({
 })
 
 export const metadata = {
-  // Canonical host is NON-www (https://frostaing.com), matching the GSC
-  // property and the terminal subdomain pattern. metadataBase resolves the
-  // canonical + OG URLs below to this host; next.config redirects www -> non-www.
-  metadataBase: new URL('https://frostaing.com'),
+  // Canonical host is WWW (https://www.frostaing.com) to match Vercel's primary
+  // domain (Vercel redirects the bare apex -> www at the platform layer). Do not
+  // flip this to non-www without first changing the Vercel primary domain, or
+  // the canonical will point at a host the platform redirects away from.
+  metadataBase: new URL('https://www.frostaing.com'),
   // Emit an explicit self-referencing canonical. Without this, Next renders NO
   // <link rel="canonical">, so Google saw www and non-www as duplicates with no
   // chosen canonical ("Page en double sans URL canonique" in Search Console).
@@ -34,7 +35,7 @@ export const metadata = {
     type: 'website',
     siteName: 'Frostaing AI',
     locale: 'en_US',
-    url: 'https://frostaing.com',
+    url: 'https://www.frostaing.com',
   },
   icons: {
     icon: [
