@@ -16,7 +16,14 @@ const jetbrains = JetBrains_Mono({
 })
 
 export const metadata = {
-  metadataBase: new URL('https://www.frostaing.com'),
+  // Canonical host is NON-www (https://frostaing.com), matching the GSC
+  // property and the terminal subdomain pattern. metadataBase resolves the
+  // canonical + OG URLs below to this host; next.config redirects www -> non-www.
+  metadataBase: new URL('https://frostaing.com'),
+  // Emit an explicit self-referencing canonical. Without this, Next renders NO
+  // <link rel="canonical">, so Google saw www and non-www as duplicates with no
+  // chosen canonical ("Page en double sans URL canonique" in Search Console).
+  alternates: { canonical: '/' },
   title: 'Frostaing AI | An AI-native finance research terminal',
   description:
     'Frostaing is an AI-native finance research terminal: live markets, AI equity research, options, LBO and deal modeling, comps, portfolio construction, and systematic signals in one research desk. Open beta, free to use. Planned price CHF 200 per month.',
@@ -27,6 +34,7 @@ export const metadata = {
     type: 'website',
     siteName: 'Frostaing AI',
     locale: 'en_US',
+    url: 'https://frostaing.com',
   },
   icons: {
     icon: [
