@@ -142,3 +142,17 @@ html {
   .nav-burger { display: flex !important; }
   .nav-toggle-checkbox:checked ~ .mobile-menu { display: flex !important; }
 }
+
+/* ------------------------------------------------------------------
+   Free vs Pro comparison table (pricing section). This grid is nested
+   one level deeper than the generic section grid-collapse rule reaches,
+   so it collapses explicitly here. On narrow viewports the two columns
+   stack and the inter-column divider becomes a row divider.
+   ------------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .plan-compare { grid-template-columns: 1fr !important; }
+  .plan-col-free {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  }
+}

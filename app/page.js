@@ -109,6 +109,27 @@ const INCLUDED = [
   "Watchlists and saved research",
 ];
 
+// Free vs Pro split, shown in the pricing comparison table. This must stay
+// truthful to what the terminal actually ships today: the FREE column is live
+// right now with no email, and the PRO column is in private beta and is the
+// planned paid tier. Do not overclaim. When a Pro feature ships to everyone,
+// move it up into FREE_INCLUDES in the same commit.
+const FREE_INCLUDES = [
+  "Market overview: sectors, movers, indices, FX, and commodities",
+  "Full company research: overview, fundamentals, price charts, and news",
+  "Snapshot stock screener and watchlist",
+  "Delayed market tape",
+  "Methodology, data provenance, status, learn, and changelog pages",
+  "Terminal command map and keyboard shortcuts",
+];
+
+const PRO_ADDS = [
+  "AI copilot: one-click IC and initiation memos, plus AI chat",
+  "Real-time streaming tape and a live full-universe screener",
+  "Full analytics suite: Options Lab with Greeks and a vol surface, Strategy Lab with CSCV backtests, LBO Monte Carlo, portfolio optimizers, full comparables and precedent deals, a credit structural-default view, and DCF intrinsic valuation",
+  "CSV and Excel exports, saved workspaces synced across devices, and price and event alerts",
+];
+
 const ALL_PROJECTS = [
   { num: "01", name: "LBO Engine",                    tier: "Foundation", tests: "n/a",    metric: "Monte Carlo, 500 sims",         status: "live", repo: "lbo-engine-version1",          liveUrl: `${TERMINAL_ROOT}/lbo-quick-calc` },
   { num: "02", name: "PE Target Screener",            tier: "Foundation", tests: "28",     metric: "80 companies scored",           status: "live", repo: "pe-target-screener",           liveUrl: `${TERMINAL_ROOT}/universe-screener` },
@@ -738,6 +759,320 @@ function Pricing() {
               ))}
             </ul>
           </div>
+        </div>
+
+        {/* Free vs Pro comparison. Faithful to what the terminal ships today:
+            everything in the FREE column is live now with no email; the PRO
+            column is in private beta and is the planned paid tier. No checkout;
+            joining Pro is an email. */}
+        <div style={{ marginTop: "4rem" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "baseline",
+              justifyContent: "space-between",
+              gap: "1rem",
+              paddingBottom: "1rem",
+              borderBottom: `1px solid ${T.borderSubtle}`,
+              flexWrap: "wrap",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: T.fMono,
+                fontSize: "0.72rem",
+                fontWeight: 600,
+                color: T.text,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+              }}
+            >
+              What is free, and what Pro adds
+            </span>
+            <span
+              style={{
+                fontFamily: T.fMono,
+                fontSize: "0.62rem",
+                fontWeight: 500,
+                color: T.text3,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+              }}
+            >
+              Free live now
+            </span>
+          </div>
+
+          <div
+            className="plan-compare"
+            style={{
+              marginTop: "1.75rem",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              border: `1px solid ${T.borderSubtle}`,
+              background: T.bg,
+            }}
+          >
+            {/* FREE */}
+            <div
+              className="plan-col plan-col-free"
+              style={{
+                padding: "2rem 1.9rem",
+                borderRight: `1px solid ${T.borderSubtle}`,
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.4rem",
+              }}
+            >
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.85rem",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: T.fMono,
+                      fontSize: "0.95rem",
+                      fontWeight: 600,
+                      color: T.text,
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Free
+                  </span>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 8,
+                      fontFamily: T.fMono,
+                      fontSize: "0.6rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.18em",
+                      color: T.success,
+                    }}
+                  >
+                    <span
+                      aria-hidden
+                      style={{ width: 6, height: 6, background: T.success, display: "inline-block" }}
+                    />
+                    LIVE NOW
+                  </span>
+                </div>
+                <span
+                  style={{
+                    fontFamily: T.fMono,
+                    fontSize: "0.72rem",
+                    color: T.text3,
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  Free to use, no email required
+                </span>
+              </div>
+
+              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                {FREE_INCLUDES.map((item, i) => (
+                  <li
+                    key={item}
+                    style={{
+                      fontFamily: T.fSans,
+                      fontSize: "0.88rem",
+                      color: T.text2,
+                      lineHeight: 1.5,
+                      padding: "0.7rem 0",
+                      borderTop: i === 0 ? "none" : `1px solid ${T.borderSubtle}`,
+                      display: "flex",
+                      alignItems: "baseline",
+                      gap: "0.75rem",
+                    }}
+                  >
+                    <span
+                      aria-hidden
+                      style={{
+                        width: 5,
+                        height: 5,
+                        background: T.accent,
+                        display: "inline-block",
+                        flexShrink: 0,
+                        transform: "translateY(-1px)",
+                      }}
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href={TERMINAL_ROOT}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="case-link"
+                style={{
+                  marginTop: "auto",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.6rem",
+                  fontFamily: T.fMono,
+                  fontSize: "0.64rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: T.accent,
+                  paddingTop: "0.5rem",
+                }}
+              >
+                Open the terminal
+                <span aria-hidden>{"→"}</span>
+              </a>
+            </div>
+
+            {/* PRO */}
+            <div
+              className="plan-col plan-col-pro"
+              style={{
+                padding: "2rem 1.9rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.4rem",
+              }}
+            >
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.85rem",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: T.fMono,
+                      fontSize: "0.95rem",
+                      fontWeight: 600,
+                      color: T.text,
+                      letterSpacing: "0.16em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Pro
+                  </span>
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 8,
+                      fontFamily: T.fMono,
+                      fontSize: "0.6rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.18em",
+                      color: T.accent,
+                    }}
+                  >
+                    <span
+                      aria-hidden
+                      style={{ width: 6, height: 6, background: T.accent, display: "inline-block" }}
+                    />
+                    PRIVATE BETA
+                  </span>
+                </div>
+                <span
+                  style={{
+                    fontFamily: T.fMono,
+                    fontSize: "0.72rem",
+                    color: T.text3,
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  Join with your email · planned {PRICE_CHF} / month
+                </span>
+              </div>
+
+              <span
+                style={{
+                  fontFamily: T.fSans,
+                  fontSize: "0.82rem",
+                  fontWeight: 500,
+                  color: T.text2,
+                }}
+              >
+                Everything in Free, plus:
+              </span>
+
+              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                {PRO_ADDS.map((item, i) => (
+                  <li
+                    key={item}
+                    style={{
+                      fontFamily: T.fSans,
+                      fontSize: "0.88rem",
+                      color: T.text2,
+                      lineHeight: 1.5,
+                      padding: "0.7rem 0",
+                      borderTop: i === 0 ? "none" : `1px solid ${T.borderSubtle}`,
+                      display: "flex",
+                      alignItems: "baseline",
+                      gap: "0.75rem",
+                    }}
+                  >
+                    <span
+                      aria-hidden
+                      style={{
+                        width: 5,
+                        height: 5,
+                        background: T.accent,
+                        display: "inline-block",
+                        flexShrink: 0,
+                        transform: "translateY(-1px)",
+                      }}
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href={`mailto:${CONTACT_EMAIL}?subject=Join%20the%20Pro%20beta`}
+                className="case-link"
+                style={{
+                  marginTop: "auto",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.6rem",
+                  fontFamily: T.fMono,
+                  fontSize: "0.64rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: T.accent,
+                  paddingBottom: "0.35rem",
+                  borderBottom: `1px solid ${T.accent}`,
+                }}
+              >
+                Join the Pro beta
+                <span aria-hidden>{"→"}</span>
+              </a>
+            </div>
+          </div>
+
+          <p
+            style={{
+              fontFamily: T.fMono,
+              fontSize: "0.68rem",
+              color: T.text3,
+              letterSpacing: "0.04em",
+              margin: "1.4rem 0 0",
+            }}
+          >
+            No checkout during beta. Pro is invitation-based while we harden it;
+            everything above the divider is free to use today.
+          </p>
         </div>
       </div>
     </section>
